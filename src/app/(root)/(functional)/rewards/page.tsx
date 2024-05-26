@@ -32,9 +32,9 @@ const RewardsPage = () => {
     isBridgeModalOpen,
     setIsBridgeModalOpen,
     handleGetUserProfile,
+    isContinue, 
+    setIsContinue
   } = useApp();
-
-  const [isContinue, setIsContinue] = useState<boolean>(false);
 
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -80,7 +80,7 @@ const RewardsPage = () => {
       .get(`/users/twitter-oauth2-callback?state=${state}&code=${code}`)
       .then((res) => res.data);
     if (result.ok) {
-      setIsContinue(true);
+      // setIsContinue(true);
     }
   };
 

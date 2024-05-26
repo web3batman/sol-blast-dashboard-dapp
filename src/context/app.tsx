@@ -45,6 +45,8 @@ export interface IApp {
   records: any[];
   setRecords: React.Dispatch<React.SetStateAction<any[]>>;
   handleGetUserProfile: Function;
+  isContinue: boolean;
+  setIsContinue: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext<IApp>({
@@ -72,6 +74,8 @@ export const AppContext = createContext<IApp>({
   records: [],
   setRecords: () => {},
   handleGetUserProfile: () => {},
+  isContinue: false,
+  setIsContinue: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
@@ -93,6 +97,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [userRank, setUserRank] = useState<number>(0);
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
   const [records, setRecords] = useState<any[]>([]);
+  const [isContinue, setIsContinue] = useState<boolean>(false);
 
   const handleMsgSign = async (signedOn: string) => {
     try {
@@ -135,7 +140,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     setToken(newToken.token);
     setUserId(newToken.user_id);
     setSolanaWalletModalOpen(false);
-    setIsLoggedIn(true);
+    if (!isContinue) setIsLoggedIn(true);
   };
 
   const handleGetUserProfile = useCallback(async () => {
@@ -220,6 +225,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         records,
         setRecords,
         handleGetUserProfile,
+        isContinue,
+        setIsContinue,
       }}>
       {children}
     </AppContext.Provider>

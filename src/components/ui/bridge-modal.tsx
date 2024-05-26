@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useRef, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAccount as useEtherAccount, useSendTransaction } from 'wagmi';
@@ -33,6 +33,17 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const [pointAmount, setPointAmount] = useState<number>(0);
 
   const modalRef = useRef<HTMLDivElement>(null);
+
+  const isSolSelectedAndNoSolAddress = useMemo(() => {
+    return selectedCurrency === 'Sol' && !user.solana_address;
+  }, [selectedCurrency, user]);
+
+  const isEthOrUsdcSelectedAndNoEthAddress = useMemo(() => {
+    return (
+      (selectedCurrency === 'Eth' || selectedCurrency === 'Usdc') &&
+      !user.ethereum_address
+    );
+  }, [selectedCurrency, user]);
 
   const handleCurrencyChange = (e: any) => {
     setSelectedCurrency(e.target.value);
@@ -252,15 +263,17 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
               <button
                 className="mx-auto flex w-full items-center justify-center"
                 onClick={
-                  user.ethereum_address && user.solana_address
-                    ? handleConfirm
-                    : handleSetAssociateAddress
+                  isSolSelectedAndNoSolAddress ||
+                  isEthOrUsdcSelectedAndNoEthAddress
+                    ? handleSetAssociateAddress
+                    : handleConfirm
                 }>
                 <Image
                   src={
-                    user.ethereum_address && user.solana_address
-                      ? '/confirm-deposit.svg'
-                      : '/associate-address-button.png'
+                    isSolSelectedAndNoSolAddress ||
+                    isEthOrUsdcSelectedAndNoEthAddress
+                      ? '/associate-address-button.png'
+                      : '/confirm-deposit.svg'
                   }
                   alt="deposit"
                   width={510}
