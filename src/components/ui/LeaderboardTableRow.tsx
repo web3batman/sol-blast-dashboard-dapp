@@ -1,9 +1,10 @@
 'use client';
+
 import React from 'react';
 import Image from 'next/image';
 
 interface LeaderboardTableRowProps {
-  rank: string;
+  rank: number;
   name: string;
   userProfilePicture: string;
   invitedBy: string;
@@ -24,14 +25,16 @@ const LeaderboardTableRow = ({
           {rank}
         </h3>
         <div className=" flex items-center gap-2">
-          <Image
-            unoptimized
-            alt="icon"
-            width={59}
-            height={59}
-            className="rounded-full"
-            src={userProfilePicture}
-          />
+          {userProfilePicture && (
+            <Image
+              unoptimized
+              alt="icon"
+              width={59}
+              height={59}
+              className="rounded-full"
+              src={userProfilePicture}
+            />
+          )}
           {name}
         </div>
         <h3 className="text-left text-lg font-medium uppercase leading-[8px] tracking-[0.06em]">

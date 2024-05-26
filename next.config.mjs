@@ -9,6 +9,11 @@ const nextConfig = {
         hostname: 'pbs.twimg.com', //twitter
         pathname: '/profile_images/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'abs.twimg.com', //twitter default
+        pathname: '/sticky/default_profile_images/**',
+      },
     ],
   },
 };

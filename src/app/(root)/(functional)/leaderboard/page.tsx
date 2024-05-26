@@ -11,147 +11,8 @@ import { API_URL } from '@/config/const';
 import { useApp } from '@/context';
 
 const LeaderboardPage = () => {
-  const { setUserPoints, setUserRank } = useApp();
   const [users, setUsers] = useState<IUserPoint[]>([]);
 
-  const data = [
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-    {
-      rank: '01',
-      profilePicture: '/user.png',
-      name: '@ghostythedev',
-      invitedBy: '@mustang',
-      points: '2,137,367,124',
-      gold: '0.00',
-    },
-  ];
   const exit_liquidity = [
     {
       profile_image: '/user.png',
@@ -178,27 +39,12 @@ const LeaderboardPage = () => {
       time: '10 MINS AGO',
     },
   ];
-  const user = {
-    rank: '01',
-    profilePicture: '/user.png',
-    name: '@ghostythedev',
-    invitedBy: '@mustang',
-    points: '2,137,367,124',
-    gold: '0.00',
-  };
 
   const getPoints = async () => {
-    console.log("calling getPoints...")
+    console.log('calling getPoints...');
     const res = await axios
       .get(`${API_URL}/v1/points?page=1&limit=20`)
       .then((r) => r.data);
-
-    const newPoints = await axios
-      .get(`${API_URL}/v1/points/66211bb111ece1a5649017d6`)
-      .then((r) => r.data);
-    console.log({ newPoints });
-    // res.metadata.documents_count > res.metadata.limit
-
     setUsers(res.records);
   };
 
@@ -237,16 +83,6 @@ const LeaderboardPage = () => {
               </h3>
             </div>
             <div className="custom-scrollbar flex h-[440px] w-full flex-col gap-3 overflow-y-scroll pr-3 2xl:h-[680px]">
-              {/* <div className="bg-lightyellow bg-opacity-30">
-                <LeaderboardTableRow
-                  rank={user.rank}
-                  userProfilePicture={user.profilePicture}
-                  name={user.name}
-                  invitedBy={user.invitedBy}
-                  points={user.points}
-                  gold={user.gold}
-                />
-              </div> */}
               {users.map((item, idx) => (
                 <div
                   key={idx}

@@ -28,6 +28,6 @@ export interface IUserPoint {
   user_id: string;
   user_twitter_handle: string;
   user_twitter_picture_url: string;
-  rank: string;
+  rank: number;
   points: number;
 }

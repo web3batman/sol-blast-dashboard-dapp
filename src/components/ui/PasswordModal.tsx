@@ -24,9 +24,9 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
         </h2>
         <p className="mx-auto w-3/4 pt-8 text-center text-[20px] text-whiteyellow text-opacity-50">{`PROCEED WITH CAUTION, WE DON'T KNOW WHAT'S ON THE OTHER SIDE.`}</p>
         <Image
-          className="absolute left-1/2  -translate-x-1/2 transform"
-          src={'/upper-layout-line.svg'}
-          alt=""
+          className="absolute left-1/2 -translate-x-1/2 transform"
+          src="/upper-layout-line.svg"
+          alt="upper-layout-line"
           width={1000}
           height={79}
         />

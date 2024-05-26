@@ -47,6 +47,9 @@ export interface IApp {
   setUserRank: React.Dispatch<React.SetStateAction<number>>;
   isBridgeModalOpen: boolean;
   setIsBridgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  records: any[];
+  setRecords: React.Dispatch<React.SetStateAction<any[]>>;
+  handleGetUserProfile: Function;
 }
 
 export const AppContext = createContext<IApp>({
@@ -75,6 +78,9 @@ export const AppContext = createContext<IApp>({
   setUserRank: () => {},
   isBridgeModalOpen: false,
   setIsBridgeModalOpen: () => {},
+  records: [],
+  setRecords: () => {},
+  handleGetUserProfile: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
@@ -99,6 +105,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [userPoints, setUserPoints] = useState<number>(0);
   const [userRank, setUserRank] = useState<number>(0);
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
+  const [records, setRecords] = useState<any[]>([]);
 
   const handleMsgSign = async (signedOn: string) => {
     try {
@@ -141,8 +148,38 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       });
     setToken(newToken.token);
     setUserId(newToken.user_id);
+    setSolanaWalletModalOpen(false);
     setIsLoggedIn(true);
   };
+
+  const handleGetUserProfile = useCallback(async () => {
+    if (!userId) return;
+
+    try {
+      const [userData, pointsData, invitationCodes] = await Promise.all([
+        api.get(`/users/${userId}`).then((res) => res.data),
+        api.get(`/points/${userId}`).then((res) => res.data),
+        api
+          .get(`/invitation-codes`, {
+            params: { page: 1, limit: 20 },
+          })
+          .then((res) => res.data.records),
+      ]);
+
+      console.log('invitationCodes', invitationCodes);
+
+      setUser(userData);
+      setUserPoints(pointsData.points);
+      setUserRank(pointsData.rank);
+      setRecords(invitationCodes);
+
+      if (userData.twitter_handle) {
+        setHasAccess(true);
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  }, [userId]);
 
   useEffect(() => {
     if (etherAddress && solanaAddress) return;
@@ -202,6 +239,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setUserRank,
         isBridgeModalOpen,
         setIsBridgeModalOpen,
+        records,
+        setRecords,
+        handleGetUserProfile,
       }}>
       {children}
     </AppContext.Provider>

@@ -11,6 +11,7 @@ import { useWeb3Modal as useEtherWalletModal } from '@web3modal/wagmi/react';
 
 import { useApp } from '@/context';
 import SmallLabel from '@/components/ui/SmallLabel';
+import Loading from '@/components/ui/Loading';
 
 export default function Layout({
   children,
@@ -18,6 +19,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   const {
+    loading,
     walletModalOpen,
     setWalletModalOpen,
     solanaWalletModalOpen,
@@ -105,6 +107,7 @@ export default function Layout({
             </div>
           </div>
         )}
+        {loading && <Loading />}
         <div className="h-full w-full">{children}</div>
       </div>
     </SessionProvider>
