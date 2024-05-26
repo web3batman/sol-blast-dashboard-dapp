@@ -131,7 +131,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         public_address: walletAddress,
         signed_message: msg,
         signed_on: signedOn,
-        invitation_code: invitCode, //'OE14QA',
+        invitation_code: invitCode || 'OE14QA', //'OE14QA',
       })
       .then((res) => {
         console.log('sessionLogin res', res);
