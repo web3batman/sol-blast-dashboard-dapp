@@ -8,7 +8,6 @@ import divider from '../../public/divider.svg';
 import Link from 'next/link';
 import RectangleButton from '@/components/ui/RectangleButton';
 import User from '@/components/ui/User';
-import LeaderboardButton from '@/components/shared/LeaderboardButton';
 
 export default function Home() {
   return (

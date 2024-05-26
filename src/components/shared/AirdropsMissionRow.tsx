@@ -4,9 +4,9 @@ import Button from '@/components/ui/Button';
 import SmallButton from '@/components/ui/SmallButton';
 
 interface AirdropsMissionRowProps {
-  number: number;
+  number?: number;
   completed: boolean;
-  title: string;
+  title?: string;
   buttonText: string;
   onClick: () => void;
 }
@@ -19,12 +19,15 @@ const AirdropsMissionRow = ({
   onClick,
 }: AirdropsMissionRowProps) => {
   return (
-    <div className="flex items-center justify-between border-b border-whiteyellow pb-4">
+    <div
+      className={`flex items-center justify-between ${title ? 'border-b' : ''} border-whiteyellow pb-4`}>
       <div className="flex items-center justify-start gap-4">
-        <SmallButton>{number}</SmallButton>
-        <h5 className="text-left text-[18px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[26px]">
-          {title}
-        </h5>
+        {number && <SmallButton>{number}</SmallButton>}
+        {title && (
+          <h5 className="text-left text-[18px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[26px]">
+            {title}
+          </h5>
+        )}
       </div>
       {completed ? (
         <Button className="bg-yellow-500">Completed</Button>

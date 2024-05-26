@@ -3,16 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
 
 import RectangleButton from '@/components/ui/RectangleButton';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import BridgeModal from '@/components/ui/bridge-modal';
-import { API_URL } from '@/config/const';
 import Loading from '@/components/ui/Loading';
+import AirdropsMissionRow from '@/components/shared/AirdropsMissionRow';
 import { useApp } from '@/context';
+import { useOnceEffect } from '@/hook/useOnceEffect';
+import api from '@/service/api';
 
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
@@ -29,7 +30,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   };
 
   const handleSubmit = () => {
-    onPasswordSubmit(inputs.join(''));
+    onPasswordSubmit(inputs.join('').toUpperCase());
   };
 
   return (
@@ -44,7 +45,8 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           src={'/upper-layout-line.svg'}
           alt=""
           width={1000}
-          height={79}></Image>
+          height={79}
+        />
         <div className="mb-6 mt-24 flex w-full justify-center">
           <div className="flex justify-center space-x-4">
             {inputs.map((value, index) => (
@@ -120,26 +122,36 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
 
 const RewardsPage = () => {
   const router = useRouter();
-  const { loading, setLoading, handleSign } = useApp();
+  const searchParams = useSearchParams();
+  const {
+    loading,
+    setLoading,
+    hasAccess,
+    setHasAccess,
+    isLoggedIn,
+    setIsLoggedIn,
+    token,
+    setWalletModalOpen,
+  } = useApp();
 
-  const [hasAccess, setHasAccess] = useState(false);
-  const [isBridgeModalOpen, setIsBridgeModalOpen] = useState(false);
+  const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
+  const [isContinue, setIsContinue] = useState<boolean>(false);
   const modalRef = useRef(null); // Ref for the modal element
 
   const handlePasswordSubmit = async (password: string) => {
     if (password) {
       try {
         setLoading(true);
-        const res = await axios
-          .get(`${API_URL}/v1/invitation-codes/${password.toUpperCase()}/valid`)
+        const res = await api
+          .get(`/invitation-codes/${password}/valid`)
           .then((r) => r.data);
         console.log({ res });
         if (res) {
-          router.push('/airdrops');
-          setHasAccess(true);
+          setIsLoggedIn(true);
+          // setHasAccess(true);
         } else {
           toast.error('Invalid invite code. Try another.');
-          setHasAccess(false);
+          // setHasAccess(false);
         }
       } catch (e) {
         console.error(e);
@@ -152,6 +164,35 @@ const RewardsPage = () => {
   const closeModal = () => {
     setIsBridgeModalOpen(false);
   };
+
+  const handleTwitterSign = async () => {
+    const authUrl = await api
+      .get('/users/twitter-oauth2-link')
+      .then((res) => res.data);
+
+    console.log({ authUrl });
+
+    window.location.href = authUrl.url.toString();
+  };
+
+  const handleTwitterAuth = async (state: string, code: string) => {
+    const result = await api
+      .get(`/users/twitter-oauth2-callback?state=${state}&code=${code}`)
+      .then((res) => res.data);
+    if (result.ok) {
+      setIsContinue(true);
+    }
+  };
+
+  useOnceEffect(() => {
+    const state = searchParams.get('state');
+    const code = searchParams.get('code');
+    if (state && code) {
+      handleTwitterAuth(state, code);
+      const urlWithoutParams = window.location.pathname;
+      history.replaceState(null, '', urlWithoutParams);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     document.title = 'Rewards Page';
@@ -178,6 +219,50 @@ const RewardsPage = () => {
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (isLoggedIn) {
+    return (
+      <div className="flex flex-col gap-6 px-10 pt-7">
+        <div className="flex flex-col">
+          <h5 className="text-left text-[12px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[18px]">
+            YOU ARE ALMOST THERE
+          </h5>
+          <h1 className="text-left text-[28px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[40px]">
+            To join early access:
+          </h1>
+        </div>
+        <div className="flex items-center justify-between gap-10">
+          <div className="flex flex-grow flex-col gap-7">
+            <AirdropsMissionRow
+              number={1}
+              completed={!!token}
+              title="Connect your wallet"
+              buttonText="Connect Wallet"
+              onClick={() => {
+                setWalletModalOpen(true);
+              }}
+            />
+            <AirdropsMissionRow
+              number={2}
+              completed={false}
+              title="Follow us on Twitter"
+              buttonText="Follow Twitter"
+              onClick={handleTwitterSign}
+            />
+            <AirdropsMissionRow
+              completed={false}
+              buttonText="Continue"
+              onClick={() => {
+                setIsLoggedIn(false);
+                setHasAccess(true);
+              }}
+            />
+          </div>
+          <Image src="/world-bg.png" alt="" width={500} height={500} />
+        </div>
+      </div>
+    );
   }
 
   if (!hasAccess) {

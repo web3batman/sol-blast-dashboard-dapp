@@ -102,7 +102,6 @@ export default function Layout({
                 boxShadow: '0 0 0 1px #ffffff0d',
               }}>
               <WalletMultiButton />
-              <WalletDisconnectButton />
             </div>
           </div>
         )}
