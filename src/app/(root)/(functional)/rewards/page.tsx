@@ -178,148 +178,86 @@ const RewardsPage = () => {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
   } else
     return (
-      <main className="grid h-[inherit] w-full grid-cols-12 items-start px-5 py-0 max-md:pl-0 max-md:pr-2 2xl:py-5">
-        <div className="relative col-span-3 flex h-full flex-col gap-[clamp(1.4vw,6vh,2vw)] pt-5 max-lg:col-span-12 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:grid-rows-[auto_1fr_auto] max-md:gap-7">
-          <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.8vh,2.6vw)] text-whiteyellow max-lg:gap-4">
-            <h3 className="text-left text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3.5vh,1.1vw)] tracking-[0.08em] max-lg:text-xl">
-              Total bridged
-            </h3>
-            <div className="flex w-full flex-col gap-4 max-lg:flex-row max-lg:justify-center">
-              <div className="flex items-center justify-center gap-2">
-                <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                  {user.eth_deposited}
-                </h5>
-                <Image
-                  src="/icons/eth.svg"
-                  alt="bridge"
-                  width={20}
-                  height={32}
-                />
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                  {user.sol_deposited}
-                </h5>
-                <Image
-                  alt="bridge"
-                  src="/icons/solana.svg"
-                  width={20}
-                  height={32}
-                />
-              </div>
-              <div className="flex items-center justify-center gap-2">
-                <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                  {user.usdc_deposited}
-                </h5>
-                <Image
-                  src="/icons/usd.svg"
-                  alt="bridge"
-                  width={20}
-                  height={32}
-                />
-              </div>
+      <main className="grid h-[inherit] w-full grid-cols-[3fr_5fr_4fr] gap-x-3 [grid-template-areas:'total_profile_tweet''points_link_link'] max-xl:grid-cols-3 max-lg:grid-cols-2 max-lg:[grid-template-areas:'profile_points''total_tweet''link_link'] max-md:grid-cols-1 max-md:[grid-template-areas:'profile''points''total''tweet''link']">
+        <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.3vh,2vw)] py-6 pr-6 text-whiteyellow [grid-area:total] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-top after:content-[''] max-lg:gap-4 max-lg:before:absolute max-lg:before:left-0 max-lg:before:top-0 max-lg:before:h-2 max-lg:before:w-full max-lg:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-lg:before:bg-left max-lg:before:content-[''] max-lg:after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] max-lg:after:bg-bottom">
+          <h3 className="text-center text-3xl font-bold uppercase leading-9 tracking-[0.08em] max-2xl:text-2xl max-lg:text-xl">
+            Total bridged
+          </h3>
+          <div className="flex w-full flex-col gap-4 max-lg:flex-row max-lg:justify-center">
+            <div className="flex items-center justify-center gap-2">
+              <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
+                {user.eth_deposited}
+              </h5>
+              <Image src="/icons/eth.svg" alt="bridge" width={20} height={32} />
             </div>
-            <>
-              <button
-                onClick={openModal}
-                className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
-                <BridgeButton width={160} height={45} />
-                <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
-                  BRIDGE MORE
-                </h5>
-              </button>
-              {isBridgeModalOpen && <BridgeModal closeModal={closeModal} />}
-            </>
+            <div className="flex items-center justify-center gap-2">
+              <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
+                {user.sol_deposited}
+              </h5>
+              <Image
+                alt="bridge"
+                src="/icons/solana.svg"
+                width={20}
+                height={32}
+              />
+            </div>
+            <div className="flex items-center justify-center gap-2">
+              <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
+                {user.usdc_deposited}
+              </h5>
+              <Image src="/icons/usd.svg" alt="bridge" width={20} height={32} />
+            </div>
           </div>
-          <Image
-            src="/dividers/rewards-page-left-divider.svg"
-            height={8}
-            width={200}
-            alt="divider"
-            className="w-full max-lg:hidden"
-          />
-          <div className="relative my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-md:block">
-            <Image
-              src="/dividers/rewards-page-right-top-divider.svg"
-              alt="divider"
-              className="h-[8px] w-full"
-              fill
-            />
-          </div>
-          <div className="flex flex-col items-center gap-[clamp(0.2vw,2.5vh,1.5vw)] text-whiteyellow 2xl:gap-6">
-            <Image
-              src="/icons/calendar.svg"
-              alt="calendar"
-              width={80}
-              height={76}
-              className="h-full max-h-[clamp(0.7vw,8vh,3vw)] max-lg:max-h-12"
-            />
-            <h2 className="text-center text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3vh,1.5vw)] tracking-[0.08em] max-2xl:text-2xl">
-              Accumulated points
-            </h2>
-            <span className="text-left text-[clamp(0.7vw,3.5vh,2vw)] font-bold leading-[clamp(0.7vw,3.5vh,2vw)] tracking-[0.08em] text-lightyellow max-md:text-xl">
-              {userPoints}
-            </span>
-          </div>
-          <Image
-            src="/dividers/rewards-page-middle-divider.svg"
-            alt="divider"
-            className="absolute -right-[7px] top-12 h-[90%] max-md:hidden 2xl:top-0"
-            width={8}
-            height={200}
-          />
+          <>
+            <button
+              onClick={openModal}
+              className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+              <BridgeButton width={160} height={45} />
+              <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
+                BRIDGE MORE
+              </h5>
+            </button>
+            {isBridgeModalOpen && <BridgeModal closeModal={closeModal} />}
+          </>
         </div>
-        <div className="relative col-span-12 my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-lg:block">
-          <Image
-            src="/dividers/rewards-page-right-top-divider.svg"
-            alt="divider"
-            className="h-[8px] w-full"
-            fill
-          />
-        </div>
-        <div className="col-span-9 h-full overflow-x-auto pl-8 max-lg:col-span-12 max-lg:overflow-x-clip max-md:pt-0">
-          <div className="grid h-[inherit] grid-cols-1 grid-rows-[auto_auto_1fr]">
-            <div className="grid h-full w-full grid-cols-9">
-              <div className="relative col-span-5 flex flex-col gap-3 py-5 pr-10 after:absolute after:right-0 after:h-full after:w-6 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-0 max-md:col-span-9 max-md:after:hidden">
-                <h3 className="text-left text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3.5vh,1.1vw)] tracking-[0.08em] text-whiteyellow max-lg:text-xl">
-                  Your profile
-                </h3>
-                <div className="mt-2 flex items-center justify-between gap-7">
-                  <Image
-                    src={
-                      user.twitter_picture_url ? user.twitter_picture_url : ''
-                    }
-                    alt="user"
-                    width={227}
-                    height={218}
-                    className="max-md:max-w-40"
-                  />
-                  <div className="flex h-full w-full flex-col justify-between py-1.5">
-                    <div className="flex items-center justify-between max-2xl:flex-col max-2xl:items-start">
-                      <div className="flex flex-col gap-3">
-                        <h3 className="text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
-                          Rank
-                        </h3>
-                        <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                          #{userRank}
-                        </span>
-                      </div>
-                      <div className="flex flex-col gap-3">
-                        <h3 className="min-w-[140px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
-                          Join Date
-                        </h3>
-                        <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                          {`${new Date(user.joined_at).getDate()} / ${new Date(user.joined_at).getMonth() + 1} / ${new Date(user.joined_at).getFullYear()}`}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+        <div className="relative flex flex-col gap-3 py-6 pr-6 [grid-area:profile] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-0 max-md:px-0 max-md:py-6 max-md:before:absolute max-md:before:bottom-0 max-md:before:left-0 max-md:before:h-2 max-md:before:w-full max-md:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-md:before:bg-no-repeat max-md:before:content-[''] max-md:after:hidden">
+          <h3 className="text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-2xl max-lg:text-xl">
+            Your profile
+          </h3>
+          <div className="mt-2 flex items-center justify-between gap-7">
+            <Image
+              src={user.twitter_picture_url ? user.twitter_picture_url : ''}
+              alt="user"
+              width={227}
+              height={218}
+              className="max-md:max-w-40"
+            />
+            <div className="flex h-full w-full flex-col justify-between py-1.5">
+              <div className="flex items-center justify-between max-2xl:flex-col max-2xl:items-start">
+                <div className="flex flex-col gap-3">
+                  <h3 className="text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
+                    Rank
+                  </h3>
+                  <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
+                    #{userRank}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-3">
+                  <h3 className="min-w-[140px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
+                    Join Date
+                  </h3>
                   <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                    @{user.twitter_handle}
+                    {`${new Date(user.joined_at).getDate()} / ${new Date(user.joined_at).getMonth() + 1} / ${new Date(user.joined_at).getFullYear()}`}
                   </span>
-                  {/* <div className="flex items-center justify-start gap-4">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3">
+            <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
+              @{user.twitter_handle}
+            </span>
+            {/* <div className="flex items-center justify-start gap-4">
                     <Link href="/rewards">
                       <Image
                         src="/icons/twitter.svg"
@@ -337,8 +275,81 @@ const RewardsPage = () => {
                       />
                     </Link>
                   </div> */}
-                </div>
-              </div>
+          </div>
+        </div>
+        <div className="grid h-full grid-rows-[auto_1fr_auto] gap-5 p-6 [grid-area:tweet]">
+          <RectangleButton
+            text="Earn Extra Points"
+            onClick={() => {}}
+            buttonClassName="w-full gap-4"
+          />
+          <span className="pl-3 text-left text-sm font-bold leading-[21px] tracking-[0.08em] text-[#FFFDBF8C]">
+            Earn a points bonus by posting on X and spreading the word
+          </span>
+          <Link
+            href="https://twitter.com/intent/tweet?text=Hello%20world"
+            className="flex items-center justify-center transition-all hover:opacity-85">
+            <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+              <BridgeButton width={240} height={40} />
+              <h5 className="chakra-petch text- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-lg:text-base">
+                Tweet for points
+              </h5>
+            </button>
+          </Link>
+        </div>
+        <div className="relative flex flex-col items-center justify-center gap-[clamp(0.2vw,2.5vh,1.5vw)] py-6 pr-6 text-whiteyellow [grid-area:points] before:absolute before:top-0 before:h-2 before:w-full before:bg-[url('/dividers/rewards-page-left-divider.svg')] before:bg-cover before:bg-no-repeat before:content-[''] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-bottom after:content-[''] max-lg:before:left-0 max-lg:before:top-[100%] max-lg:after:bg-none max-md:before:bg-none">
+          <Image
+            src="/icons/calendar.svg"
+            alt="calendar"
+            width={80}
+            height={76}
+            className="h-full max-h-[clamp(0.7vw,8vh,3vw)] max-lg:max-h-12"
+          />
+          <h2 className="text-center text-3xl font-bold uppercase leading-9 tracking-[0.08em] max-2xl:text-2xl">
+            Accumulated points
+          </h2>
+          <span className="text-left text-[clamp(0.7vw,3.5vh,2vw)] font-bold leading-[clamp(0.7vw,3.5vh,2vw)] tracking-[0.08em] text-lightyellow max-md:text-xl">
+            {userPoints}
+          </span>
+        </div>
+        <div className="relative h-full overflow-x-auto py-6 [grid-area:link] before:absolute before:top-0 before:h-2 before:w-full before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] before:bg-cover before:bg-no-repeat before:content-[''] max-lg:overflow-x-clip">
+          <div className="flex h-full w-full flex-col gap-3">
+            <h3 className="text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-2xl max-lg:text-xl">
+              referral Links
+            </h3>
+            <div className="custom-scrollbar flex flex-col gap-4 overflow-y-scroll pr-3 max-lg:max-h-56">
+              {records.length > 0 &&
+                records.map((r, i) => (
+                  <ReferralLinkRow
+                    key={i}
+                    imageUrl="/elipse-placeholder.png"
+                    title="Invite Available"
+                    link={r.code}
+                  />
+                ))}
+            </div>
+          </div>
+        </div>
+        {/* <div className="relative col-span-3 flex h-full flex-col gap-[clamp(1.4vw,6vh,2vw)] pt-5 max-lg:col-span-12 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:grid-rows-[auto_1fr_auto] max-md:gap-7">
+          <Image
+            src="/dividers/rewards-page-middle-divider.svg"
+            alt="divider"
+            className="absolute -right-[7px] top-12 h-[90%] max-md:hidden 2xl:top-0"
+            width={8}
+            height={200}
+          />
+        </div> */}
+        {/* <div className="relative col-span-12 my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-lg:block">
+          <Image
+            src="/dividers/rewards-page-right-top-divider.svg"
+            alt="divider"
+            className="h-[8px] w-full"
+            fill
+          />
+        </div>
+        <div className="col-span-9 h-full overflow-x-auto pl-8 max-lg:col-span-12 max-lg:overflow-x-clip max-md:pt-0">
+          <div className="grid h-[inherit] grid-cols-1 grid-rows-[auto_auto_1fr]">
+            <div className="grid h-full w-full grid-cols-9">
               <div className="relative col-span-9 my-6 hidden h-[8px] w-full max-md:block">
                 <Image
                   src="/dividers/rewards-page-right-top-divider.svg"
@@ -347,62 +358,18 @@ const RewardsPage = () => {
                   fill
                 />
               </div>
-              <div className="max-mc:px-4 col-span-4 pl-6 pt-5 max-lg:pl-2 max-md:col-span-9 max-md:pt-0">
-                <div className="flex flex-col gap-5">
-                  <RectangleButton
-                    text="Earn Extra Points"
-                    onClick={() => {}}
-                    buttonClassName="w-full gap-4"
-                  />
-                  <div className="flex flex-col">
-                    <div className="flex flex-col gap-5">
-                      <span className="pl-3 text-left text-sm font-bold leading-[21px] tracking-[0.08em] text-[#FFFDBF8C]">
-                        Earn a points bonus by posting on X and spreading the
-                        word
-                      </span>
-                      <Link
-                        href="https://twitter.com/intent/tweet?text=Hello%20world"
-                        className="flex items-center justify-center transition-all hover:opacity-85">
-                        <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
-                          <BridgeButton width={240} height={40} />
-                          <h5 className="chakra-petch text- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-lg:text-base">
-                            Tweet for points
-                          </h5>
-                        </button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div className="max-mc:px-4 col-span-4 pl-6 pt-5 max-lg:pl-2 max-md:col-span-9 max-md:pt-0"></div>
             </div>
             <div className="relative col-span-6 mt-[clamp(0.5vw,5.5vh,2vw)] h-[8px] w-full max-lg:my-6 max-md:pt-7">
               <Image
                 src="/dividers/rewards-page-right-top-divider.svg"
                 alt="divider"
-                className="h-[8px] w-full"
+                className="h-[8px] w-full object-cover"
                 fill
               />
             </div>
-            <div className="relative col-span-6 h-full overflow-x-auto py-6 max-lg:overflow-x-clip">
-              <div className="flex h-full w-full flex-col gap-3">
-                <h3 className="text-left text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3.5vh,1.1vw)] tracking-[0.08em] text-whiteyellow max-lg:text-xl">
-                  referral Links
-                </h3>
-                <div className="custom-scrollbar flex flex-col gap-4 overflow-y-scroll pr-3 max-lg:max-h-56">
-                  {records.length > 0 &&
-                    records.map((r, i) => (
-                      <ReferralLinkRow
-                        key={i}
-                        imageUrl="/elipse-placeholder.png"
-                        title="Invite Available"
-                        link={r.code}
-                      />
-                    ))}
-                </div>
-              </div>
-            </div>
           </div>
-        </div>
+        </div> */}
         {txLoading && (
           <div className="absolute flex h-full w-full items-center justify-center backdrop-blur-[3px]">
             <div className="inline-block h-16 w-16 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-[#f9ef00] motion-reduce:animate-[spin_1.5s_linear_infinite]">
