@@ -119,21 +119,23 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
 };
 
 const RewardsPage = () => {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const {
+    token,
+    userId,
     loading,
     setLoading,
     hasAccess,
     setHasAccess,
     isLoggedIn,
     setIsLoggedIn,
-    token,
     setWalletModalOpen,
+    user,
+    setUser,
   } = useApp();
 
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
-  const [isContinue, setIsContinue] = useState<boolean>(false);
+  const [isContinue, setIsContinue] = useState<boolean>(true);
   const modalRef = useRef(null); // Ref for the modal element
 
   const handlePasswordSubmit = async (password: string) => {
@@ -180,6 +182,20 @@ const RewardsPage = () => {
     if (result.ok) {
       setIsContinue(true);
     }
+  };
+
+  const handleGetUserProfile = async () => {
+    const newUser = await api.get(`/users/${userId}`).then((res) => res.data);
+    setUser(newUser);
+    const invitationCodes = await api
+      .get(`/invitation_codes`, {
+        params: {
+          page: 1,
+          limit: 20,
+        },
+      })
+      .then((res) => res.data);
+    console.log({ invitationCodes });
   };
 
   useOnceEffect(() => {
@@ -250,10 +266,11 @@ const RewardsPage = () => {
             />
             <AirdropsMissionRow
               completed={false}
-              buttonText="Continue"
+              buttonText={isContinue ? 'Continue' : ''}
               onClick={() => {
                 setIsLoggedIn(false);
                 setHasAccess(true);
+                handleGetUserProfile();
               }}
             />
           </div>
@@ -299,7 +316,6 @@ const RewardsPage = () => {
               <Image src="/icons/usd.svg" alt="bridge" width={20} height={32} />
             </div>
           </div>
-
           <>
             <button
               onClick={openModal}
@@ -312,10 +328,8 @@ const RewardsPage = () => {
                 className="w-[130px] 2xl:w-[165px]"
               />
             </button>
-
             {isBridgeModalOpen && <BridgeModal closeModal={closeModal} />}
           </>
-
           <Image
             src="/dividers/rewards-page-left-divider.svg"
             height={8}
@@ -354,7 +368,7 @@ const RewardsPage = () => {
             </h3>
             <div className="mt-2 flex items-center justify-between gap-7">
               <Image
-                src="/profile-image-placeholder.png"
+                src={user.twitter_picture_url}
                 alt="user"
                 width={227}
                 height={218}
@@ -366,7 +380,7 @@ const RewardsPage = () => {
                       Leaderboard
                     </h3>
                     <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                      #1236
+                      #{user.id}
                     </span>
                   </div>
                   <div className="flex flex-col gap-3">
@@ -384,7 +398,7 @@ const RewardsPage = () => {
                       Join Date
                     </h3>
                     <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                      03//17/24
+                      {`${new Date(user.joined_at).getDate()} / ${new Date(user.joined_at).getMonth() + 1} / ${new Date(user.joined_at).getFullYear()}`}
                     </span>
                   </div>
                 </div>
@@ -392,7 +406,7 @@ const RewardsPage = () => {
             </div>
             <div className="flex flex-col gap-3">
               <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                @GhostyTheDev
+                @{user.twitter_handle}
               </span>
               <div className="flex items-center justify-start gap-4">
                 <Link href="/rewards">

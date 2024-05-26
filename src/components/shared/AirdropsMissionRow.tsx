@@ -7,7 +7,7 @@ interface AirdropsMissionRowProps {
   number?: number;
   completed: boolean;
   title?: string;
-  buttonText: string;
+  buttonText?: string;
   onClick: () => void;
 }
 
@@ -32,7 +32,7 @@ const AirdropsMissionRow = ({
       {completed ? (
         <Button className="bg-yellow-500">Completed</Button>
       ) : (
-        <Button onClick={onClick}>{buttonText}</Button>
+        buttonText && <Button onClick={onClick}>{buttonText}</Button>
       )}
     </div>
   );

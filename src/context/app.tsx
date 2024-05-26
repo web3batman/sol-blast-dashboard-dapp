@@ -11,15 +11,17 @@ import {
 } from 'react';
 import { useAccount as useEtherAccount, useSignMessage } from 'wagmi';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
-import { useRouter } from 'next/navigation';
 import { useLocalStorage } from 'usehooks-ts';
 import axios from 'axios';
-import { API_URL } from '@/config/const';
-import api from '@/service/api';
 import bs58 from 'bs58';
+
+import { API_URL } from '@/config/const';
+import { IUser, initUser } from '@/config/types';
+import api from '@/service/api';
 
 export interface IApp {
   token: string;
+  userId: string;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   inputs: string[];
@@ -33,10 +35,13 @@ export interface IApp {
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   handleSign: Function;
+  user: IUser;
+  setUser: React.Dispatch<React.SetStateAction<IUser>>;
 }
 
 export const AppContext = createContext<IApp>({
   token: '',
+  userId: '',
   loading: false,
   setLoading: () => {},
   inputs: [''],
@@ -50,14 +55,17 @@ export const AppContext = createContext<IApp>({
   isLoggedIn: false,
   setIsLoggedIn: () => {},
   handleSign: () => {},
+  user: initUser,
+  setUser: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const router = useRouter();
   const { publicKey: solanaAddress, signMessage } = useSolanaWallet();
   const { address: etherAddress } = useEtherAccount();
   const { signMessageAsync } = useSignMessage();
   const [token, setToken] = useLocalStorage<string>('token', '');
+  const [userId, setUserId] = useLocalStorage<string>('userId', '');
+  const [user, setUser] = useState<IUser>(initUser);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
@@ -82,6 +90,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
               })
               .then((res) => res.data);
             setToken(newToken.token);
+            setUserId(newToken.user_id);
             setIsLoggedIn(true);
           })
           .catch((e) => {
@@ -100,7 +109,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
             invitation_code: invitCode,
           })
           .then((res) => res.data);
-        setToken(newToken);
+        setToken(newToken.token);
+        setUserId(newToken.user_id);
         setIsLoggedIn(true);
       }
     },
@@ -124,6 +134,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     <AppContext.Provider
       value={{
         token,
+        userId,
         loading,
         setLoading,
         inputs,
@@ -137,6 +148,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         isLoggedIn,
         setIsLoggedIn,
         handleSign,
+        user,
+        setUser,
       }}>
       {children}
     </AppContext.Provider>

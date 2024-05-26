@@ -5,14 +5,12 @@ import Image from 'next/image';
 import axios from 'axios';
 
 import divider from '../../../../../public/divider.svg';
-import RectangleButton from '@/components/ui/RectangleButton';
-import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import LeaderboardTableRow from '@/components/ui/LeaderboardTableRow';
-import { IUser } from '@/config/types';
+import { IUserPoint } from '@/config/types';
 import { API_URL } from '@/config/const';
 
 const LeaderboardPage = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [users, setUsers] = useState<IUserPoint[]>([]);
 
   const data = [
     {
