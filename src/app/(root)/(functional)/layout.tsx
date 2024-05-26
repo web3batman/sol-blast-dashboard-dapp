@@ -49,7 +49,8 @@ export default function Layout({
 
   return (
     <SessionProvider>
-      <div className="relative h-full before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')] before:content-[''] max-lg:before:h-[inherit]">
+      {/* <div className="relative h-full before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')] before:content-[''] max-lg:before:h-[inherit]"> */}
+      <div className="relative h-full">
         {walletModalOpen && (
           <div className="absolute z-50 flex h-full w-full items-center justify-center backdrop-blur-sm">
             <div

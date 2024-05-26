@@ -28,7 +28,7 @@ export default function Home() {
               className="max-sm:max-w-[240px]"
             />
           </div>
-          <div className="max-lg:flex max-lg:h-full max-lg:flex-col max-lg:items-center max-lg:justify-center max-lg:gap-10">
+          <div className="flex flex-col max-lg:h-full max-lg:items-center max-lg:justify-center max-lg:gap-10">
             <h1 className="mt-[clamp(0.5vw,2.5vh,1.5vw)] text-left text-[clamp(1.6vw,7vh,3.5vw)] font-bold uppercase leading-[clamp(2.5vw,7.5vh,5vw)] tracking-[0.04em] text-whiteyellow max-md:text-2xl">
               L2 is the fastest, most decentralized, and advanced{' '}
               <span className="text-lightyellow">scaling solution</span>
@@ -39,7 +39,7 @@ export default function Home() {
             </h5>
             <Link
               href="/rewards"
-              className="mt-[clamp(0.5vw,3.5vh,2vw)] transition-all hover:opacity-85">
+              className="pt-[clamp(1vw,3vh,2vw)] transition-all hover:opacity-85">
               <Image
                 src={homePageButton}
                 alt="home-page-button"

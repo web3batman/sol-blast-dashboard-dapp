@@ -27,7 +27,7 @@ const LeaderboardPage = () => {
 
   return (
     <main className="relative h-[inherit] w-full">
-      <div className="flex h-full w-full flex-col px-[50px] max-sm:px-7">
+      <div className="flex h-full w-full flex-col px-[50px] max-md:px-0">
         <div className="flex w-full items-center justify-between gap-1 max-lg:mb-8 max-lg:flex-col max-lg:gap-9 2xl:gap-6">
           <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-sm:text-2xl">
             LEADERBOARD

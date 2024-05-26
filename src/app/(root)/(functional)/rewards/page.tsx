@@ -178,9 +178,9 @@ const RewardsPage = () => {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
   } else
     return (
-      <main className="grid h-[inherit] w-full grid-cols-12 items-start px-5 py-0 2xl:py-5">
-        <div className="relative col-span-3 flex h-full flex-col gap-[clamp(1.4vw,6vh,2vw)] pt-5 max-lg:col-span-12 max-lg:mb-4 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:grid-rows-2 max-md:gap-7">
-          <div className="relative flex flex-col items-center gap-[clamp(0.5vw,2vh,1vw)] text-whiteyellow max-lg:gap-4">
+      <main className="grid h-[inherit] w-full grid-cols-12 items-start px-5 py-0 max-md:pl-0 max-md:pr-2 2xl:py-5">
+        <div className="relative col-span-3 flex h-full flex-col gap-[clamp(1.4vw,6vh,2vw)] pt-5 max-lg:col-span-12 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:grid-rows-[auto_1fr_auto] max-md:gap-7">
+          <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.8vh,2.6vw)] text-whiteyellow max-lg:gap-4">
             <h3 className="text-left text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3.5vh,1.1vw)] tracking-[0.08em] max-lg:text-xl">
               Total bridged
             </h3>
@@ -238,6 +238,14 @@ const RewardsPage = () => {
             alt="divider"
             className="w-full max-lg:hidden"
           />
+          <div className="relative my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-md:block">
+            <Image
+              src="/dividers/rewards-page-right-top-divider.svg"
+              alt="divider"
+              className="h-[8px] w-full"
+              fill
+            />
+          </div>
           <div className="flex flex-col items-center gap-[clamp(0.2vw,2.5vh,1.5vw)] text-whiteyellow 2xl:gap-6">
             <Image
               src="/icons/calendar.svg"
@@ -261,19 +269,18 @@ const RewardsPage = () => {
             height={200}
           />
         </div>
-        <div className="relative col-span-12 mt-[clamp(0.5vw,5.5vh,2vw)] hidden h-[8px] w-full max-lg:block">
+        <div className="relative col-span-12 my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-lg:block">
           <Image
             src="/dividers/rewards-page-right-top-divider.svg"
             alt="divider"
             className="h-[8px] w-full"
-            objectFit="cover"
             fill
           />
         </div>
-        <div className="col-span-9 h-full overflow-x-auto pl-8 max-lg:col-span-12 max-lg:overflow-x-clip max-md:pt-7">
+        <div className="col-span-9 h-full overflow-x-auto pl-8 max-lg:col-span-12 max-lg:overflow-x-clip max-md:pt-0">
           <div className="grid h-[inherit] grid-cols-1 grid-rows-[auto_auto_1fr]">
             <div className="grid h-full w-full grid-cols-9">
-              <div className="relative col-span-5 flex flex-col gap-3 py-5 pr-10 after:absolute after:right-0 after:h-full after:w-6 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-0 max-md:after:hidden max-sm:col-span-9">
+              <div className="relative col-span-5 flex flex-col gap-3 py-5 pr-10 after:absolute after:right-0 after:h-full after:w-6 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-0 max-md:col-span-9 max-md:after:hidden">
                 <h3 className="text-left text-[clamp(0.5vw,4vh,1.5vw)] font-bold uppercase leading-[clamp(0.5vw,3.5vh,1.1vw)] tracking-[0.08em] text-whiteyellow max-lg:text-xl">
                   Your profile
                 </h3>
@@ -332,7 +339,15 @@ const RewardsPage = () => {
                   </div> */}
                 </div>
               </div>
-              <div className="col-span-4 pl-6 pt-5 max-lg:pl-2 max-sm:col-span-9 max-sm:px-4">
+              <div className="relative col-span-9 my-6 hidden h-[8px] w-full max-md:block">
+                <Image
+                  src="/dividers/rewards-page-right-top-divider.svg"
+                  alt="divider"
+                  className="h-[8px] w-full"
+                  fill
+                />
+              </div>
+              <div className="max-mc:px-4 col-span-4 pl-6 pt-5 max-lg:pl-2 max-md:col-span-9 max-md:pt-0">
                 <div className="flex flex-col gap-5">
                   <RectangleButton
                     text="Earn Extra Points"
@@ -360,12 +375,11 @@ const RewardsPage = () => {
                 </div>
               </div>
             </div>
-            <div className="relative col-span-6 mt-[clamp(0.5vw,5.5vh,2vw)] h-[8px] w-full max-md:pt-7">
+            <div className="relative col-span-6 mt-[clamp(0.5vw,5.5vh,2vw)] h-[8px] w-full max-lg:my-6 max-md:pt-7">
               <Image
                 src="/dividers/rewards-page-right-top-divider.svg"
                 alt="divider"
                 className="h-[8px] w-full"
-                objectFit="cover"
                 fill
               />
             </div>
