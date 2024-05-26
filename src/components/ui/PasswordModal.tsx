@@ -17,12 +17,12 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   };
 
   return (
-    <div className="h-full w-full bg-black bg-opacity-75 flex items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center bg-black bg-opacity-75">
       <div className="justify-center bg-black py-5 text-center">
         <h2 className="text-center text-[28px] font-semibold text-whiteyellow">
           ENTER YOUR CODE
         </h2>
-        <p className="mx-auto w-3/4 pt-8 text-center text-[20px] text-whiteyellow text-opacity-50">{`PROCEED WITH CAUTION, WE DON'T KNOW WHAT'S ON THE OTHER SIDE.`}</p>
+        <p className="mx-auto w-3/4 pt-8 text-center text-[20px] text-whiteyellow text-opacity-50 max-sm:w-full max-sm:px-6">{`PROCEED WITH CAUTION, WE DON'T KNOW WHAT'S ON THE OTHER SIDE.`}</p>
         <Image
           className="absolute left-1/2 -translate-x-1/2 transform"
           src="/upper-layout-line.svg"

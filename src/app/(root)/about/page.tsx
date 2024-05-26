@@ -6,7 +6,7 @@ import worldBg from '../../../../public/world-bg.png';
 
 const Page = () => {
   return (
-    <div className="relative mb-10 flex flex-col">
+    <div className="relative mb-10 flex flex-col overflow-auto">
       <div className="relative flex h-screen w-full items-center">
         <Image
           fill
@@ -14,19 +14,19 @@ const Page = () => {
           src={bg}
           alt="background image"
         />
-        <div className="relative z-[1] flex h-full w-full flex-col justify-center gap-16 px-6">
-          <div className="flex items-center justify-center gap-10 max-lg:flex-col-reverse">
+        <div className="relative z-[1] flex w-full flex-col justify-center gap-16 px-6">
+          <div className="flex items-center justify-center gap-24 max-2xl:gap-16 max-xl:flex-col-reverse max-xl:gap-10">
             <Image
               src="/chart.svg"
               alt="chart"
               width={897}
               height={314}
-              className="max-w-[670px] max-lg:max-w-[500px] 2xl:max-w-full max-sm:max-w-[350px]"
+              className="max-w-[670px] max-md:max-w-[500px] max-sm:max-w-[350px] 2xl:max-w-full"
             />
             <div className="flex flex-col gap-5">
-              <h3 className="chakra-petch text-left text-[64px] font-semibold uppercase leading-[96px] tracking-[0.04em] text-whiteyellow max-xl:text-5xl">
-                l2 is the blast we <br />{' '}
-                <span className="text-lightyellow">all</span> Wanted
+              <h3 className="chakra-petch text-left text-[64px] font-semibold uppercase leading-[96px] tracking-[0.04em] text-whiteyellow max-xl:text-5xl max-md:text-3xl max-sm:text-2xl">
+                l2 is the blast we <span className="text-lightyellow">all</span>{' '}
+                Wanted
               </h3>
               <p className="tomorrow uppercase text-whiteyellow">
                 The only eth l2 that actually works and <br /> doesn’t farm it’s
@@ -35,10 +35,10 @@ const Page = () => {
             </div>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <h3 className="chakra-petch text-gradient text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em]">
+            <h3 className="chakra-petch text-gradient text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] max-md:text-3xl max-sm:text-2xl">
               It’s time to ditch the other l2s
             </h3>
-            <p className="tomorrow text-grey text-left text-base font-medium leading-6 tracking-[0.08em]">
+            <p className="tomorrow text-left text-base font-medium leading-6 tracking-[0.08em] text-grey">
               L2 has the same features you love on other L2s while providing 10x
               more value
             </p>
@@ -46,7 +46,7 @@ const Page = () => {
         </div>
       </div>
       <div className="px-6">
-        <div className="relative">
+        <div className="flex flex-col">
           <Image
             alt="l2-table"
             src="/l2-table.png"
@@ -55,7 +55,7 @@ const Page = () => {
             objectFit="contain"
             className="h-auto w-full"
           />
-          <h2 className="chakra-petch absolute bottom-12 left-0 text-[48px] font-semibold uppercase text-whiteyellow">
+          <h2 className="chakra-petch mb-8 text-[48px] font-semibold uppercase text-whiteyellow max-md:text-3xl max-sm:text-2xl">
             How L2 Works
           </h2>
         </div>
@@ -71,7 +71,7 @@ const Page = () => {
           fill
         />
         <div className="relative z-[1] flex h-full w-full flex-col gap-8 px-16 2xl:px-28">
-          <div className="flex items-center justify-between max-lg:flex-col gap-4">
+          <div className="flex items-center justify-between gap-4 max-lg:flex-col">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
                 <Image
@@ -79,9 +79,9 @@ const Page = () => {
                   alt="panel"
                   width={115}
                   height={110}
-                  className='max-sm:max-w-[60px]'
+                  className="max-xl:max-w-[90px] max-sm:max-w-[60px]"
                 />
-                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
+                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow max-md:text-3xl max-sm:text-2xl">
                   innovation
                 </h3>
               </div>
@@ -93,7 +93,7 @@ const Page = () => {
             </div>
             <Image src="/tweet-1.svg" alt="arrow" width={603} height={537} />
           </div>
-          <div className="flex items-center justify-between max-lg:flex-col-reverse gap-4">
+          <div className="flex items-center justify-between gap-4 max-lg:flex-col-reverse">
             <Image src="/tweet-2.svg" alt="arrow" width={603} height={537} />
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
@@ -102,9 +102,9 @@ const Page = () => {
                   alt="panel"
                   width={115}
                   height={110}
-                  className='max-sm:max-w-[60px]'
+                  className="max-sm:max-w-[60px]"
                 />
-                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
+                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow max-md:text-3xl max-sm:text-2xl">
                   SECURITY
                 </h3>
               </div>
@@ -117,9 +117,9 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="text-grey mt-16 flex flex-col gap-10 px-6">
+      <div className="mt-16 flex flex-col gap-10 px-6 text-grey">
         <div className="flex flex-col gap-5">
-          <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow max-sm:text-4xl">
+          <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow max-md:text-3xl max-sm:text-xl">
             WHY A nEw l2
           </h2>
           <p className="tomorrow text-left text-base font-medium uppercase leading-7 tracking-[0.08em]">
@@ -127,8 +127,8 @@ const Page = () => {
             the masses. It’s time to change that.
           </p>
         </div>
-        <div className="flex flex-row items-start justify-between max-lg:flex-col max-lg:gap-8 max-lg:items-center">
-          <div className="flex w-[47%] flex-col gap-16">
+        <div className="flex flex-row items-start justify-between max-lg:flex-col max-lg:items-center max-lg:gap-8">
+          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%]">
             <p className="tomorrow text-left text-[16px] font-medium uppercase">
               L2 emerges as an innovative solution, ingeniously incorporating
               characteristics that have long been the hallmark of some of the
@@ -141,18 +141,20 @@ const Page = () => {
               critical bottlenecks.
             </p>
             <div className="flex w-full flex-col items-center justify-center gap-5 max-lg:hidden">
-              <div className="flex items-center gap-5">
+              <div className="flex w-full items-center justify-center gap-5">
                 <Image
                   src="/icons/facebook.svg"
                   alt="panel"
                   width={248}
                   height={48}
+                  className="w-full max-w-[248px] max-2xl:max-w-[200px] max-xl:max-w-[170px]"
                 />
                 <Image
                   src="/icons/yahoo.svg"
                   alt="panel"
                   width={308}
                   height={59}
+                  className="w-full max-w-[308px] max-2xl:max-w-[280px] max-xl:max-w-[230px]"
                 />
               </div>
               <div className="flex items-center gap-5">
@@ -189,10 +191,10 @@ const Page = () => {
               />
             </div>
           </div>
-          <div className="relative h-screen w-[34px] 2xl:h-[85vh] max-lg:hidden">
+          <div className="relative h-screen w-[34px] max-lg:hidden 2xl:h-[85vh]">
             <Image src="/progress.svg" alt="l2-table" fill />
           </div>
-          <div className="flex w-[47%] flex-col gap-16">
+          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%]">
             <p className="tomorrow text-left text-[16px] font-medium uppercase ">
               Furthermore, L2 introduces a low-latency transaction environment
               that drastically reduces confirmation times, making it an

@@ -58,7 +58,7 @@ export default function RootLayout({
               <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
                 {children}
               </div>
-              <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform">
+              <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform max-sm:h-10">
                 <Footer />
               </div>
             </AppProvider>

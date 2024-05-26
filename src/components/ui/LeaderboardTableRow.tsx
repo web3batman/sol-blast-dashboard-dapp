@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import clsx from 'clsx';
 
 interface LeaderboardTableRowProps {
   rank: number;
@@ -9,6 +10,7 @@ interface LeaderboardTableRowProps {
   userProfilePicture: string;
   invitedBy: string;
   points: number;
+  bgColor: string;
 }
 
 const LeaderboardTableRow = ({
@@ -17,41 +19,53 @@ const LeaderboardTableRow = ({
   userProfilePicture,
   invitedBy,
   points,
+  bgColor,
 }: LeaderboardTableRowProps) => {
   return (
-    <div className="flex cursor-pointer items-center justify-between bg-transparent text-darkWhite">
-      <div className="grid w-full [grid-template-areas:'rank_name_invite_point'] items-center 
-      grid-cols-[minmax(50px,250px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(150px,250px)]
-      max-xl:grid-cols-[minmax(50px,150px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(100px,150px)]
-      max-lg:grid-cols-[minmax(50px,70px)_minmax(220px,auto)_minmax(auto,220px)_minmax(100px,150px)]
-      max-sm:grid-cols-[30px_minmax(auto,170px)_minmax(auto,170px)_minmax(10px,70px)] gap-6 max-md:gap-2 p-3 py-6">
-        <h3 className="text-left text-lg font-medium uppercase tracking-[0.06em] text-lightyellow [grid-area:rank]">
-          {rank}
-        </h3>
-        <div className="flex items-center gap-2 [grid-area:name] whitespace-nowrap overflow-hidden overflow-ellipsis">
-          {userProfilePicture && (
-            <Image
-              unoptimized
-              alt="icon"
-              width={59}
-              height={59}
-              className="rounded-full"
-              src={userProfilePicture}
-            />
-          )}
-          <p className='whitespace-nowrap overflow-hidden overflow-ellipsis'>
-
-            {name}
-          </p>
-        </div>
-        <h3 className="text-left text-lg font-medium uppercase tracking-[0.06em] [grid-area:invite] whitespace-nowrap overflow-hidden overflow-ellipsis">
-          {invitedBy}
-        </h3>
-        <h3 className="text-left text-lg font-medium uppercase tracking-[0.06em] [grid-area:point]">
-          {points!.toLocaleString()}
-        </h3>
+    // <div className="flex cursor-pointer items-center justify-between bg-transparent text-darkWhite">
+    <div className="grid w-full grid-cols-[minmax(150px,20%)_minmax(300px,30%)_minmax(350px,35%)_minmax(200px,15%)] items-center">
+      <h3
+        className={clsx(
+          'flex h-full items-center py-6 pl-2 text-left text-lg font-medium uppercase tracking-[0.06em] text-lightyellow',
+          bgColor,
+        )}>
+        {rank}
+      </h3>
+      <div
+        className={clsx(
+          'flex h-full items-center gap-2 overflow-hidden overflow-ellipsis whitespace-nowrap py-6',
+          bgColor,
+        )}>
+        {userProfilePicture && (
+          <Image
+            unoptimized
+            alt="icon"
+            width={59}
+            height={59}
+            className="rounded-full"
+            src={userProfilePicture}
+          />
+        )}
+        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
+          {name}
+        </p>
       </div>
+      <h3
+        className={clsx(
+          'flex h-full items-center overflow-hidden overflow-ellipsis whitespace-nowrap text-left text-lg font-medium uppercase tracking-[0.06em]',
+          bgColor,
+        )}>
+        {invitedBy}
+      </h3>
+      <h3
+        className={clsx(
+          'flex h-full items-center text-left text-lg font-medium uppercase tracking-[0.06em]',
+          bgColor,
+        )}>
+        {points!.toLocaleString()}
+      </h3>
     </div>
+    // </div>
   );
 };
 

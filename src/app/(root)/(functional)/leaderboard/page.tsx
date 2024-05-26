@@ -26,10 +26,10 @@ const LeaderboardPage = () => {
   }, []);
 
   return (
-    <main className="relative grid h-full w-full grid-cols-12 justify-between gap-8">
-      <div className="col-span-12 flex gap-2">
-        <div className="w-full">
-          <div className="flex w-full items-center justify-between gap-1 2xl:gap-10 max-sm:flex-col">
+    <main className="relative grid w-full grid-cols-12 justify-between gap-8">
+      <div className="col-span-12 flex gap-2 pb-6">
+        <div className="w-full px-[50px]">
+          <div className="flex w-full items-center justify-between gap-1 max-sm:flex-col 2xl:gap-10">
             <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-sm:text-lg">
               LEADERBOARD
             </h1>
@@ -39,25 +39,39 @@ const LeaderboardPage = () => {
             </h5>
           </div>
 
-          <div className="flex h-full w-full flex-col gap-3">
-            <div className="grid w-full items-center justify-between gap-6 max-md:gap-2 border-y border-lightyellow border-opacity-30 p-3 py-7 pr-10 grid-cols-[minmax(50px,250px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(150px,250px)]
-      max-xl:grid-cols-[minmax(50px,150px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(100px,150px)]
-      max-lg:grid-cols-[minmax(50px,70px)_minmax(220px,auto)_minmax(auto,220px)_minmax(100px,150px)]
-      max-sm:grid-cols-[30px_minmax(auto,170px)_minmax(auto,170px)_minmax(10px,70px)]">
-              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
-                RANK
-              </h3>
-              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
-                NAME
-              </h3>
-
-              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
-                INVITED BY
-              </h3>
-              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
-                POINTS
-              </h3>
-            </div>
+          <div>
+            <div className="custom-scrollbar flex h-full w-full flex-col gap-3 overflow-x-auto">
+              <div className="grid grid-cols-[minmax(150px,20%)_minmax(300px,30%)_minmax(350px,35%)_minmax(200px,15%)]">
+                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pl-2 text-whiteyellow">
+                  RANK
+                </h3>
+                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
+                  NAME
+                </h3>
+                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
+                  INVITED BY
+                </h3>
+                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pr-5 text-whiteyellow">
+                  POINTS
+                </h3>
+              </div>
+              <div className="">
+                {users.map((item, idx) => (
+                  <div key={idx}>
+                    <LeaderboardTableRow
+                      rank={item.rank}
+                      userProfilePicture={item.user_twitter_picture_url}
+                      name={item.user_twitter_handle}
+                      invitedBy={item.invited_by}
+                      points={item.points}
+                      bgColor={
+                        idx % 2 === 1 ? 'bg-whiteyellow bg-opacity-10' : ''
+                      }
+                    />
+                  </div>
+                ))}
+              </div>
+              {/* 
             <div className="custom-scrollbar flex h-[440px] w-full flex-col gap-3 overflow-y-scroll pr-3 2xl:h-[680px]">
               {users.map((item, idx) => (
                 <div
@@ -74,6 +88,7 @@ const LeaderboardPage = () => {
                   />
                 </div>
               ))}
+            </div> */}
             </div>
           </div>
         </div>

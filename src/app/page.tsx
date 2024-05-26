@@ -19,7 +19,7 @@ export default function Home() {
           className="h-screen w-screen overflow-hidden"
         />
       </div>
-      <main className="no-scrollbar relative grid h-full w-full grid-cols-[minmax(400px,auto)_minmax(500px,300px)] gap-8 px-10 max-lg:grid-cols-1">
+      <main className="no-scrollbar relative grid h-full w-full grid-cols-[minmax(400px,auto)_minmax(300px,500px)] gap-8 px-10 max-lg:grid-cols-1 max-sm:px-6">
         <div className="flex max-w-[937px] flex-col gap-7 max-2xl:max-w-[650px]">
           <div className="flex items-center justify-start gap-6">
             <Image src={circle} alt="circle" className="max-2xl:w-[50px]" />
@@ -30,7 +30,7 @@ export default function Home() {
               L2 is the fastest, most decentralized, and advanced{' '}
               <span className="text-lightyellow">ETH scaling solution</span>
             </h1>
-            <h5 className="max-w-[628px] text-left text-2xl font-medium uppercase leading-[48px] tracking-[-0.011em] text-whiteyellow max-2xl:text-[18px]">
+            <h5 className="max-w-[628px] text-left text-2xl font-medium uppercase leading-[48px] tracking-[-0.011em] text-whiteyellow max-2xl:text-[18px] max-sm:text-[14px]">
               The all new innovative L2. Because there aren’t already enough.
               Airdrop <span className="text-lightyellow">now live.</span>
             </h5>
@@ -41,7 +41,7 @@ export default function Home() {
             <Image src={homePageButton} alt="home-page-button"></Image>
           </Link>
         </div>
-        <div className="relative flex pt-28 max-lg:justify-self-center max-lg:pb-10">
+        <div className="relative flex pt-28 max-lg:justify-self-center max-lg:pb-10 max-md:pt-0">
           <Image
             src={divider}
             alt="divider"
@@ -77,7 +77,7 @@ export default function Home() {
                 <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] max-sm:text-xl">
                   @eBoyCapital
                 </h5>
-                <div className="grid grid-cols-3 gap-x-5 gap-y-7">
+                <div className="grid grid-cols-3 gap-x-5 gap-y-7 max-sm:gap-3">
                   <User text="@eBoyCapital" />
                   <User text="@eBoyCapital" />
                   <User text="@eBoyCapital" />
