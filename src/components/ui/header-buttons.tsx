@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import HomeButton from '../shared/HomeButton';
 import LeaderboardButton from '../shared/LeaderboardButton';
@@ -7,12 +7,11 @@ import RewardsButton from '../shared/RewardsButton';
 import { usePathname } from 'next/navigation';
 import AboutButton from '../shared/AboutButton';
 import { useOnceEffect } from '@/hook/useOnceEffect';
-import { Icon } from './icon';
 import { RxCross1, RxHamburgerMenu } from 'react-icons/rx';
 import { clsx } from 'clsx';
 import MobileButton from '../shared/MobileButton';
 import { MobileSVGButton } from './icon/icons/TopMobileButton';
-import { BsTelegram, BsTwitterX } from 'react-icons/bs';
+import { BsTwitterX } from 'react-icons/bs';
 import Image from 'next/image';
 
 export const HeaderButtons = () => {
@@ -20,6 +19,24 @@ export const HeaderButtons = () => {
   const [activeToggle, setActiveToggle] = useState<boolean>(false);
   const router = useRouter();
   const pathname = usePathname();
+
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  useOnceEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setActiveToggle(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   useOnceEffect(() => {
     setActivePath(pathname);
@@ -80,7 +97,9 @@ export const HeaderButtons = () => {
             'absolute -right-full top-0 z-[998] h-full max-h-screen w-screen overflow-hidden bg-[rgba(0,0,0,0.2)] backdrop-blur-[5px] transition-all',
             activeToggle ? '-translate-x-full' : 'hidden translate-x-0',
           )}>
-          <div className="absolute right-0 top-0 h-screen w-80 bg-black">
+          <div
+            className="absolute right-0 top-0 h-screen w-80 bg-black"
+            ref={modalRef}>
             <div className="flex flex-col items-center gap-2 pt-20 text-sm text-black">
               <MobileButton
                 title="Home"

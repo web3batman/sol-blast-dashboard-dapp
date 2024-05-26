@@ -22,7 +22,7 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { loading, walletModalOpen, setWalletModalOpen, isLoggedIn } = useApp();
+  const { loading, walletModalOpen, setWalletModalOpen, isContinue } = useApp();
   const { open } = useEthWalletModal();
   const { setVisible } = useSolWalletModal();
   const { address: etherAddress } = useEtherAccount();
@@ -50,7 +50,7 @@ export default function Layout({
   return (
     <SessionProvider>
       {/* <div className="relative h-full before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')] before:content-[''] max-lg:before:h-[inherit]"> */}
-      <div className={`relative h-full ${isLoggedIn ? 'z-[500]' : 'z-20'}`}>
+      <div className={`relative h-full ${isContinue ? 'z-[500]' : 'z-20'}`}>
         {walletModalOpen && (
           <div className="absolute z-50 flex h-full w-full items-center justify-center backdrop-blur-sm">
             <div
