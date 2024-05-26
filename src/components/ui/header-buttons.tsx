@@ -29,10 +29,10 @@ export const HeaderButtons = () => {
         onClick={() => router.push('/leaderboard')}
       />
 
-      <AirdropsButton
+      {/* <AirdropsButton
         isActive={activePath === '/airdrops'}
         onClick={() => router.push('/airdrops')}
-      />
+      /> */}
 
       <AboutButton
         isActive={activePath === '/about'}

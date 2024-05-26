@@ -27,7 +27,7 @@ const AirdropsMissionRow = ({
         </h5>
       </div>
       {completed ? (
-        <Button>Completed</Button>
+        <Button className="bg-yellow-500">Completed</Button>
       ) : (
         <Button onClick={onClick}>{buttonText}</Button>
       )}
