@@ -196,6 +196,9 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
           walletAddress: solanaAddress.toBase58(),
           invitCode: inputs.join('').toUpperCase(),
         });
+      } else {
+        setToken('');
+        setUserId('');
       }
     }
   }, [etherAddress, solanaAddress]);

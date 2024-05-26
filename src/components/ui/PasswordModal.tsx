@@ -20,6 +20,18 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
     setInputs(newInputs);
   };
 
+  const handlePaste = (e: any) => {
+    const text: string = e.clipboardData.getData('Text');
+    const newInputs = [...inputs];
+    newInputs[0] = text.charAt(0);
+    newInputs[1] = text.charAt(1);
+    newInputs[2] = text.charAt(2);
+    newInputs[3] = text.charAt(3);
+    newInputs[4] = text.charAt(4);
+    newInputs[5] = text.charAt(5);
+    setInputs(newInputs);
+  };
+
   const handleSubmit = () => {
     onPasswordSubmit(inputs.join('').toUpperCase());
   };
@@ -49,6 +61,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
                 maxLength={1}
                 value={value}
                 onChange={(e) => handleInput(e.target.value, index)}
+                onPaste={(e) => handlePaste(e)}
                 style={{
                   clipPath: 'polygon(0 0, 100% 0, 100% 100%, 31% 100%, 0 76%)',
                 }}
