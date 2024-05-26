@@ -34,13 +34,13 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           to start claiming rewards.
         </p>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform max-md:max-h-12"
+          className="absolute left-1/2 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
           src="/upper-layout-line.svg"
           alt="upper-layout-line"
           width={1000}
           height={79}
         />
-        <div className="mb-6 mt-24 flex w-full justify-center max-md:mt-12">
+        <div className="mb-6 mt-24 flex w-full justify-center max-md:mt-10">
           <div className="flex flex-wrap justify-center gap-4">
             {inputs.map((value, index) => (
               <input
@@ -82,7 +82,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           </div>
         </div>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform max-md:max-h-12"
+          className="absolute left-1/2 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
           src={'/lower-layout-line.svg'}
           alt=""
           width={1000}

@@ -13,6 +13,7 @@ import { clsx } from 'clsx';
 import MobileButton from '../shared/MobileButton';
 import { MobileSVGButton } from './icon/icons/TopMobileButton';
 import { BsTelegram, BsTwitterX } from 'react-icons/bs';
+import Image from 'next/image';
 
 export const HeaderButtons = () => {
   const [activePath, setActivePath] = useState<string>();
@@ -119,7 +120,12 @@ export const HeaderButtons = () => {
 
               <div className="mt-7 flex w-full items-center justify-around">
                 <BsTwitterX size={32} color="white" />
-                <BsTelegram size={32} color="white" />
+                <Image
+                  src="/icons/telegram_hamburger.svg"
+                  width={52}
+                  height={48}
+                  alt="side52 bar"
+                />
               </div>
             </div>
           </div>
