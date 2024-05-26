@@ -12,11 +12,14 @@ import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import BridgeModal from '@/components/ui/bridge-modal';
 import { API_URL } from '@/config/const';
 import Loading from '@/components/ui/Loading';
+import { useApp } from '@/context';
 
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 
 const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
+  const { setWalletModalOpen } = useApp();
+
   const [inputs, setInputs] = useState(Array(6).fill(''));
 
   const handleInput = (char: string, index: number) => {
@@ -88,25 +91,26 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           src={'/lower-layout-line.svg'}
           alt=""
           width={1000}
-          height={79}></Image>
-
+          height={79}
+        />
         <div className="flex justify-center">
           <button
-            className="mt-16 items-center"
-            onClick={handleSubmit}
-            style={{
-              width: '360px',
-              height: '120px',
-              padding: 0,
-              border: 'none',
-              background: 'none',
-            }}>
+            className="mt-10 h-[120px] w-[360px] items-center border-none bg-none p-0"
+            onClick={handleSubmit}>
             <Image
               src={'/home-page-button.svg'}
               alt="home-page-button"
               width={360}
               height={1000}
             />
+          </button>
+        </div>
+        <div className="mt-4">
+          <p className="text-[#fffdbf80]">Already registered?</p>
+          <button
+            className="text-[#fffdbf]"
+            onClick={() => setWalletModalOpen(true)}>
+            Log in with your wallet
           </button>
         </div>
       </div>
@@ -199,8 +203,8 @@ const RewardsPage = () => {
                 40.625
               </h5>
               <Image
-                src="/icons/solana.svg"
                 alt="bridge"
+                src="/icons/solana.svg"
                 width={20}
                 height={32}
               />

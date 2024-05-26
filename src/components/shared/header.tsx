@@ -1,8 +1,10 @@
-import React from 'react';
+'use client';
+
+import Image from 'next/image';
+
 import logo from '../../../public/logo.png';
 import headerLine from '../../../public/headerline.svg';
 import headerSmallText from '../../../public/header-small-text.svg';
-import Image from 'next/image';
 import { HeaderButtons } from '../ui/header-buttons';
 
 const Header = () => {

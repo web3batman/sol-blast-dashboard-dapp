@@ -11,7 +11,11 @@ import Sidelines from '@/components/ui/sidelines';
 import Header from '@/components/shared/header';
 import Footer from '@/components/shared/footer';
 import { config } from '@/config/wagmi';
-import { EthereumWalletProvider, SolanaWalletProvider } from '@/context';
+import {
+  AppProvider,
+  EthereumWalletProvider,
+  SolanaWalletProvider,
+} from '@/context';
 
 const orbitron = Orbitron({ subsets: ['latin'] });
 
@@ -50,7 +54,9 @@ export default function RootLayout({
         </div>
         <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
           <EthereumWalletProvider initialState={initialState}>
-            <SolanaWalletProvider>{children}</SolanaWalletProvider>
+            <SolanaWalletProvider>
+              <AppProvider>{children}</AppProvider>
+            </SolanaWalletProvider>
           </EthereumWalletProvider>
         </div>
         <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform">
