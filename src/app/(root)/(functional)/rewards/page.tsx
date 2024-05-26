@@ -21,6 +21,7 @@ import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
 
 import { Tooltip } from 'react-tooltip';
 import RewardModal from '@/components/ui/reward-modal';
+import { IoMdInformationCircleOutline } from 'react-icons/io';
 
 const RewardsPage = () => {
   const searchParams = useSearchParams();
@@ -262,9 +263,13 @@ const RewardsPage = () => {
             <Tooltip
               anchorSelect=".bridge-tooltip"
               place="top"
-              className="relative z-50 max-w-80">
-              <h4 className="text-base text-whiteyellow">
-                NOTE: DEPOSITS ARE IRREVERSIBLE AND ETH, SOL, USDC WILL NOT BE
+              className="relative z-50 max-w-72">
+              <h4 className="inline-block text-xs tracking-wide text-whiteyellow">
+                <IoMdInformationCircleOutline
+                  size={20}
+                  className="inline-block"
+                />{' '}
+                DEPOSITS ARE IRREVERSIBLE AND ETH, SOL, USDC WILL NOT BE
                 RETURNED. RECEIPT TOKEN WILL BE ISSUED AS $L2 TOKEN
               </h4>
             </Tooltip>
