@@ -64,7 +64,7 @@ const RewardsPage = () => {
           setIsLoggedIn(true);
           // setHasAccess(true);
         } else {
-          toast.error('Invalid invite code. Try another.');
+          toast.error('Invalid invite code, please try another.');
           // setHasAccess(false);
         }
       } catch (e) {
@@ -91,9 +91,14 @@ const RewardsPage = () => {
     const result = await api
       .get(`/users/twitter-oauth2-callback?state=${state}&code=${code}`)
       .then((res) => res.data);
+
     if (result.ok) {
       // setIsContinue(true);
       handleGetUserProfile();
+    } else {
+      toast.error(
+        'This twitter account is already associated to another wallet, please use a different one.',
+      );
     }
   };
 
@@ -262,7 +267,8 @@ const RewardsPage = () => {
             <>
               <button
                 onClick={openModal}
-                className="bridge-tooltip relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+                className="bridge-tooltip relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85"
+              >
                 <BridgeButton width={160} height={45} />
                 <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
                   BRIDGE MORE
@@ -271,7 +277,8 @@ const RewardsPage = () => {
               <Tooltip
                 anchorSelect=".bridge-tooltip"
                 place="top"
-                className="relative z-50 max-w-[300px]">
+                className="relative z-50 max-w-[300px]"
+              >
                 <h4 className="inline-block text-xs leading-5 tracking-wide text-whiteyellow">
                   {/* <IoMdInformationCircleOutline
                     size={20}
@@ -341,7 +348,8 @@ const RewardsPage = () => {
             <div className="absolute bottom-5 right-5">
               <button
                 className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85"
-                onClick={handleLogout}>
+                onClick={handleLogout}
+              >
                 <BridgeButton width={120} height={40} />
                 <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
                   LOGOUT
@@ -365,7 +373,8 @@ const RewardsPage = () => {
             </div>
             <Link
               href="https://twitter.com/intent/tweet?text=Hello%20world"
-              className="flex items-center justify-center transition-all hover:opacity-85">
+              className="flex items-center justify-center transition-all hover:opacity-85"
+            >
               <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
                 <BridgeButton width={130} height={40} />
                 <div className="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-around">
