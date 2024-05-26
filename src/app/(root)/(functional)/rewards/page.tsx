@@ -19,9 +19,7 @@ import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 
 const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
-  const { setWalletModalOpen } = useApp();
-
-  const [inputs, setInputs] = useState(Array(6).fill(''));
+  const { setWalletModalOpen, inputs, setInputs } = useApp();
 
   const handleInput = (char: string, index: number) => {
     const newInputs = [...inputs];

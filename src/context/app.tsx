@@ -22,6 +22,8 @@ export interface IApp {
   token: string;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  inputs: string[];
+  setInputs: React.Dispatch<React.SetStateAction<string[]>>;
   walletModalOpen: boolean;
   setWalletModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   solanaWalletModalOpen: boolean;
@@ -37,6 +39,8 @@ export const AppContext = createContext<IApp>({
   token: '',
   loading: false,
   setLoading: () => {},
+  inputs: [''],
+  setInputs: () => {},
   walletModalOpen: false,
   setWalletModalOpen: () => {},
   solanaWalletModalOpen: false,
@@ -56,6 +60,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useLocalStorage<string>('token', '');
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [walletModalOpen, setWalletModalOpen] = useState<boolean>(false);
   const [solanaWalletModalOpen, setSolanaWalletModalOpen] =
     useState<boolean>(false);
@@ -63,7 +68,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const handleSign = useCallback(
-    async (invitCode?: string) => {
+    async (invitCode: string) => {
       const verifyMsg = `The quick brown fox jumps over the lazy dog`;
       if (etherAddress) {
         signMessageAsync({ message: verifyMsg })
@@ -103,7 +108,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   );
 
   useEffect(() => {
-    handleSign();
+    handleSign(inputs.join('').toUpperCase());
   }, [etherAddress, solanaAddress]);
 
   useLayoutEffect(() => {
@@ -121,6 +126,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         token,
         loading,
         setLoading,
+        inputs,
+        setInputs,
         walletModalOpen,
         setWalletModalOpen,
         solanaWalletModalOpen,
