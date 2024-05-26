@@ -15,7 +15,7 @@ import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
-import { FaTwitter } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 const RewardsPage = () => {
   const searchParams = useSearchParams();
@@ -299,9 +299,11 @@ const RewardsPage = () => {
             href="https://twitter.com/intent/tweet?text=Hello%20world"
             className="flex items-center justify-center transition-all hover:opacity-85">
             <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
-              <BridgeButton width={160} height={40} />
+              <BridgeButton width={130} height={40} />
               <div className="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-around">
-                <FaTwitter size={24} color="black" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-black">
+                  <FaXTwitter size={20} color="white" />
+                </div>
                 <h5 className="chakra-petch text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-lg:text-base">
                   Post
                 </h5>

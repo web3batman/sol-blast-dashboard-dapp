@@ -34,13 +34,13 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           to start claiming rewards.
         </p>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform"
+          className="absolute left-1/2 -translate-x-1/2 transform max-md:max-h-12"
           src="/upper-layout-line.svg"
           alt="upper-layout-line"
           width={1000}
           height={79}
         />
-        <div className="mb-6 mt-24 flex w-full justify-center">
+        <div className="mb-6 mt-24 flex w-full justify-center max-md:mt-12">
           <div className="flex flex-wrap justify-center gap-4">
             {inputs.map((value, index) => (
               <input
@@ -82,7 +82,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           </div>
         </div>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform"
+          className="absolute left-1/2 -translate-x-1/2 transform max-md:max-h-12"
           src={'/lower-layout-line.svg'}
           alt=""
           width={1000}
@@ -90,28 +90,28 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
         />
         <div className="flex justify-center">
           <button
-            className="mt-[clamp(1.6vw,6vh,3vw)] h-[64px] max-w-[340px] items-center border-none bg-none p-0"
+            className="mt-[clamp(1.6vw,6vh,3vw)] h-[64px] max-w-[340px] items-center border-none bg-none p-0 max-md:max-w-[300px]"
             onClick={handleSubmit}>
-            <svg width={330} height={64} viewBox="0 0 330 64">
-              <path d="M0 0H340V64H16l-16 -16Z" fill="hsla(58, 100%, 49%, 1)" />
+            <svg width={270} height={48} viewBox="0 0 270 48">
+              <path d="M0 0H270V48H16l-16 -16Z" fill="hsla(58, 100%, 49%, 1)" />
               <text
-                x="40"
-                y="36"
+                x="30"
+                y="30"
                 fill="black"
-                fontSize="16px"
+                fontSize="14px"
                 fontWeight="600"
                 letterSpacing="3.2px"
                 className={`${orbitron.className}`}>
                 ENTER NOW
               </text>
-              <path d="M288 25l10 10Z" strokeWidth={2} stroke="black" />
-              <path d="M298 35l-10 10Z" strokeWidth={2} stroke="black" />
-              <path d="M278 35h20Z" strokeWidth={2} stroke="black" />
-              <path d="M280 58h2Z" strokeWidth={8} stroke="white" />
-              <path d="M282 58h38Z" strokeWidth={8} stroke="black" />
+              <path d="M238 17l10 10Z" strokeWidth={2} stroke="black" />
+              <path d="M248 27l-10 10Z" strokeWidth={2} stroke="black" />
+              <path d="M228 27h20Z" strokeWidth={2} stroke="black" />
+              <path d="M210 52h2Z" strokeWidth={8} stroke="white" />
+              <path d="M212 52h38Z" strokeWidth={8} stroke="black" />
               <text
-                x="290"
-                y="60"
+                x="220"
+                y="56"
                 fill="hsla(58, 100%, 49%, 1)"
                 fontSize="6px"
                 fontWeight="400"

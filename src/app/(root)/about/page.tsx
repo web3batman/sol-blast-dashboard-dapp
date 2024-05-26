@@ -46,7 +46,7 @@ const Page = () => {
         </div>
       </div>
       <div className="mt-4 px-6">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-5">
           <Image
             alt="l2-table"
             src="/l2-table.png"
