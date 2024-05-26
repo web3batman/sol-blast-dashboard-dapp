@@ -155,7 +155,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       console.error(e);
     } finally {
       // setLoading(false);
-      setTxLoading(true);
+      setTxLoading(false);
     }
   };
 
