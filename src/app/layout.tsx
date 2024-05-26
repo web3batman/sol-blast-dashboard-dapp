@@ -3,6 +3,9 @@ import { Orbitron } from 'next/font/google';
 import { Chakra_Petch } from 'next/font/google';
 import { Tomorrow } from 'next/font/google';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import './globals.css';
 import Sidelines from '@/components/ui/sidelines';
 import Header from '@/components/shared/header';
@@ -39,6 +42,7 @@ export default function RootLayout({
         <div className="m-[1vw] mb-0">
           <Sidelines />
           <Header />
+          <ToastContainer />
         </div>
         <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
           {children}

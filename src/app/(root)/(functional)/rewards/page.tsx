@@ -1,12 +1,20 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 import RectangleButton from '@/components/ui/RectangleButton';
-import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import BridgeModal from '@/components/ui/bridge-modal';
+import { API_URL } from '@/config/const';
+
+import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
+import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
+import Loading from '@/components/ui/Loading';
 
 const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   const [inputs, setInputs] = useState(Array(6).fill(''));
@@ -67,6 +75,8 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
                         previousInput.focus();
                       }
                     }
+                  } else if (e.key === 'Enter') {
+                    handleSubmit();
                   }
                 }}
               />
@@ -95,7 +105,8 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
               src={'/home-page-button.svg'}
               alt="home-page-button"
               width={360}
-              height={1000}></Image>
+              height={1000}
+            />
           </button>
         </div>
       </div>
@@ -104,13 +115,33 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
 };
 
 const RewardsPage = () => {
+  const router = useRouter();
+
   const [hasAccess, setHasAccess] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState(false);
   const modalRef = useRef(null); // Ref for the modal element
 
-  const handlePasswordSubmit = (password: any) => {
+  const handlePasswordSubmit = async (password: string) => {
     if (password) {
-      setHasAccess(true);
+      try {
+        setLoading(true);
+        const res = await axios
+          .get(`${API_URL}/v1/invitation-codes/${password.toUpperCase()}/valid`)
+          .then((r) => r.data);
+        console.log({ res });
+        if (res) {
+          router.push('/airdrops');
+          setHasAccess(true);
+        } else {
+          toast.error('Invalid invite code. Try another.');
+          setHasAccess(false);
+        }
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -140,6 +171,10 @@ const RewardsPage = () => {
   const openModal = () => {
     setIsBridgeModalOpen(true);
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   if (!hasAccess) {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
