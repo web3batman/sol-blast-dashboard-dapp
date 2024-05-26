@@ -30,7 +30,7 @@ const RewardModal = ({ closeModal }: { closeModal: any }) => {
               Invite your Exit Liquidity
             </h4>
             <div className="rounded-md bg-[#151910] p-3 backdrop-blur-[2px] max-sm:py-0">
-              <h4 className="relative mt-8 pb-5 text-left text-2xl font-bold capitalize leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-xl max-lg:text-lg max-sm:mt-0 max-sm:pb-2 max-sm:pt-1 max-sm:text-center">
+              <h4 className="relative mt-8 pb-5 text-center text-2xl font-bold capitalize leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-xl max-lg:text-lg max-sm:mt-0 max-sm:pb-2 max-sm:pt-1">
                 We Make Farming your friends fun
               </h4>
               <h4 className="text-center max-sm:text-xs">
