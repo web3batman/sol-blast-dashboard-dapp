@@ -471,8 +471,9 @@ const RewardsPage = () => {
             </h3>
             <div className="custom-scrollbar flex h-[165px] flex-col gap-4 overflow-y-scroll pr-3 2xl:h-[380px]">
               {records.length > 0 &&
-                records.map(() => (
+                records.map((r, i) => (
                   <ReferralLinkRow
+                    key={i}
                     imageUrl="/elipse-placeholder.png"
                     title="Invite Available"
                     link="l2.link.com/2321"

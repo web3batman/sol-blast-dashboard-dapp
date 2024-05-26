@@ -19,10 +19,10 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   };
 
   const handleConfirm = async () => {
-    const response = await api
+    const encodedTx = await api
       .post(`/deposits/solana`, { amount: depsoitedAmount })
       .then((r) => r.data);
-    console.log({ response });
+    console.log({ encodedTx });
   };
 
   useEffect(() => {
