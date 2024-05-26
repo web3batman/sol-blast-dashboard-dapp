@@ -34,7 +34,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   return (
     <div className="inset-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-75">
       <div className=" justify-center bg-black py-5 text-center 2xl:py-16">
-        <h2 className=" text-center text-[28px] font-semibold text-whiteyellow">
+        <h2 className="text-center text-[28px] font-semibold text-whiteyellow">
           ENTER YOUR CODE
         </h2>
         <p className="mx-auto w-3/4 pt-8 text-center text-[20px] text-whiteyellow text-opacity-50">{`PROCEED WITH CAUTION, WE DON'T KNOW WHAT'S ON THE OTHER SIDE.`}</p>
@@ -135,7 +135,7 @@ const RewardsPage = () => {
   } = useApp();
 
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
-  const [isContinue, setIsContinue] = useState<boolean>(true);
+  const [isContinue, setIsContinue] = useState<boolean>(false);
   const modalRef = useRef(null); // Ref for the modal element
 
   const handlePasswordSubmit = async (password: string) => {

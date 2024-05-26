@@ -18,6 +18,7 @@ import bs58 from 'bs58';
 import { API_URL } from '@/config/const';
 import { IUser, initUser } from '@/config/types';
 import api from '@/service/api';
+import { useOnceEffect } from '@/hook/useOnceEffect';
 
 export interface IApp {
   token: string;
@@ -117,6 +118,26 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     [etherAddress, solanaAddress],
   );
 
+  const handleGetUserProfile = async (userId: string) => {
+    const auth = await api.get(`/users/${userId}`);
+    if (auth.status === 200) {
+      setUser(auth.data);
+      setIsLoggedIn(true);
+      setHasAccess(true);
+      const invitationCodes = await api
+        .get(`/invitation_codes`, {
+          params: {
+            page: 1,
+            limit: 20,
+          },
+        })
+        .then((res) => res.data);
+      console.log({ invitationCodes });
+    } else if (auth.status === 401) {
+      console.log('unauthorized!!!');
+    }
+  };
+
   useEffect(() => {
     handleSign(inputs.join('').toUpperCase());
   }, [etherAddress, solanaAddress]);
@@ -129,6 +150,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       // handleSignUp(account.address);
     }
   }, [token]);
+
+  useOnceEffect(() => {
+    if (userId) handleGetUserProfile(userId);
+  }, [userId]);
 
   return (
     <AppContext.Provider
