@@ -11,10 +11,10 @@ import RectangleButton from '@/components/ui/RectangleButton';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import BridgeModal from '@/components/ui/bridge-modal';
 import { API_URL } from '@/config/const';
+import Loading from '@/components/ui/Loading';
 
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
-import Loading from '@/components/ui/Loading';
 
 const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   const [inputs, setInputs] = useState(Array(6).fill(''));
