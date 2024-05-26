@@ -124,7 +124,10 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       }
       if (selectedCurrency === 'Sol' || selectedCurrency === 'Susdc') {
         const encodedTx = await api
-          .post(`/deposits/solana`, { amount: depositedAmount })
+          .post(`/deposits/solana`, {
+            amount: depositedAmount,
+            coin: selectedCurrency,
+          })
           .then((r) => r.data);
         console.log({ encodedTx });
         const transaction = Transaction.from(new Buffer(encodedTx, 'base64'));
