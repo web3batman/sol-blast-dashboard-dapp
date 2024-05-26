@@ -21,6 +21,7 @@ import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
+import associateAddressButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 
 const RewardsPage = () => {
@@ -308,10 +309,18 @@ const RewardsPage = () => {
           </div>
           <>
             <button
-              onClick={openModal}
+              onClick={
+                user.solana_address && user.ethereum_address
+                  ? openModal
+                  : handleSetAssociateAddress
+              }
               className="transition-all hover:opacity-85 2xl:pt-6">
               <Image
-                src={bridgeMoreButton}
+                src={
+                  user.ethereum_address && user.solana_address
+                    ? bridgeMoreButton
+                    : associateAddressButton
+                }
                 alt="home-page-button"
                 width={150}
                 height={50}
