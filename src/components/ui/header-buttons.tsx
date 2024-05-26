@@ -50,7 +50,7 @@ export const HeaderButtons = () => {
       </div>
       <div className="flex lg:hidden">
         <div
-          className="relative z-[999] cursor-pointer"
+          className="relative z-[499] cursor-pointer"
           onClick={() => setActiveToggle(!activeToggle)}>
           <MobileSVGButton
             width={50}

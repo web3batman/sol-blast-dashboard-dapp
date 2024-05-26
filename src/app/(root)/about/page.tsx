@@ -129,18 +129,7 @@ const Page = () => {
         </div>
         <div className="flex flex-row items-start justify-between max-lg:flex-col max-lg:items-center max-lg:gap-8">
           <div className="flex w-[47%] flex-col gap-16 max-lg:w-[65%] max-md:w-[80%] max-sm:w-[95%]">
-            <p className="tomorrow text-left text-[16px] font-medium uppercase">
-              L2 emerges as an innovative solution, ingeniously incorporating
-              characteristics that have long been the hallmark of some of the
-              most efficient blockchains in the space. At its core, L2 deploys a
-              unique consensus mechanism called proof-of-history, ensuring
-              transactions are not just secure, but processed with unprecedented
-              speed. This approach allows for the handling of tens of thousands
-              of transactions per second, a feat that dramatically elevates
-              Ethereum’s throughput to new heights, addressing one of its most
-              critical bottlenecks.
-            </p>
-            <div className="flex w-full flex-col items-center justify-center gap-5 max-lg:hidden">
+            <div className="mt-6 flex w-full flex-col items-center justify-center gap-5 max-lg:hidden">
               <div className="flex w-full items-center justify-center gap-5">
                 <Image
                   src="/icons/facebook.svg"
@@ -212,6 +201,17 @@ const Page = () => {
             <Image src="/progress.svg" alt="l2-table" fill />
           </div>
           <div className="flex w-[47%] flex-col gap-16 max-lg:w-[65%] max-md:w-[80%] max-sm:w-[95%]">
+            <p className="tomorrow text-left text-[16px] font-medium uppercase">
+              L2 emerges as an innovative solution, ingeniously incorporating
+              characteristics that have long been the hallmark of some of the
+              most efficient blockchains in the space. At its core, L2 deploys a
+              unique consensus mechanism called proof-of-history, ensuring
+              transactions are not just secure, but processed with unprecedented
+              speed. This approach allows for the handling of tens of thousands
+              of transactions per second, a feat that dramatically elevates
+              Ethereum’s throughput to new heights, addressing one of its most
+              critical bottlenecks.
+            </p>
             <p className="tomorrow text-left text-[16px] font-medium uppercase ">
               Furthermore, L2 introduces a low-latency transaction environment
               that drastically reduces confirmation times, making it an
@@ -228,30 +228,6 @@ const Page = () => {
               at prestigious universities, and have worked on some of the
               largest protocols on the blockchain
             </p>
-            <div className="">
-              <h4 className="relative pb-5 text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow after:absolute after:bottom-0 after:left-0 after:h-2 after:w-full after:bg-[url('/dividers/rewards-page-right-top-divider.svg')] after:content-[''] max-2xl:text-2xl max-lg:text-xl">
-                Invite your Exit Liquidity
-              </h4>
-              <div className="ml-8 mt-6 rounded-md bg-[#151910] px-3 py-2 backdrop-blur-[2px] max-md:ml-0">
-                <h4 className="relative mt-8 pb-5 text-left text-2xl font-bold capitalize leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-xl max-lg:text-lg">
-                  We Make Farming your friends fun
-                </h4>
-
-                <h4>
-                  You get points when your invites earn points and when their
-                  invites earn points. You get +6% bonus points when your
-                  invites earn points. and +1% when their invites earn points.
-                  This is complex and rewarding rewards program.
-                </h4>
-                <Image
-                  src="/piramid.png"
-                  alt=""
-                  width={600}
-                  height={300}
-                  className="mt-4"
-                />
-              </div>
-            </div>
           </div>
         </div>
       </div>

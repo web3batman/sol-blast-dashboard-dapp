@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -20,6 +20,7 @@ import api from '@/service/api';
 import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
 
 import { Tooltip } from 'react-tooltip';
+import RewardModal from '@/components/ui/reward-modal';
 
 const RewardsPage = () => {
   const searchParams = useSearchParams();
@@ -149,52 +150,65 @@ const RewardsPage = () => {
     setIsBridgeModalOpen(true);
   };
 
+  const [active, setActive] = useState<boolean>(isLoggedIn);
+
+  const closeViewModal = () => {
+    setActive(false);
+  };
+
+  useEffect(() => {
+    setActive(isLoggedIn);
+  }, [isLoggedIn]);
+
   if (isLoggedIn) {
     return (
-      <div className="flex h-[inherit] flex-col gap-6 overflow-hidden px-10 pt-7 max-sm:px-7">
-        <div className="flex flex-col">
-          <h5 className="text-left text-[12px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[18px] max-xl:text-base max-sm:text-xs">
-            YOU ARE ALMOST THERE
-          </h5>
-          <h1 className="text-left text-[28px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-xl:text-3xl max-md:text-2xl max-sm:text-lg">
-            To join early access:
-          </h1>
-        </div>
-        <div className="flex items-center justify-between gap-10">
-          <div className="flex flex-grow flex-col gap-7">
-            <AirdropsMissionRow
-              number={1}
-              completed={!!token}
-              title="Connect your wallet"
-              buttonText="Connect Wallet"
-              onClick={() => {
-                setWalletModalOpen(true);
-              }}
-            />
-            <AirdropsMissionRow
-              number={2}
-              completed={!!hasAccess}
-              title="Follow us on Twitter"
-              buttonText={'Follow Twitter'}
-              onClick={handleTwitterSign}
-            />
-            {hasAccess && (
-              <AirdropsMissionRow
-                completed={false}
-                buttonText={'Continue'}
-                onClick={handleContinue}
-              />
-            )}
+      <>
+        <div className="flex h-[inherit] flex-col gap-6 overflow-hidden px-10 pt-7 max-sm:px-7">
+          <div className="flex flex-col">
+            <h5 className="text-left text-[12px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[18px] max-xl:text-base max-sm:text-xs">
+              YOU ARE ALMOST THERE
+            </h5>
+            <h1 className="text-left text-[28px] font-bold tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-xl:text-3xl max-md:text-2xl max-sm:text-lg">
+              To join early access:
+            </h1>
           </div>
-          <Image
-            src="/world-bg.png"
-            alt=""
-            width={500}
-            height={500}
-            className="max-lg:hidden"
-          />
+          <div className="flex items-center justify-between gap-10">
+            <div className="flex flex-grow flex-col gap-7">
+              <AirdropsMissionRow
+                number={1}
+                completed={!!token}
+                title="Connect your wallet"
+                buttonText="Connect Wallet"
+                onClick={() => {
+                  setWalletModalOpen(true);
+                }}
+              />
+              <AirdropsMissionRow
+                number={2}
+                completed={!!hasAccess}
+                title="Follow us on Twitter"
+                buttonText={'Follow Twitter'}
+                onClick={handleTwitterSign}
+              />
+              {hasAccess && (
+                <AirdropsMissionRow
+                  completed={false}
+                  buttonText={'Continue'}
+                  onClick={handleContinue}
+                />
+              )}
+            </div>
+            <Image
+              src="/world-bg.png"
+              alt=""
+              width={500}
+              height={500}
+              className="max-lg:hidden"
+            />
+          </div>
         </div>
-      </div>
+        {active && <RewardModal closeModal={closeViewModal} />}
+      </>
     );
   } else if (!isContinue) {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
