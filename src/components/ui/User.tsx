@@ -7,7 +7,7 @@ interface UserProps {
 
 const User = ({ text }: UserProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col items-center gap-1">
       <Image
         src="/user.png"
         width={77}
@@ -15,7 +15,7 @@ const User = ({ text }: UserProps) => {
         alt="user"
         className="cursor-pointer rounded-full opacity-70 transition-all hover:opacity-100"
       />
-      <span className="text-left text-[10px] font-medium leading-[12.54px] tracking-[0.08em]">
+      <span className="text-[10px] font-medium leading-[12.54px] tracking-[0.08em]">
         {text}
       </span>
     </div>

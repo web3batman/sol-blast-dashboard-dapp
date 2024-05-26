@@ -9,7 +9,7 @@ import { getMonthLabel, shortenAddress } from '@/util';
 
 const HistoryTab = ({ data }: { data: IDepositTx[] }) => {
   return (
-    <div className="flex h-[504px] w-[562px] flex-col space-y-4 max-md:h-[470px] max-md:w-[400px] max-sm:h-[400px] max-sm:w-[300px]">
+    <div className="flex h-[504px] w-[562px] flex-col space-y-4 overflow-y-auto max-md:h-[470px] max-md:w-[400px] max-sm:h-[400px] max-sm:w-[300px]">
       {data.length > 0 &&
         data.map((item, index) => (
           <div

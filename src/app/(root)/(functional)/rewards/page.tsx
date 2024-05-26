@@ -19,6 +19,8 @@ import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
 
+import { Tooltip } from 'react-tooltip';
+
 const RewardsPage = () => {
   const searchParams = useSearchParams();
   const {
@@ -206,13 +208,17 @@ const RewardsPage = () => {
           <div className="flex w-full flex-col gap-4 max-lg:flex-row max-lg:justify-center">
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                {user.eth_deposited}
+                {user.eth_deposited.toString().includes('.')
+                  ? user.eth_deposited.toFixed(3)
+                  : user.eth_deposited}
               </h5>
               <Image src="/icons/eth.svg" alt="bridge" width={20} height={32} />
             </div>
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                {user.sol_deposited}
+                {user.sol_deposited.toString().includes('.')
+                  ? user.sol_deposited.toFixed(3)
+                  : user.sol_deposited}
               </h5>
               <Image
                 alt="bridge"
@@ -223,7 +229,9 @@ const RewardsPage = () => {
             </div>
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-[clamp(0.5vw,3.5vh,1.5vw)] font-medium leading-[clamp(0.5vw,3.5vh,1.5vw)] tracking-[0.08em] max-md:text-base">
-                {user.usdc_deposited}
+                {user.usdc_deposited.toString().includes('.')
+                  ? user.usdc_deposited.toFixed(3)
+                  : user.usdc_deposited}
               </h5>
               <Image src="/icons/usd.svg" alt="bridge" width={20} height={32} />
             </div>
@@ -231,12 +239,21 @@ const RewardsPage = () => {
           <>
             <button
               onClick={openModal}
-              className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+              className="bridge-tooltip relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
               <BridgeButton width={160} height={45} />
               <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
                 BRIDGE MORE
               </h5>
             </button>
+            <Tooltip
+              anchorSelect=".bridge-tooltip"
+              place="top"
+              className="relative z-50 max-w-80">
+              <h4 className="text-base text-whiteyellow">
+                NOTE: DEPOSITS ARE IRREVERSIBLE AND ETH, SOL, USDC WILL NOT BE
+                RETURNED. RECEIPT TOKEN WILL BE ISSUED AS $L2 TOKEN
+              </h4>
+            </Tooltip>
             {isBridgeModalOpen && <BridgeModal closeModal={closeModal} />}
           </>
         </div>
@@ -353,7 +370,7 @@ const RewardsPage = () => {
         <div className="relative h-full overflow-x-auto py-6 [grid-area:link] before:absolute before:top-0 before:h-2 before:w-full before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] before:bg-cover before:bg-no-repeat before:content-[''] max-lg:overflow-x-clip">
           <div className="flex h-full w-full flex-col gap-3">
             <h3 className="text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-2xl max-lg:text-xl">
-              referral Links
+              Invite your exit liquidity
             </h3>
             <div className="custom-scrollbar flex flex-col gap-4 overflow-y-scroll pr-3 max-lg:max-h-56">
               {records.length > 0 &&

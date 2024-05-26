@@ -29,8 +29,8 @@ const Page = () => {
                 Wanted
               </h3>
               <p className="tomorrow uppercase text-whiteyellow">
-                The only eth l2 that actually works and <br /> doesn’t farm it’s
-                users.
+                The only L2 that is actually fast, cheap, decentralized and{' '}
+                <br /> doesn’t farm it’s users.
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="mt-16 flex flex-col gap-10 px-6 text-grey">
+      <div className="mt-16 flex flex-col gap-10 px-6 text-grey max-sm:px-2">
         <div className="flex flex-col gap-5">
           <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow max-md:text-3xl max-sm:text-xl">
             WHY A nEw l2
@@ -128,7 +128,7 @@ const Page = () => {
           </p>
         </div>
         <div className="flex flex-row items-start justify-between max-lg:flex-col max-lg:items-center max-lg:gap-8">
-          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%]">
+          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%] max-sm:w-[95%]">
             <p className="tomorrow text-left text-[16px] font-medium uppercase">
               L2 emerges as an innovative solution, ingeniously incorporating
               characteristics that have long been the hallmark of some of the
@@ -149,15 +149,30 @@ const Page = () => {
                   height={48}
                   className="w-full max-w-[248px] max-2xl:max-w-[200px] max-xl:max-w-[170px]"
                 />
+              </div>
+              <div className="flex items-center gap-5 max-2xl:flex-col max-2xl:gap-8">
                 <Image
-                  src="/icons/yahoo.svg"
+                  src="/icons/luna.png"
                   alt="panel"
-                  width={308}
-                  height={59}
-                  className="w-full max-w-[308px] max-2xl:max-w-[280px] max-xl:max-w-[230px]"
+                  width={160}
+                  height={61}
+                />
+                <Image
+                  src="/icons/eth.png"
+                  alt="panel"
+                  width={220}
+                  height={80}
+                  className="h-full w-full max-2xl:max-h-[110px] max-2xl:max-w-[300px]"
+                />
+                <Image
+                  src="/icons/ftx.png"
+                  alt="panel"
+                  width={180}
+                  height={80}
+                  className="h-full w-full max-2xl:max-h-[110px] max-2xl:max-w-[300px]"
                 />
               </div>
-              <div className="flex items-center gap-5">
+              <div className="flex items-center gap-5 max-xl:flex-col">
                 <Image
                   src="/icons/tesla.svg"
                   alt="panel"
@@ -165,36 +180,38 @@ const Page = () => {
                   height={61}
                 />
                 <Image
-                  src="/icons/facebook.svg"
+                  src="/icons/google.svg"
                   alt="panel"
-                  width={199}
-                  height={60}
+                  width={299}
+                  height={98}
                 />
               </div>
-              <Image
-                src="/icons/google.svg"
-                alt="panel"
-                width={299}
-                height={98}
-              />
-              <Image
-                src="/icons/time.svg"
-                alt="panel"
-                width={252}
-                height={75}
-              />
-              <Image
-                src="/icons/trophy.svg"
-                alt="panel"
-                width={200}
-                height={194}
-              />
+              <div className="flex items-center gap-5 max-xl:flex-col">
+                <Image
+                  src="/icons/waterloo.png"
+                  alt="panel"
+                  width={200}
+                  height={194}
+                />
+                <Image
+                  src="/icons/trophy.svg"
+                  alt="panel"
+                  width={200}
+                  height={194}
+                />
+                <Image
+                  src="/icons/hongkong.png"
+                  alt="panel"
+                  width={200}
+                  height={194}
+                />
+              </div>
             </div>
           </div>
           <div className="relative h-screen w-[34px] max-lg:hidden 2xl:h-[85vh]">
             <Image src="/progress.svg" alt="l2-table" fill />
           </div>
-          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%]">
+          <div className="flex w-[47%] flex-col gap-16 max-md:w-[80%] max-sm:w-[95%]">
             <p className="tomorrow text-left text-[16px] font-medium uppercase ">
               Furthermore, L2 introduces a low-latency transaction environment
               that drastically reduces confirmation times, making it an
@@ -207,20 +224,27 @@ const Page = () => {
               limitations.
             </p>
             <p className="tomorrow text-left text-[16px] font-medium uppercase">
-              Our team members come from FAANG HARVARD, TIME, and have worked on
-              some of the largest protocols in Defi and web3, primarily on
-              ethereum but alo on other chains like solana as well.
+              Our team members come from top faang, blockchain research groups
+              at prestigious universities, and have worked on some of the
+              largest protocols on the blockchain
             </p>
-            <p className="tomorrow text-left text-[16px] font-medium uppercase">
-              Our team members come from FAANG HARVARD, TIME, and have worked on
-              some of the largest protocols in Defi and web3, primarily on
-              ethereum but alo on other chains like solana as well.
-            </p>
-            <p className="tomorrow text-left text-[16px] font-medium uppercase">
-              Our team members come from FAANG HARVARD, TIME, and have worked on
-              some of the largest protocols in Defi and web3, primarily on
-              ethereum but alo on other chains like solana as well.
-            </p>
+            <div className="">
+              <h4 className="relative pb-5 text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow after:absolute after:bottom-0 after:left-0 after:h-2 after:w-full after:bg-[url('/dividers/rewards-page-right-top-divider.svg')] after:content-[''] max-2xl:text-2xl max-lg:text-xl">
+                Invite your Exit Liquidity
+              </h4>
+              <div className="ml-8">
+                <h4 className="relative mt-8 pb-5 text-left text-2xl font-bold capitalize leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-xl max-lg:text-lg">
+                  We Make Farming your friends fun
+                </h4>
+
+                <h4>
+                  You get points when your invites earn points and when their
+                  invites earn points. You get +16% bonus points when your
+                  invites earn points. and +8% when their invites earn points.
+                  This is complex and rewarding rewards program.
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>

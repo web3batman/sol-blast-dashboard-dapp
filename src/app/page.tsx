@@ -80,12 +80,12 @@ export default function Home() {
                   @eBoyCapital
                 </h5>
                 <div className="grid grid-cols-3 gap-x-5 gap-y-7 max-sm:gap-3">
-                  <User text="@eBoyCapital" />
-                  <User text="@eBoyCapital" />
-                  <User text="@eBoyCapital" />
-                  <User text="@eBoyCapital" />
-                  <User text="@eBoyCapital" />
-                  <User text="@eBoyCapital" />
+                  <User text="Paradick" />
+                  <User text="Regular Crypto" />
+                  <User text="eBoy Capital" />
+                  <User text="Zoomer" />
+                  <User text="Random crypto punk" />
+                  <User text="Megaman" />
                 </div>
               </div>
             </div>
