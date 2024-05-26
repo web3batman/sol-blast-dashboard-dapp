@@ -46,7 +46,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
   const [activeTab, setActiveTab] = useState('deposit');
   const [selectedCurrency, setSelectedCurrency] = useState('Eth');
-  const [depsoitedAmount, setDepositedAmount] = useState<number>(0);
+  const [depositedAmount, setDepositedAmount] = useState<number>(0);
   const [pointAmount, setPointAmount] = useState<number>(0);
   const [txes, setTxes] = useState<IDepositTx[]>([]);
 
@@ -116,12 +116,12 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
     try {
       setTxLoading(true);
-      if (depsoitedAmount <= 0) {
+      if (depositedAmount <= 0) {
         return toast.error(`You must set the amount to deposit`);
       }
       if (selectedCurrency === 'Sol') {
         const encodedTx = await api
-          .post(`/deposits/solana`, { amount: depsoitedAmount })
+          .post(`/deposits/solana`, { amount: depositedAmount })
           .then((r) => r.data);
         console.log({ encodedTx });
         const transaction = Transaction.from(new Buffer(encodedTx, 'base64'));
@@ -142,7 +142,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       } else {
         const encodedTx = await api
           .post(`/deposits/ethereum`, {
-            amount: depsoitedAmount,
+            amount: depositedAmount,
             coin: selectedCurrency,
           })
           .then((r) => r.data);
@@ -153,7 +153,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
             abi: ERC20_ABI,
             address: USDC_ADDRESS,
             functionName: 'approve',
-            args: [encodedTx.to, BigInt(depsoitedAmount * 10 ** 6 * 1.05)],
+            args: [encodedTx.to, BigInt((depositedAmount + 10) * 10 ** 6)],
           });
         }
 
@@ -178,13 +178,13 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       .get(`/deposits/quote`, {
         params: {
           coin: selectedCurrency,
-          amount: depsoitedAmount,
+          amount: depositedAmount,
         },
       })
       .then((r) => r.data);
 
     setPointAmount(amount);
-  }, [selectedCurrency, depsoitedAmount]);
+  }, [selectedCurrency, depositedAmount]);
 
   const handleFetchTxs = useCallback(async () => {
     const newTxes = await api
@@ -198,7 +198,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
     console.log(newTxes);
     setTxes(newTxes.records);
-  }, [selectedCurrency, depsoitedAmount]);
+  }, [selectedCurrency, depositedAmount]);
 
   useOnceEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -218,7 +218,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
   useOnceEffect(() => {
     handleFetchPoint();
-  }, [selectedCurrency, depsoitedAmount]);
+  }, [selectedCurrency, depositedAmount]);
 
   useOnceEffect(() => {
     handleFetchTxs();
