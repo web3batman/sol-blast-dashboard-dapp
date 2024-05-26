@@ -45,6 +45,8 @@ export interface IApp {
   setUserPoints: React.Dispatch<React.SetStateAction<number>>;
   userRank: number;
   setUserRank: React.Dispatch<React.SetStateAction<number>>;
+  isBridgeModalOpen: boolean;
+  setIsBridgeModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AppContext = createContext<IApp>({
@@ -71,6 +73,8 @@ export const AppContext = createContext<IApp>({
   setUserPoints: () => {},
   userRank: 0,
   setUserRank: () => {},
+  isBridgeModalOpen: false,
+  setIsBridgeModalOpen: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
@@ -94,6 +98,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [userPoints, setUserPoints] = useState<number>(0);
   const [userRank, setUserRank] = useState<number>(0);
+  const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
 
   const handleMsgSign = async (signedOn: string) => {
     try {
@@ -195,6 +200,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setUserPoints,
         userRank,
         setUserRank,
+        isBridgeModalOpen,
+        setIsBridgeModalOpen,
       }}>
       {children}
     </AppContext.Provider>

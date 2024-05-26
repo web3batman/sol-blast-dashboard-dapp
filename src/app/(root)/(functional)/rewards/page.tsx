@@ -44,6 +44,8 @@ const RewardsPage = () => {
     userPoints,
     setUserPoints,
     setUserRank,
+    isBridgeModalOpen,
+    setIsBridgeModalOpen,
   } = useApp();
   const { setVisible: setSolanaWalletVisible } = useWalletModal();
   const { buttonState, onConnect } = useWalletMultiButton({
@@ -54,7 +56,6 @@ const RewardsPage = () => {
   const { publicKey: solanaAddress } = useWallet();
   const { address: etherAddress } = useEtherAccount();
 
-  const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
   const [isContinue, setIsContinue] = useState<boolean>(false);
   const [records, setRecords] = useState<any[]>([]);
 

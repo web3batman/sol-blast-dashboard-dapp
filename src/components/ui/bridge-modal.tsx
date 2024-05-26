@@ -2,17 +2,22 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import bs58 from 'bs58';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+import { usePrepareTransactionRequest } from 'wagmi';
 
 import HistoryTab from './history-tab';
 import api from '@/service/api';
 import { Transaction } from '@solana/web3.js';
+import { useApp } from '@/context';
 
 const BridgeModal = ({ closeModal }: { closeModal: any }) => {
+  const { setIsBridgeModalOpen } = useApp();
   const { signTransaction, sendTransaction } = useWallet();
+  const {} = usePrepareTransactionRequest();
   const { connection } = useConnection();
   const [activeTab, setActiveTab] = useState('deposit');
   const [selectedCurrency, setSelectedCurrency] = useState('Eth');
   const [depsoitedAmount, setDepositedAmount] = useState<number>(0);
+  const [pointAmount, setPointAmount] = useState<number>(0);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -25,31 +30,45 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   };
 
   const handleConfirm = async () => {
-    const encodedTx = await api
-      .post(`/deposits/solana`, { amount: depsoitedAmount })
-      .then((r) => r.data);
-    console.log({ encodedTx });
-    const transaction = Transaction.from(new Buffer(encodedTx, 'base64'));
-    console.log(transaction, '=====>');
-    console.log(await connection.simulateTransaction(transaction));
-
-    if (signTransaction) {
-      const sTx = await signTransaction(transaction!);
-      console.log(sTx);
-      const rawTx = connection.sendRawTransaction(sTx.serialize());
-      // await connection.confirmTransaction(rawTx);
-      // const res = await sendTransaction(sTx, connection);
-
-      const amount = await api
-        .get(`/deposits/quote`, {
-          params: {
-            coin: selectedCurrency,
-            amount: depsoitedAmount,
-          },
-        })
+    if (selectedCurrency === 'Sol') {
+      const encodedTx = await api
+        .post(`/deposits/solana`, { amount: depsoitedAmount })
         .then((r) => r.data);
+      console.log({ encodedTx });
+      const transaction = Transaction.from(new Buffer(encodedTx, 'base64'));
+      console.log(transaction, '=====>');
+      console.log(await connection.simulateTransaction(transaction));
 
-      console.log({ amount });
+      if (signTransaction) {
+        console.log(' ===> ');
+        const sTx = await signTransaction(transaction!);
+        console.log(sTx);
+        console.log(`https://solscan.io/tx/${sTx}`);
+
+        const rawTx = await connection.sendRawTransaction(sTx.serialize());
+
+        // await connection.confirmTransaction(rawTx);
+        const res = await sendTransaction(sTx, connection);
+        console.log({ rawTx });
+
+        const amount = await api
+          .get(`/deposits/quote`, {
+            params: {
+              coin: selectedCurrency,
+              amount: depsoitedAmount,
+            },
+          })
+          .then((r) => r.data);
+
+        console.log({ amount });
+        setPointAmount(amount);
+        setIsBridgeModalOpen(false);
+      }
+    } else {
+      const encodedTx = await api
+        .post(`/deposits/ethereum`, { amount: depsoitedAmount })
+        .then((r) => r.data);
+      console.log({ encodedTx });
     }
   };
 
