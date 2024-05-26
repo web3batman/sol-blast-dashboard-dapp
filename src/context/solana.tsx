@@ -19,7 +19,13 @@ export const SolanaWalletProvider = ({ children }: { children: ReactNode }) => {
   const network = WalletAdapterNetwork.Mainnet;
 
   // You can also provide a custom RPC endpoint
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+  const endpoint = useMemo(() => {
+    if (network === WalletAdapterNetwork.Mainnet) {
+      return 'https://fittest-ancient-moon.solana-mainnet.quiknode.pro/2d7663574bd86140ee3733b1df61ff6c32273116/';
+    }
+
+    return clusterApiUrl(network);
+  }, [network]);
 
   const wallets = useMemo(
     () => [new PhantomWalletAdapter(), new SolflareWalletAdapter()],
