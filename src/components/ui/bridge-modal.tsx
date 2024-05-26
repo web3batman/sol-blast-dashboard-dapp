@@ -53,7 +53,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const isSolSelectedAndNoSolAddress = useMemo(() => {
-    return (selectedCurrency === 'Sol'|| selectedCurrency === 'Susdc') && !user.solana_address;
+    return (selectedCurrency === 'Sol' || selectedCurrency === 'Susdc') && !user.solana_address;
   }, [selectedCurrency, user]);
 
   const isEthOrUsdcSelectedAndNoEthAddress = useMemo(() => {
@@ -112,10 +112,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
   const handleConfirm = async () => {
     if (selectedCurrency === 'Sol' && !solanaAddress) setVisible(true);
-    else if (selectedCurrency !== 'Sol' && !etherAddress) open();
-    toast.warning(
-      'This may take up to 5 minutes. Refresh to see updated amounts.',
-    );
+    else if (selectedCurrency !== 'Sol' && !etherAddress) open()
 
     try {
       setTxLoading(true);
@@ -169,8 +166,8 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           data: encodedTx.data,
         });
 
-        setIsBridgeModalOpen(false);
       }
+
     } catch (e: any) {
       console.error(e);
       toast.error(e);
@@ -232,11 +229,12 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   }, []);
 
   useOnceEffect(() => {
-    if (hash) {
+    if (isConfirmed) {
       console.log({ hash });
       toast.success(`Deposit successful`);
+      setIsBridgeModalOpen(false);
     }
-  }, [hash]);
+  }, [isConfirmed]);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a190681] backdrop-blur-[5px]">
@@ -314,14 +312,14 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                   className="mx-auto flex w-full items-center justify-center active:opacity-60"
                   onClick={
                     isSolSelectedAndNoSolAddress ||
-                    isEthOrUsdcSelectedAndNoEthAddress
+                      isEthOrUsdcSelectedAndNoEthAddress
                       ? handleSetAssociateAddress
                       : handleConfirm
                   }>
                   <Image
                     src={
                       isSolSelectedAndNoSolAddress ||
-                      isEthOrUsdcSelectedAndNoEthAddress
+                        isEthOrUsdcSelectedAndNoEthAddress
                         ? '/CONNECT_WALLET.svg'
                         : '/confirm-deposit.svg'
                     }
