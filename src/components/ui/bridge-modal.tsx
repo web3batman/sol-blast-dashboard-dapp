@@ -94,6 +94,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
     else if (selectedCurrency !== 'Sol' && !etherAddress) open();
 
     try {
+      if (depsoitedAmount <= 0) {
+        return toast.error(`You must set the amount to deposit`);
+      }
       if (selectedCurrency === 'Sol') {
         const encodedTx = await api
           .post(`/deposits/solana`, { amount: depsoitedAmount })
@@ -108,6 +111,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           const sTx = await signTransaction(transaction!);
 
           const rawTx = await connection.sendRawTransaction(sTx.serialize());
+          console.log(`https://explorer.solana.com/tx/${rawTx}?cluster=devnet`);
 
           const amount = await api
             .get(`/deposits/quote`, {
@@ -121,11 +125,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           setPointAmount(amount);
           setIsBridgeModalOpen(false);
 
-          console.log(`https://explorer.solana.com/tx/${rawTx}?cluster=devnet`);
-          toast.success(
-            `amount is ${amount}\r 
-          tx is ${rawTx}`,
-          );
+          toast.success(`Deposit successful`);
         }
       } else {
         const encodedTx = await api
@@ -152,6 +152,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
         setPointAmount(amount);
         setIsBridgeModalOpen(false);
+        toast.success(`Deposit successful`);
       }
     } catch (e) {
       console.error(e);

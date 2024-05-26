@@ -278,14 +278,6 @@ const RewardsPage = () => {
                         #{userRank}
                       </span>
                     </div>
-                    <div className="flex flex-col gap-3">
-                      <h3 className="text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
-                        Total Invites
-                      </h3>
-                      <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
-                        32
-                      </span>
-                    </div>
                   </div>
                   <div className="flex items-center justify-center">
                     <div className="flex flex-col gap-3">

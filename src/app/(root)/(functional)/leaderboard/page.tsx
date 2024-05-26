@@ -13,33 +13,6 @@ import { useOnceEffect } from '@/hook/useOnceEffect';
 const LeaderboardPage = () => {
   const [users, setUsers] = useState<IUserPoint[]>([]);
 
-  const exit_liquidity = [
-    {
-      profile_image: '/user.png',
-      name: '@GhostyTheDev',
-      amount: 'Paperhanded 10 SOL at $70',
-      time: '10 MINS AGO',
-    },
-    {
-      profile_image: '/user.png',
-      name: '@GhostyTheDev',
-      amount: 'Paperhanded 10 SOL at $70',
-      time: '10 MINS AGO',
-    },
-    {
-      profile_image: '/user.png',
-      name: '@GhostyTheDev',
-      amount: 'Paperhanded 10 SOL at $70',
-      time: '10 MINS AGO',
-    },
-    {
-      profile_image: '/user.png',
-      name: '@GhostyTheDev',
-      amount: 'Paperhanded 10 SOL at $70',
-      time: '10 MINS AGO',
-    },
-  ];
-
   const getPoints = async () => {
     console.log('calling getPoints...');
     const res = await axios
@@ -53,8 +26,8 @@ const LeaderboardPage = () => {
   }, []);
 
   return (
-    <main className="relative grid h-full w-full grid-cols-12 justify-between gap-8 ">
-      <div className="col-span-9 flex gap-2">
+    <main className="relative grid h-full w-full grid-cols-12 justify-between gap-8">
+      <div className="col-span-12 flex gap-2">
         <div className="w-full">
           <div className="flex w-full items-center justify-between gap-1 2xl:gap-10">
             <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px]">
@@ -102,7 +75,7 @@ const LeaderboardPage = () => {
           </div>
         </div>
       </div>
-      <div className="col-span-3 mt-10 flex gap-6">
+      {/* <div className="col-span-3 mt-10 flex gap-6">
         <Image className="h-[80%]" src={divider} alt="divider" />
 
         <div>
@@ -148,7 +121,7 @@ const LeaderboardPage = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
     </main>
   );
 };
