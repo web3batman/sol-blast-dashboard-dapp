@@ -49,7 +49,7 @@ export default function Home() {
           </div>
         </div>
         <div className="relative flex pl-8 pt-[clamp(2vw,10vh,4vw)] before:absolute before:bottom-[130px] before:left-0 before:right-0 before:top-0 before:bg-[url('/divider.svg')] before:bg-no-repeat before:content-[''] max-lg:hidden max-lg:justify-self-center max-lg:pb-10 max-lg:before:bg-none max-lg:before:pl-0 max-md:pt-0">
-          <div>
+          <div className="relative z-[5] mx-auto">
             <div className="flex flex-col gap-[clamp(0.5vw,4.5vh,1.5vw)]">
               <RectangleButton
                 text="STAY UP TO DATE"
@@ -57,35 +57,34 @@ export default function Home() {
                 textClassName="w-[230px] "
               />
               <div className="flex flex-col gap-[clamp(0.5vw,2.5vh,1.5vw)] text-whiteyellow text-opacity-60">
-                <h3 className="text-left text-[clamp(1vw,5vh,4vw)] font-medium leading-[clamp(1vw,5vh,4vw)] tracking-[0.08em] max-sm:text-3xl">
+                <h3 className="text-center text-[clamp(1vw,5vh,4vw)] font-medium leading-[clamp(1vw,5vh,4vw)] tracking-[0.08em] max-sm:text-3xl">
                   BACKED BY
                 </h3>
                 <div className="flex items-center justify-start gap-5">
-                  <h5 className="text-left text-[clamp(0.4vw,3vh,4vw)] font-medium leading-[clamp(0.4vw,3vh,4vw)] tracking-[0.08em] max-sm:text-xl">
-                    Paradigm
-                  </h5>
-                  <h5 className="text-left text-[clamp(0.4vw,3vh,4vw)] font-medium leading-[clamp(0.4vw,3vh,4vw)] tracking-[0.08em] max-sm:text-xl">
-                    Paradigm
-                  </h5>
+                  <Image
+                    src="/home/Paradick.png"
+                    alt="bg"
+                    className="m-auto"
+                    width={240}
+                    height={80}
+                  />
                 </div>
                 <div className="flex items-center justify-start gap-5">
-                  <h5 className="text-left text-[clamp(0.4vw,3vh,4vw)] font-medium leading-[clamp(0.4vw,3vh,4vw)] tracking-[0.08em] text-lightyellow max-sm:text-xl">
-                    Normal Crypto
-                  </h5>
-                  <h5 className="text-left text-[clamp(0.4vw,3vh,4vw)] font-medium leading-[clamp(0.4vw,3vh,4vw)] tracking-[0.08em] max-sm:text-xl">
-                    Ethereum
-                  </h5>
+                  <Image
+                    src="/home/name.png"
+                    alt="bg"
+                    className="m-auto"
+                    width={200}
+                    height={60}
+                  />
                 </div>
-                <h5 className="text-left text-[clamp(0.4vw,3vh,4vw)] font-medium leading-[clamp(0.4vw,3vh,4vw)] tracking-[0.08em] max-sm:text-xl">
-                  @eBoyCapital
-                </h5>
-                <div className="grid grid-cols-3 gap-x-5 gap-y-7 max-sm:gap-3">
-                  <User text="Paradick" />
-                  <User text="Regular Crypto" />
-                  <User text="eBoy Capital" />
-                  <User text="Zoomer" />
-                  <User text="Random crypto punk" />
-                  <User text="Megaman" />
+                <div className="grid grid-cols-2 gap-x-5 gap-y-7 max-sm:gap-3">
+                  <User text="eBoyCapital" img="Eboy.png" />
+                  <User text="Zoomer" img="Zoomer.jpg" />
+                  <User text="Pac-Man" img="Pacman.jpg" />
+                  <User text="Jeo Boden" img="Boden.png" />
+                  {/* <User text="Random crypto punk" />
+                  <User text="Megaman" /> */}
                 </div>
               </div>
             </div>

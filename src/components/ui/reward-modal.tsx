@@ -33,10 +33,9 @@ const RewardModal = ({ closeModal }: { closeModal: any }) => {
               <h4 className="relative mt-8 pb-5 text-left text-2xl font-bold capitalize leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-xl max-lg:text-lg">
                 We Make Farming your friends fun
               </h4>
-
               <h4>
                 You get points when your invites earn points and when their
-                invites earn points. You get +6% bonus points when your invites
+                invites earn points. You get +5% bonus points when your invites
                 earn points. and +1% when their invites earn points. This is
                 complex and rewarding rewards program. It is NOT a pyramid
                 scheme.
@@ -44,9 +43,9 @@ const RewardModal = ({ closeModal }: { closeModal: any }) => {
               <Image
                 src="/piramid.png"
                 alt=""
-                width={700}
-                height={300}
-                className="m-auto mt-4"
+                width={350}
+                height={500}
+                className="m-auto mt-4 max-sm:w-[250px]"
               />
             </div>
           </div>
