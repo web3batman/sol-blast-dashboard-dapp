@@ -85,29 +85,41 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       } else {
         if (user.ethereum_address) {
           const msg = await handleMsgSign('Sol');
-          await api
-            .post(`/users/${userId}/associate-address`, {
-              public_address: solanaAddress,
-              signed_message: msg,
-              signed_on: 'Sol',
-            })
-            .then((res) => res.data);
+          const res = await api.post(`/users/${userId}/associate-address`, {
+            public_address: solanaAddress,
+            signed_message: msg,
+            signed_on: 'Sol',
+          });
+
+          if (res.status === 200) {
+            toast.success('Address association completed successfully');
+          } else if (res.status === 400) {
+            toast.error(
+              'Attempted to associate an address that is already associated to another account',
+            );
+          }
           handleGetUserProfile();
         } else if (user.solana_address && etherAddress) {
-          console.log('2');
           const msg = await handleMsgSign('Eth');
-          await api
-            .post(`/users/${userId}/associate-address`, {
-              public_address: etherAddress,
-              signed_message: msg,
-              signed_on: 'Eth',
-            })
-            .then((res) => res.data);
+          const res = await api.post(`/users/${userId}/associate-address`, {
+            public_address: etherAddress,
+            signed_message: msg,
+            signed_on: 'Eth',
+          });
+
+          if (res.status === 200) {
+            toast.success('Address association completed successfully');
+          } else if (res.status === 400) {
+            toast.error(
+              'Attempted to associate an address that is already associated to another account',
+            );
+          }
           handleGetUserProfile();
         }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      toast.error(err);
     } finally {
       setTxLoading(false);
     }
