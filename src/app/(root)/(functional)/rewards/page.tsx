@@ -32,8 +32,8 @@ const RewardsPage = () => {
     isBridgeModalOpen,
     setIsBridgeModalOpen,
     handleGetUserProfile,
-    isContinue, 
-    setIsContinue
+    isContinue,
+    setIsContinue,
   } = useApp();
 
   const modalRef = useRef(null); // Ref for the modal element
@@ -70,8 +70,6 @@ const RewardsPage = () => {
       .get('/users/twitter-oauth2-link')
       .then((res) => res.data);
 
-    console.log({ authUrl });
-
     window.location.href = authUrl.url.toString();
   };
 
@@ -81,6 +79,7 @@ const RewardsPage = () => {
       .then((res) => res.data);
     if (result.ok) {
       // setIsContinue(true);
+      handleGetUserProfile();
     }
   };
 
@@ -101,7 +100,7 @@ const RewardsPage = () => {
 
   useOnceEffect(() => {
     handleGetUserProfile();
-  }, [userId, isContinue, searchParams]);
+  }, [userId, isContinue]);
 
   useOnceEffect(() => {
     document.title = 'Rewards Page';
