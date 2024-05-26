@@ -25,6 +25,8 @@ export interface IApp {
   userId: string;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  txLoading: boolean;
+  setTxLoading: React.Dispatch<React.SetStateAction<boolean>>;
   inputs: string[];
   setInputs: React.Dispatch<React.SetStateAction<string[]>>;
   walletModalOpen: boolean;
@@ -54,6 +56,8 @@ export const AppContext = createContext<IApp>({
   userId: '',
   loading: false,
   setLoading: () => {},
+  txLoading: false,
+  setTxLoading: () => {},
   inputs: [''],
   setInputs: () => {},
   walletModalOpen: false,
@@ -87,6 +91,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   const [user, setUser] = useState<IUser>(initUser);
   const [loading, setLoading] = useState<boolean>(false);
+  const [txLoading, setTxLoading] = useState<boolean>(false);
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [walletModalOpen, setWalletModalOpen] = useState<boolean>(false);
   const [solanaWalletModalOpen, setSolanaWalletModalOpen] =
@@ -205,6 +210,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         userId,
         loading,
         setLoading,
+        txLoading,
+        setTxLoading,
         inputs,
         setInputs,
         walletModalOpen,

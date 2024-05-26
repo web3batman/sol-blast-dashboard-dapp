@@ -2,7 +2,11 @@ import Image from 'next/image';
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
-import { useAccount as useEtherAccount, useSendTransaction } from 'wagmi';
+import {
+  useAccount as useEtherAccount,
+  useSendTransaction,
+  useWaitForTransactionReceipt,
+} from 'wagmi';
 import { useWeb3Modal as useEtherWalletModal } from '@web3modal/wagmi/react';
 import { toast } from 'react-toastify';
 
@@ -20,14 +24,22 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
     userId,
     handleMsgSign,
     handleGetUserProfile,
+    setTxLoading,
   } = useApp();
   const { publicKey: solanaAddress } = useWallet();
   const { setVisible } = useWalletModal();
   const { address: etherAddress } = useEtherAccount();
   const { open } = useEtherWalletModal();
   const { signTransaction } = useWallet();
-  const { sendTransaction: sendEthTransaction } = useSendTransaction();
   const { connection } = useConnection();
+  const { data: hash, sendTransaction: sendEthTransaction } =
+    useSendTransaction();
+
+  const { isLoading: isConfirming, isSuccess: isConfirmed } =
+    useWaitForTransactionReceipt({
+      hash,
+    });
+
   const [activeTab, setActiveTab] = useState('deposit');
   const [selectedCurrency, setSelectedCurrency] = useState('Eth');
   const [depsoitedAmount, setDepositedAmount] = useState<number>(0);
@@ -57,6 +69,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
   const handleSetAssociateAddress = async () => {
     try {
+      setTxLoading(true);
       if (user.ethereum_address && !solanaAddress) setVisible(true);
       else if (user.solana_address && !etherAddress) open();
 
@@ -88,6 +101,8 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setTxLoading(false);
     }
   };
 
@@ -96,6 +111,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
     else if (selectedCurrency !== 'Sol' && !etherAddress) open();
 
     try {
+      setTxLoading(true);
       if (depsoitedAmount <= 0) {
         return toast.error(`You must set the amount to deposit`);
       }
@@ -115,16 +131,6 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           const rawTx = await connection.sendRawTransaction(sTx.serialize());
           console.log(`https://explorer.solana.com/tx/${rawTx}?cluster=devnet`);
 
-          const amount = await api
-            .get(`/deposits/quote`, {
-              params: {
-                coin: selectedCurrency,
-                amount: depsoitedAmount,
-              },
-            })
-            .then((r) => r.data);
-
-          setPointAmount(amount);
           setIsBridgeModalOpen(false);
 
           toast.success(`Deposit successful`);
@@ -137,29 +143,19 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           })
           .then((r) => r.data);
         console.log({ encodedTx });
-        const tx = sendEthTransaction({
+        sendEthTransaction({
           to: encodedTx.to,
           value: encodedTx.value,
           data: encodedTx.data,
         });
-        console.log({ tx });
-        const amount = await api
-          .get(`/deposits/quote`, {
-            params: {
-              coin: selectedCurrency,
-              amount: depsoitedAmount,
-            },
-          })
-          .then((r) => r.data);
 
-        setPointAmount(amount);
         setIsBridgeModalOpen(false);
-        toast.success(`Deposit successful`);
       }
     } catch (e) {
       console.error(e);
     } finally {
       // setLoading(false);
+      setTxLoading(true);
     }
   };
 
@@ -214,8 +210,15 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
     handleFetchTxs();
   }, []);
 
+  useOnceEffect(() => {
+    if (hash) {
+      console.log({ hash });
+      toast.success(`Deposit successful`);
+    }
+  }, [hash]);
+
   return (
-    <div className="fixed  inset-0 z-50  flex items-center justify-center bg-[#1a1906] bg-opacity-90 ">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a1906] bg-opacity-90 ">
       <div
         ref={modalRef}
         style={{
