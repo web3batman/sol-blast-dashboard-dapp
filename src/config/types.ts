@@ -8,6 +8,8 @@ export interface IUser {
   eth_deposited: number;
   usdc_deposited: number;
   joined_at: string;
+  amount_invited: number;
+  amount_of_swaps: number;
 }
 
 export const initUser = {
@@ -20,6 +22,8 @@ export const initUser = {
   eth_deposited: 0,
   usdc_deposited: 0,
   joined_at: '',
+  amount_invited: 0,
+  amount_of_swaps: 0,
 };
 
 export interface IUserPoint {

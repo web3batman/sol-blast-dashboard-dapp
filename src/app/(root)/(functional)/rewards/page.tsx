@@ -179,7 +179,7 @@ const RewardsPage = () => {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
   } else
     return (
-      <main className="grid h-[inherit] w-full grid-cols-[3fr_5fr_4fr] gap-x-3 [grid-template-areas:'total_profile_tweet''points_link_link'] max-xl:grid-cols-3 max-lg:grid-cols-2 max-lg:[grid-template-areas:'profile_total''points_tweet''link_link'] max-md:grid-cols-1 max-md:[grid-template-areas:'profile''total''points''tweet''link']">
+      <main className="grid h-[inherit] w-full grid-cols-[3fr_6fr_4fr] gap-x-3 [grid-template-areas:'total_profile_tweet''points_link_link'] max-xl:grid-cols-[3fr_5fr_3fr] max-lg:grid-cols-2 max-lg:[grid-template-areas:'profile_total''points_tweet''link_link'] max-md:grid-cols-1 max-md:[grid-template-areas:'profile''total''points''tweet''link']">
         <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.3vh,2vw)] py-6 pr-6 text-whiteyellow [grid-area:total] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-top after:content-[''] max-lg:h-full max-lg:justify-between max-lg:gap-4 max-lg:after:bg-none max-md:before:absolute max-md:before:bottom-0 max-md:before:left-0 max-md:before:h-2 max-md:before:w-full max-md:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-md:before:bg-left max-md:before:content-['']">
           <h3 className="text-center text-3xl font-bold uppercase leading-9 tracking-[0.08em] max-2xl:text-2xl max-lg:text-xl">
             Total bridged
@@ -225,37 +225,53 @@ const RewardsPage = () => {
           <h3 className="text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-2xl max-lg:text-xl">
             Your profile
           </h3>
-          <div className="mt-2 flex items-center justify-between gap-7">
+          <div className="mt-2 flex items-center justify-between gap-7 max-lg:gap-2">
             <Image
               src={user.twitter_picture_url ? user.twitter_picture_url : ''}
               alt="user"
               width={227}
               height={218}
-              className="max-md:max-w-40"
+              className="max-lg:max-w-20"
             />
             <div className="flex h-full w-full flex-col justify-between py-1.5">
-              <div className="flex items-center justify-between max-2xl:flex-col max-2xl:items-start">
-                <div className="flex flex-col gap-3">
-                  <h3 className="text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
+              <div className="grid grid-cols-2 gap-4 max-xl:grid-cols-1 max-xl:grid-rows-1 max-xl:gap-2">
+                <div className="grid-row-2 grid gap-3 max-xl:grid-cols-[1fr_auto]">
+                  <h3 className="text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow max-xl:text-lg">
                     Rank
                   </h3>
-                  <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
+                  <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
                     #{userRank}
                   </span>
                 </div>
-                <div className="flex flex-col gap-3">
-                  <h3 className="min-w-[140px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow">
+                <div className="grid-row-2 grid gap-3 max-xl:grid-cols-[1fr_auto]">
+                  <h3 className="min-w-[110px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow max-xl:text-lg">
                     Join Date
                   </h3>
-                  <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
+                  <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
                     {`${new Date(user.joined_at).getDate()} / ${new Date(user.joined_at).getMonth() + 1} / ${new Date(user.joined_at).getFullYear()}`}
+                  </span>
+                </div>
+                <div className="grid-row-2 grid gap-3 max-xl:grid-cols-[1fr_auto]">
+                  <h3 className="min-w-[140px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow max-xl:text-lg">
+                    Amount of swaps
+                  </h3>
+                  <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
+                    {user.amount_of_swaps}
+                  </span>
+                </div>
+                <div className="grid-row-2 grid gap-3 max-xl:grid-cols-[1fr_auto]">
+                  <h3 className="min-w-[140px] text-left text-[21px] font-normal leading-[24.44px] text-whiteyellow max-xl:text-lg">
+                    Amount invited
+                  </h3>
+                  <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
+                    {user.amount_invited}
                   </span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
-            <span className="text-left text-lg font-normal leading-[20.95px] text-darkWhite">
+          <div className="grid-row-2 grid gap-3 max-xl:grid-cols-[1fr_auto]">
+            <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
               @{user.twitter_handle}
             </span>
             {/* <div className="flex items-center justify-start gap-4">
@@ -292,9 +308,14 @@ const RewardsPage = () => {
             onClick={() => {}}
             buttonClassName="w-full gap-4"
           />
-          <span className="pl-3 text-left text-sm font-bold leading-[21px] tracking-[0.08em] text-[#FFFDBF8C]">
-            Earn a points bonus by posting on X and spreading the word
-          </span>
+          <div>
+            <p className="pl-3 text-left text-sm font-bold leading-[21px] tracking-[0.08em] text-[#FFFDBF8C]">
+              Earn a points bonus by posting on X and spreading the word
+            </p>
+            <p className="pl-3 pt-8 text-left text-sm font-bold leading-[21px] tracking-[0.08em] text-[#FFFDBF8C] max-md:pt-5">
+              This is only valid once
+            </p>
+          </div>
           <Link
             href="https://twitter.com/intent/tweet?text=Hello%20world"
             className="flex items-center justify-center transition-all hover:opacity-85">
