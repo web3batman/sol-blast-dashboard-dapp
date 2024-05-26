@@ -139,7 +139,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           const sTx = await signTransaction(transaction!);
 
           const rawTx = await connection.sendRawTransaction(sTx.serialize());
-          console.log(`https://explorer.solana.com/tx/${rawTx}?cluster=devnet`);
+          console.log(`https://explorer.solana.com/tx/${rawTx}`);
 
           setIsBridgeModalOpen(false);
 

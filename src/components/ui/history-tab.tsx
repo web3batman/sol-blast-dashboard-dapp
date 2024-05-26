@@ -53,8 +53,8 @@ const HistoryTab = ({ data }: { data: IDepositTx[] }) => {
               </div>
               <Link
                 href={
-                  item.type === 'Sol'
-                    ? `https://explorer.solana.com/tx/${item.tx}?cluster=devnet`
+                  item.type === 'Sol' || item.type === 'Susdc'
+                    ? `https://explorer.solana.com/tx/${item.tx}`
                     : `https://app.debridge.finance/order?orderId=${item.tx}`
                 }
                 target="_blank"
