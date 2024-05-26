@@ -5,6 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { FaXTwitter } from 'react-icons/fa6';
+import { useDisconnect, useAccount as useEtherAccount } from 'wagmi';
+import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 
 import RectangleButton from '@/components/ui/RectangleButton';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
@@ -15,7 +18,6 @@ import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
-import { FaXTwitter } from 'react-icons/fa6';
 
 const RewardsPage = () => {
   const searchParams = useSearchParams();
@@ -38,6 +40,11 @@ const RewardsPage = () => {
     isContinue,
     setIsContinue,
   } = useApp();
+
+  const { address: etherAddress } = useEtherAccount();
+  const { disconnect: ethDisconnect } = useDisconnect();
+  const { publicKey: solAddress, disconnect: solDisconnect } =
+    useSolanaWallet();
 
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -89,6 +96,18 @@ const RewardsPage = () => {
   const handleContinue = async () => {
     setIsLoggedIn(false);
     setIsContinue(true);
+  };
+
+  const handleLogout = async () => {
+    if (etherAddress && solAddress) {
+      ethDisconnect();
+      solDisconnect();
+    } else {
+      if (etherAddress) ethDisconnect();
+      else if (solAddress) solDisconnect();
+    }
+
+    setIsContinue(false);
   };
 
   useOnceEffect(() => {
@@ -274,27 +293,11 @@ const RewardsPage = () => {
             <span className="text-nowrap text-left text-lg font-normal leading-[20.95px] text-darkWhite max-xl:text-sm">
               @{user.twitter_handle}
             </span>
-            {/* <div className="flex items-center justify-start gap-4">
-                    <Link href="/rewards">
-                      <Image
-                        src="/icons/twitter.svg"
-                        alt="edit"
-                        width={21}
-                        height={17}
-                      />
-                    </Link>
-                    <Link href="/rewards">
-                      <Image
-                        src="/icons/telegram.svg"
-                        alt="edit"
-                        width={21}
-                        height={17}
-                      />
-                    </Link>
-                  </div> */}
           </div>
           <div className="absolute bottom-5 right-5">
-            <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+            <button
+              className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85"
+              onClick={handleLogout}>
               <BridgeButton width={120} height={40} />
               <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
                 LOGOUT
