@@ -42,17 +42,17 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
         <h2 className="text-center text-[28px] font-semibold text-whiteyellow">
           ENTER YOUR CODE
         </h2>
-        <p className="mx-auto w-3/4 pt-[clamp(1vw,3vh,1.7vw)] text-center text-[clamp(1vw,3vh,2vw)] uppercase text-whiteyellow text-opacity-50 max-sm:w-full max-sm:px-6">
+        <p className="mx-auto w-3/4 pt-[clamp(1vw,1vh,1vw)] text-center text-[clamp(1vw,3vh,2vw)] uppercase text-whiteyellow text-opacity-50 max-sm:w-full max-sm:px-6">
           to start claiming rewards.
         </p>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
+          className="absolute left-1/2 max-h-10 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
           src="/upper-layout-line.svg"
           alt="upper-layout-line"
           width={1000}
-          height={79}
+          height={60}
         />
-        <div className="mb-6 mt-24 flex w-full justify-center max-md:mt-10">
+        <div className="mb-2 mt-12 flex w-full justify-center max-md:mt-10">
           <div className="flex flex-wrap justify-center gap-4">
             {inputs.map((value, index) => (
               <input
@@ -95,11 +95,11 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           </div>
         </div>
         <Image
-          className="absolute left-1/2 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
+          className="absolute left-1/2 max-h-10 -translate-x-1/2 transform max-md:hidden max-md:max-h-12"
           src={'/lower-layout-line.svg'}
           alt=""
           width={1000}
-          height={79}
+          height={60}
         />
         <div className="flex justify-center">
           <button
