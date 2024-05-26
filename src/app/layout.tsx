@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import type { AppProps } from 'next/app';
 import { Orbitron, Tomorrow, Chakra_Petch } from 'next/font/google';
 import { headers } from 'next/headers';
+import { SessionProvider } from 'next-auth/react';
 import { cookieToInitialState } from 'wagmi';
 
 import { ToastContainer } from 'react-toastify';
@@ -38,8 +40,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  // pageProps: { session, ...pageProps },
 }: Readonly<{
   children: React.ReactNode;
+  // pageProps: AppProps;
 }>) {
   const initialState = cookieToInitialState(config, headers().get('cookie'));
 
@@ -55,7 +59,9 @@ export default function RootLayout({
         <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
           <EthereumWalletProvider initialState={initialState}>
             <SolanaWalletProvider>
+              {/* <SessionProvider> */}
               <AppProvider>{children}</AppProvider>
+              {/* </SessionProvider> */}
             </SolanaWalletProvider>
           </EthereumWalletProvider>
         </div>

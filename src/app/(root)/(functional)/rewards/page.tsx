@@ -120,9 +120,9 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
 
 const RewardsPage = () => {
   const router = useRouter();
+  const { loading, setLoading, handleSign } = useApp();
 
   const [hasAccess, setHasAccess] = useState(false);
-  const [loading, setLoading] = useState<boolean>(false);
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState(false);
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -335,7 +335,7 @@ const RewardsPage = () => {
               alt="divider"
               width={8}
               height={500}
-              className="absolute -right-8 -top-0 h-[110%]  2xl:-top-10 2xl:h-[130%]"
+              className="absolute -right-8 -top-0 h-[110%] 2xl:-top-10 2xl:h-[130%]"
             />
           </div>
           <div className="col-span-4 pl-14 pt-5 ">

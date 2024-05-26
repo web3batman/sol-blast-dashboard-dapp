@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 import { useLocalStorage } from 'usehooks-ts';
 
 import AirdropsMissionRow from '@/components/shared/AirdropsMissionRow';
@@ -37,7 +38,7 @@ const Page = () => {
             completed={false}
             title="Follow us on Twitter"
             buttonText="Follow Twitter"
-            onClick={() => {}}
+            onClick={() => signIn('twitter')}
           />
         </div>
         <Image src="/world-bg.png" alt="" width={500} height={500} />
