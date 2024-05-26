@@ -61,10 +61,10 @@ export default function RootLayout({
                 <Header />
                 <ToastContainer />
               </div>
-              <div className="custom-scrollbar mx-auto mb-[110px] h-full w-[95vw] flex-grow overflow-y-scroll max-lg:mb-[120px]">
+              <div className="custom-scrollbar mx-auto mb-[70px] h-full w-[95vw] flex-grow overflow-y-scroll max-lg:mb-[60px] max-md:mb-[80px]">
                 {children}
               </div>
-              <div className="absolute -bottom-2 left-1/2 z-50 h-[120px] w-[95vw] max-w-[1000px] -translate-x-1/2 transform max-2xl:h-[140px] max-2xl:max-w-[1200px] max-sm:h-[120px]">
+              <div className="absolute -bottom-2 left-1/2 z-50 h-[100px] w-[95vw] -translate-x-1/2 transform max-lg:h-[80px] max-sm:h-[90px]">
                 <Footer />
               </div>
             </AppProvider>
