@@ -1,36 +1,38 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import { SessionProvider } from 'next-auth/react';
 import {
   WalletMultiButton,
-  useWalletModal,
+  useWalletModal as useSolWalletModal,
 } from '@solana/wallet-adapter-react-ui';
-import { useWeb3Modal as useEtherWalletModal } from '@web3modal/wagmi/react';
+import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
+import { useWeb3Modal as useEthWalletModal } from '@web3modal/wagmi/react';
+import { useDisconnect, useAccount as useEtherAccount } from 'wagmi';
 
 import { useApp } from '@/context';
 import SmallLabel from '@/components/ui/SmallLabel';
 import Loading from '@/components/ui/Loading';
+import { shortenAddress } from '@/util';
+import { useOnceEffect } from '@/hook/useOnceEffect';
 
 export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const {
-    loading,
-    walletModalOpen,
-    setWalletModalOpen,
-    solanaWalletModalOpen,
-    setSolanaWalletModalOpen,
-  } = useApp();
-  const { open } = useEtherWalletModal();
+  const { loading, walletModalOpen, setWalletModalOpen } = useApp();
+  const { open } = useEthWalletModal();
+  const { setVisible } = useSolWalletModal();
+  const { address: etherAddress } = useEtherAccount();
+  const { disconnect: ethDisconnect } = useDisconnect();
+  const { publicKey: solAddress, disconnect: solDisconnect } =
+    useSolanaWallet();
 
   const modalRef = useRef<HTMLDivElement>(null);
-  const solanaModalRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useOnceEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
         modalRef.current &&
@@ -44,21 +46,6 @@ export default function Layout({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [modalRef]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        solanaModalRef.current &&
-        !solanaModalRef.current.contains(event.target as Node)
-      ) {
-        setSolanaWalletModalOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [solanaModalRef]);
 
   return (
     <SessionProvider>
@@ -81,29 +68,30 @@ export default function Layout({
                 clipPath:
                   'polygon(0 5%, 5% 0, 100% 0, 100% 100%, 100% 100%, 0 100%)',
               }}>
-              <SmallLabel onClick={() => open()}>Ethereum</SmallLabel>
-              <SmallLabel onClick={() => setSolanaWalletModalOpen(true)}>
-                Solana
-              </SmallLabel>
-            </div>
-          </div>
-        )}
-        {solanaWalletModalOpen && (
-          <div className="absolute z-20 flex h-full w-full items-center justify-center backdrop-blur-sm">
-            <div
-              ref={solanaModalRef}
-              className="relative flex h-[400px] w-full max-w-[300px] flex-col items-center justify-center gap-4 bg-[#141414cc] px-[40px] outline-0"
-              style={{
-                clipPath:
-                  'polygon(0 5%, 5% 0, 100% 0, 100% 100%, 100% 100%, 0 100%)',
-                animationDuration: '0.2s',
-                animationName: 'zoom-in',
-                animationFillMode: 'backwards',
-                animationTimingFunction: 'var(--wui-ease-out-power-2)',
-                borderRadius: 'clamp(0px, 36px, 44px)',
-                boxShadow: '0 0 0 1px #ffffff0d',
-              }}>
-              <WalletMultiButton />
+              <div className="flex gap-2">
+                <span className="text-[#5f5f5f]">Ethereum</span>
+                {etherAddress && shortenAddress(etherAddress)}
+              </div>
+              {etherAddress ? (
+                <SmallLabel onClick={() => ethDisconnect()}>
+                  {'Disconnect'}
+                </SmallLabel>
+              ) : (
+                <SmallLabel onClick={() => open()}>{'Connect'}</SmallLabel>
+              )}
+              <div className="flex gap-2">
+                <span className="text-[#5f5f5f]">Solana</span>
+                {solAddress && shortenAddress(solAddress.toBase58())}
+              </div>
+              {solAddress ? (
+                <SmallLabel onClick={() => solDisconnect()}>
+                  {'Disconnect'}
+                </SmallLabel>
+              ) : (
+                <SmallLabel onClick={() => setVisible(true)}>
+                  {'Connect'}
+                </SmallLabel>
+              )}
             </div>
           </div>
         )}

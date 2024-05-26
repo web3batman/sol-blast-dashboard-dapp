@@ -1,14 +1,10 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
-import { useWalletModal } from '@solana/wallet-adapter-react-ui';
-import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { useAccount as useEtherAccount } from 'wagmi';
 
 import RectangleButton from '@/components/ui/RectangleButton';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
@@ -24,38 +20,21 @@ const RewardsPage = () => {
   const {
     token,
     userId,
-    walletName,
-    setWalletName,
-    loading,
     setLoading,
     hasAccess,
-    setHasAccess,
     isLoggedIn,
     setIsLoggedIn,
     setWalletModalOpen,
-    setSolanaWalletModalOpen,
     user,
-    setUser,
-    handleMsgSign,
     userPoints,
-    setUserPoints,
+    records,
     userRank,
-    setUserRank,
     isBridgeModalOpen,
     setIsBridgeModalOpen,
     handleGetUserProfile,
   } = useApp();
-  const { setVisible: setSolanaWalletVisible } = useWalletModal();
-  const { onConnect } = useWalletMultiButton({
-    onSelectWallet() {
-      setSolanaWalletVisible(true);
-    },
-  });
-  const { publicKey: solanaAddress } = useWallet();
-  const { address: etherAddress } = useEtherAccount();
 
   const [isContinue, setIsContinue] = useState<boolean>(false);
-  const [records, setRecords] = useState<any[]>([]);
 
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -120,11 +99,11 @@ const RewardsPage = () => {
     }
   }, [searchParams]);
 
-  useEffect(() => {
+  useOnceEffect(() => {
     handleGetUserProfile();
   }, [userId, isContinue]);
 
-  useEffect(() => {
+  useOnceEffect(() => {
     document.title = 'Rewards Page';
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -171,7 +150,7 @@ const RewardsPage = () => {
             />
             <AirdropsMissionRow
               number={2}
-              completed={!!user.twitter_handle}
+              completed={!!isContinue}
               title="Follow us on Twitter"
               buttonText={'Follow Twitter'}
               onClick={handleTwitterSign}

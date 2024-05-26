@@ -1,19 +1,19 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import HomeButton from '../shared/HomeButton';
 import LeaderboardButton from '../shared/LeaderboardButton';
 import RewardsButton from '../shared/RewardsButton';
 import { usePathname } from 'next/navigation';
 import AboutButton from '../shared/AboutButton';
-import AirdropsButton from '../shared/AirdropsButton';
+import { useOnceEffect } from '@/hook/useOnceEffect';
 
 export const HeaderButtons = () => {
   const [activePath, setActivePath] = useState<string>();
   const router = useRouter();
   const pathname = usePathname();
 
-  useEffect(() => {
+  useOnceEffect(() => {
     setActivePath(pathname);
   }, [pathname]);
 

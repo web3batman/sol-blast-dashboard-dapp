@@ -5,12 +5,12 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useLayoutEffect,
   useState,
 } from 'react';
 import { useAccount as useEtherAccount, useSignMessage } from 'wagmi';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
+
 import { useLocalStorage } from 'usehooks-ts';
 import axios from 'axios';
 import bs58 from 'bs58';
@@ -19,21 +19,16 @@ import { API_URL, VerifyMsg } from '@/config/const';
 import { IUser, initUser } from '@/config/types';
 import api from '@/service/api';
 import { useOnceEffect } from '@/hook/useOnceEffect';
-import { useIsFetching } from '@tanstack/react-query';
 
 export interface IApp {
   token: string;
   userId: string;
-  walletName: string;
-  setWalletName: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   inputs: string[];
   setInputs: React.Dispatch<React.SetStateAction<string[]>>;
   walletModalOpen: boolean;
   setWalletModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  solanaWalletModalOpen: boolean;
-  setSolanaWalletModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
   hasAccess: boolean;
   setHasAccess: React.Dispatch<React.SetStateAction<boolean>>;
   isLoggedIn: boolean;
@@ -55,16 +50,12 @@ export interface IApp {
 export const AppContext = createContext<IApp>({
   token: '',
   userId: '',
-  walletName: '',
-  setWalletName: () => {},
   loading: false,
   setLoading: () => {},
   inputs: [''],
   setInputs: () => {},
   walletModalOpen: false,
   setWalletModalOpen: () => {},
-  solanaWalletModalOpen: false,
-  setSolanaWalletModalOpen: () => {},
   hasAccess: false,
   setHasAccess: () => {},
   isLoggedIn: false,
@@ -89,10 +80,6 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const { signMessageAsync } = useSignMessage();
   const [token, setToken] = useLocalStorage<string>('token', '');
   const [userId, setUserId] = useLocalStorage<string>('userId', '');
-  const [walletName, setWalletName] = useLocalStorage<string>(
-    'walletName',
-    'Phantom',
-  );
 
   const [user, setUser] = useState<IUser>(initUser);
   const [loading, setLoading] = useState<boolean>(false);
@@ -134,13 +121,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   }) => {
     const msg = await handleMsgSign(signedOn);
     if (!msg) return;
-    console.log('walletAddress', walletAddress, msg, signedOn, invitCode);
     const newToken = await axios
       .post(`${API_URL}/v1/sessions`, {
         public_address: walletAddress,
         signed_message: msg,
         signed_on: signedOn,
-        invitation_code: 'OE14QA',
+        invitation_code: invitCode, //'OE14QA',
       })
       .then((res) => {
         console.log('sessionLogin res', res);
@@ -181,7 +167,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [userId]);
 
-  useEffect(() => {
+  useOnceEffect(() => {
     if (etherAddress && solanaAddress) return;
     else {
       if (etherAddress) {
@@ -207,25 +193,17 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [token]);
 
-  useOnceEffect(() => {
-    // if (userId) handleGetUserProfile(userId);
-  }, [userId]);
-
   return (
     <AppContext.Provider
       value={{
         token,
         userId,
-        walletName,
-        setWalletName,
         loading,
         setLoading,
         inputs,
         setInputs,
         walletModalOpen,
         setWalletModalOpen,
-        solanaWalletModalOpen,
-        setSolanaWalletModalOpen,
         hasAccess,
         setHasAccess,
         isLoggedIn,

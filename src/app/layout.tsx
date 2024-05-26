@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import type { AppProps } from 'next/app';
 import { Orbitron, Tomorrow, Chakra_Petch } from 'next/font/google';
 import { headers } from 'next/headers';
-import { SessionProvider } from 'next-auth/react';
 import { cookieToInitialState } from 'wagmi';
 
 import { ToastContainer } from 'react-toastify';
@@ -40,10 +38,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  // pageProps: { session, ...pageProps },
 }: Readonly<{
   children: React.ReactNode;
-  // pageProps: AppProps;
 }>) {
   const initialState = cookieToInitialState(config, headers().get('cookie'));
 
@@ -51,21 +47,23 @@ export default function RootLayout({
     <html lang="en" className="bg-black text-white">
       <body
         className={`${orbitron.className} ${chakraPetch.variable} ${tomorrow.variable} flex h-screen flex-col overflow-hidden`}>
-        <div className="m-[1vw] mb-0">
-          <Sidelines />
-          <Header />
-          <ToastContainer />
-        </div>
-        <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
+        <SolanaWalletProvider>
           <EthereumWalletProvider initialState={initialState}>
-            <SolanaWalletProvider>
-              <AppProvider>{children}</AppProvider>
-            </SolanaWalletProvider>
+            <AppProvider>
+              <div className="m-[1vw] mb-0">
+                <Sidelines />
+                <Header />
+                <ToastContainer />
+              </div>
+              <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
+                {children}
+              </div>
+              <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform">
+                <Footer />
+              </div>
+            </AppProvider>
           </EthereumWalletProvider>
-        </div>
-        <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform">
-          <Footer />
-        </div>
+        </SolanaWalletProvider>
       </body>
     </html>
   );

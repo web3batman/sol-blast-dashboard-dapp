@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import axios from 'axios';
 
@@ -8,7 +8,7 @@ import divider from '../../../../../public/divider.svg';
 import LeaderboardTableRow from '@/components/ui/LeaderboardTableRow';
 import { IUserPoint } from '@/config/types';
 import { API_URL } from '@/config/const';
-import { useApp } from '@/context';
+import { useOnceEffect } from '@/hook/useOnceEffect';
 
 const LeaderboardPage = () => {
   const [users, setUsers] = useState<IUserPoint[]>([]);
@@ -48,7 +48,7 @@ const LeaderboardPage = () => {
     setUsers(res.records);
   };
 
-  useEffect(() => {
+  useOnceEffect(() => {
     getPoints();
   }, []);
 
