@@ -22,6 +22,10 @@
   font-family: var(--chakra-petch);
 }
 
+.rajdhani-petch {
+  font-family: var(--rajdhani-petch);
+}
+
 .tomorrow {
   font-family: var(--tomorrow);
 }

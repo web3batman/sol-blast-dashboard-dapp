@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Orbitron, Tomorrow, Chakra_Petch } from 'next/font/google';
+import { Orbitron, Tomorrow, Chakra_Petch, Rajdhani } from 'next/font/google';
 import { headers } from 'next/headers';
 import { cookieToInitialState } from 'wagmi';
 
@@ -18,6 +18,12 @@ import {
 } from '@/context';
 
 const orbitron = Orbitron({ subsets: ['latin'] });
+
+const rajdhani = Rajdhani({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--rajdhani-petch',
+});
 
 const chakraPetch = Chakra_Petch({
   subsets: ['latin'],
@@ -46,7 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black text-white">
       <body
-        className={`${orbitron.className} ${chakraPetch.variable} ${tomorrow.variable} relative flex h-screen flex-col overflow-hidden`}>
+        className={`${orbitron.className} ${chakraPetch.variable} ${tomorrow.variable} ${rajdhani.variable} relative flex h-screen flex-col overflow-hidden`}>
         <SolanaWalletProvider>
           <EthereumWalletProvider initialState={initialState}>
             <AppProvider>
@@ -58,7 +64,7 @@ export default function RootLayout({
               <div className="custom-scrollbar mx-auto mb-[44px] h-full w-[95vw] flex-grow overflow-y-scroll">
                 {children}
               </div>
-              <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform max-sm:h-10">
+              <div className="absolute -bottom-2 left-1/2 z-50 h-[120px] w-[95vw] -translate-x-1/2 transform max-2xl:h-[140px] max-sm:h-[120px]">
                 <Footer />
               </div>
             </AppProvider>

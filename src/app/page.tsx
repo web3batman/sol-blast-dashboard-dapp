@@ -48,7 +48,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="relative flex pl-8 pt-[clamp(2vw,10vh,4vw)] before:absolute before:inset-0 before:bg-[url('/divider.svg')] before:bg-no-repeat before:content-[''] max-lg:hidden max-lg:justify-self-center max-lg:pb-10 max-lg:before:bg-none max-lg:before:pl-0 max-md:pt-0">
+        <div className="relative flex pl-8 pt-[clamp(2vw,10vh,4vw)] before:absolute before:bottom-[130px] before:left-0 before:right-0 before:top-0 before:bg-[url('/divider.svg')] before:bg-no-repeat before:content-[''] max-lg:hidden max-lg:justify-self-center max-lg:pb-10 max-lg:before:bg-none max-lg:before:pl-0 max-md:pt-0">
           <div>
             <div className="flex flex-col gap-[clamp(0.5vw,4.5vh,1.5vw)]">
               <RectangleButton
