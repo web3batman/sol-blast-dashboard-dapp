@@ -19,6 +19,7 @@ import { API_URL, VerifyMsg } from '@/config/const';
 import { IUser, initUser } from '@/config/types';
 import api from '@/service/api';
 import { useOnceEffect } from '@/hook/useOnceEffect';
+import { useIsFetching } from '@tanstack/react-query';
 
 export interface IApp {
   token: string;
@@ -120,42 +121,22 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     invitCode?: string;
   }) => {
     const msg = await handleMsgSign(signedOn);
-    console.log("walletAddress", walletAddress, msg, signedOn, invitCode)
+    if (!msg) return;
+    console.log('walletAddress', walletAddress, msg, signedOn, invitCode);
     const newToken = await axios
       .post(`${API_URL}/v1/sessions`, {
         public_address: walletAddress,
         signed_message: msg,
         signed_on: signedOn,
-        invitation_code: "OE14QA",
+        invitation_code: 'OE14QA',
       })
       .then((res) => {
-        console.log("sessionLogin res", res)
+        console.log('sessionLogin res', res);
         return res.data;
       });
     setToken(newToken.token);
     setUserId(newToken.user_id);
     setIsLoggedIn(true);
-  };
-
-  const handleGetUserProfile = async (userId: string) => {
-    const auth = await api.get(`/users/${userId}`);
-    if (auth.status === 200) {
-      console.log(auth.data);
-      setUser(auth.data);
-      setIsLoggedIn(true);
-      setHasAccess(true);
-      const invitationCodes = await api
-        .get(`/invitation-codes`, {
-          params: {
-            page: 1,
-            limit: 20,
-          },
-        })
-        .then((res) => res.data);
-      console.log({ invitationCodes });
-    } else if (auth.status === 401) {
-      console.log('unauthorized!!!');
-    }
   };
 
   useEffect(() => {
@@ -180,9 +161,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   useLayoutEffect(() => {
     if (token) {
       api.defaults.headers.common['authorization'] = `Bearer ${token}`;
-      // handleGetUser();
     } else {
-      // handleMsgSignUp(account.address);
     }
   }, [token]);
 

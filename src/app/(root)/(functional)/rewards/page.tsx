@@ -21,7 +21,7 @@ import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
-import associateAddressButton from '../../../../../public/bridge-more-button.svg';
+import associateAddressButton from '../../../../../public/associate-address-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 
 const RewardsPage = () => {
@@ -55,9 +55,8 @@ const RewardsPage = () => {
   const { address: etherAddress } = useEtherAccount();
 
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
-  const [isContinue, setIsContinue] = useState<boolean>(true);
+  const [isContinue, setIsContinue] = useState<boolean>(false);
   const [records, setRecords] = useState<any[]>([]);
-  const [walletExist, setWalletExist] = useState<string>('');
 
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -129,7 +128,6 @@ const RewardsPage = () => {
       setRecords(invitationCodes);
 
       if (userData.twitter_handle) {
-        setIsLoggedIn(false);
         setHasAccess(true);
       }
     } catch (error) {
@@ -139,44 +137,38 @@ const RewardsPage = () => {
   }, [userId]);
 
   const handleContinue = async () => {
-    if (user.ethereum_address && user.solana_address) {
-      setIsLoggedIn(false);
-      setHasAccess(true);
-    } else if (user.ethereum_address) {
-      setWalletExist('ethereum_address');
-      if (!walletName) {
-        setWalletName('Phantom');
-      }
-      if (onConnect) onConnect();
-      // const newAddress = await api
-      //   .post(`/users/${userId}/associate-address`)
-      //   .then((res) => res.data);
-      // console.log({ newAddress });
-    }
+    setIsLoggedIn(false);
+    setIsContinue(true);
   };
 
   const handleSetAssociateAddress = async () => {
     try {
-      if (walletExist === 'ethereum_address' && solanaAddress) {
-        const msg = await handleMsgSign('Sol');
-        await api
-          .post(`/users/${userId}/associate-address`, {
-            public_address: solanaAddress,
-            signed_message: msg,
-            signed_on: 'Sol',
-          })
-          .then((res) => res.data);
-        handleGetUserProfile();
-      } else if (walletExist === 'solana_address' && etherAddress) {
-        const msg = await handleMsgSign('Eth');
-        await api
-          .post(`/users/${userId}/associate-address`, {
-            public_address: etherAddress,
-            signed_message: msg,
-            signed_on: 'Eth',
-          })
-          .then((res) => res.data);
-        handleGetUserProfile();
+      if (user.ethereum_address && user.solana_address) {
+      } else {
+        if (user.ethereum_address) {
+          setSolanaWalletVisible(true);
+          if (onConnect) onConnect();
+          const msg = await handleMsgSign('Sol');
+          await api
+            .post(`/users/${userId}/associate-address`, {
+              public_address: solanaAddress,
+              signed_message: msg,
+              signed_on: 'Sol',
+            })
+            .then((res) => res.data);
+          handleGetUserProfile();
+        } else if (user.solana_address && etherAddress) {
+          console.log('2');
+          const msg = await handleMsgSign('Eth');
+          await api
+            .post(`/users/${userId}/associate-address`, {
+              public_address: etherAddress,
+              signed_message: msg,
+              signed_on: 'Eth',
+            })
+            .then((res) => res.data);
+          handleGetUserProfile();
+        }
       }
     } catch (err) {
       console.error(err);
@@ -252,9 +244,9 @@ const RewardsPage = () => {
             />
             <AirdropsMissionRow
               number={2}
-              completed={false}
+              completed={!!user.twitter_handle}
               title="Follow us on Twitter"
-              buttonText="Follow Twitter"
+              buttonText={'Follow Twitter'}
               onClick={handleTwitterSign}
             />
             {hasAccess && (
@@ -271,7 +263,7 @@ const RewardsPage = () => {
     );
   }
 
-  if (!hasAccess) {
+  if (!isContinue) {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
   }
 

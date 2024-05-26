@@ -1,11 +1,17 @@
 import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
+import bs58 from 'bs58';
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+
 import HistoryTab from './history-tab';
 import api from '@/service/api';
+import { Transaction } from '@solana/web3.js';
 
 const BridgeModal = ({ closeModal }: { closeModal: any }) => {
+  const { signTransaction, sendTransaction } = useWallet();
+  const { connection } = useConnection();
   const [activeTab, setActiveTab] = useState('deposit');
-  const [selectedCurrency, setSelectedCurrency] = useState('Ethereum-ETH');
+  const [selectedCurrency, setSelectedCurrency] = useState('Eth');
   const [depsoitedAmount, setDepositedAmount] = useState<number>(0);
 
   const modalRef = useRef<HTMLDivElement>(null);
@@ -23,6 +29,28 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       .post(`/deposits/solana`, { amount: depsoitedAmount })
       .then((r) => r.data);
     console.log({ encodedTx });
+    const transaction = Transaction.from(new Buffer(encodedTx, 'base64'));
+    console.log(transaction, '=====>');
+    console.log(await connection.simulateTransaction(transaction));
+
+    if (signTransaction) {
+      const sTx = await signTransaction(transaction!);
+      console.log(sTx);
+      const rawTx = connection.sendRawTransaction(sTx.serialize());
+      // await connection.confirmTransaction(rawTx);
+      // const res = await sendTransaction(sTx, connection);
+
+      const amount = await api
+        .get(`/deposits/quote`, {
+          params: {
+            coin: selectedCurrency,
+            amount: depsoitedAmount,
+          },
+        })
+        .then((r) => r.data);
+
+      console.log({ amount });
+    }
   };
 
   useEffect(() => {
@@ -78,9 +106,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                 className="mb-4 block w-full  rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-neutral-100"
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}>
-                <option value="Ethereum-ETH">Ethereum (ETH)</option>
-                <option value="Ethereum-USDC">Ethereum (USDC)</option>
-                <option value="Solana">Solana</option>
+                <option value="Eth">Ethereum (ETH)</option>
+                <option value="Usdc">Ethereum (USDC)</option>
+                <option value="Sol">Solana</option>
                 {/* Add other currencies here */}
               </select>
 
@@ -93,14 +121,14 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                 <div className="h-full w-full items-center gap-1  pl-2">
                   <span className="pl-3 pr-5 text-[24px] text-white">
                     1{' '}
-                    {selectedCurrency === 'Ethereum-ETH'
+                    {selectedCurrency === 'Eth'
                       ? 'ETH'
                       : selectedCurrency === 'Ethereum-USDC'
                         ? 'USDC'
                         : 'SOL'}
                   </span>
                   <span className="text-[18px] text-neutral-600">
-                    {selectedCurrency === 'Ethereum-ETH'
+                    {selectedCurrency === 'Eth'
                       ? '3,016.72'
                       : selectedCurrency === 'Ethereum-USDC'
                         ? '1.01'
