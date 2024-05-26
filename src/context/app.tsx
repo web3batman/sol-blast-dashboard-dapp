@@ -8,6 +8,7 @@ import {
   useLayoutEffect,
   useState,
 } from 'react';
+import { toast } from 'react-toastify';
 import { useAccount as useEtherAccount, useSignMessage } from 'wagmi';
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react';
 
@@ -136,12 +137,21 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         public_address: walletAddress,
         signed_message: msg,
         signed_on: signedOn,
-        invitation_code: invitCode || 'OE14QA', //'OE14QA',
+        invitation_code: invitCode || '',
       })
       .then((res) => {
         console.log('sessionLogin res', res);
         return res.data;
+      })
+      .catch((err) => {
+        return null;
       });
+
+    if (!newToken) {
+      toast.error('User not found, use a code to create an account');
+      return;
+    }
+
     setToken(newToken.token);
     setUserId(newToken.user_id);
     setSolanaWalletModalOpen(false);
@@ -241,7 +251,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         handleGetUserProfile,
         isContinue,
         setIsContinue,
-      }}>
+      }}
+    >
       {children}
     </AppContext.Provider>
   );
