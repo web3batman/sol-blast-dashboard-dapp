@@ -49,7 +49,7 @@ export default function Layout({
 
   return (
     <SessionProvider>
-      <div className="relative before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')] before:content-['']">
+      <div className="relative h-full before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')] before:content-[''] max-lg:before:h-[inherit]">
         {walletModalOpen && (
           <div className="absolute z-50 flex h-full w-full items-center justify-center backdrop-blur-sm">
             <div
@@ -87,7 +87,9 @@ export default function Layout({
           </div>
         )}
         {loading && <Loading />}
-        <div className="relative z-20 w-full">{children}</div>
+        <div className="relative z-20 h-full w-full max-lg:h-[inherit]">
+          {children}
+        </div>
       </div>
     </SessionProvider>
   );

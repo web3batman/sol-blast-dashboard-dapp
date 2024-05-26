@@ -4,6 +4,7 @@ import Image from 'next/image';
 import CopyLinkButton from '../../../public/copy-link-button.svg';
 import * as clipboard from 'clipboard-polyfill';
 import { toast } from 'react-toastify';
+import { BridgeButton } from './icon/icons/BridgeButton';
 interface ReferralLinkRowProps {
   imageUrl: string;
   title: string;
@@ -35,14 +36,16 @@ const ReferralLinkRow = ({ imageUrl, title, link }: ReferralLinkRowProps) => {
         <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap">
           {link}
         </h3>
-        <Image
-          src={CopyLinkButton}
-          alt="copy-link-button"
-          className="cursor-pointer transition-all hover:opacity-80"
+        <button
           onClick={() => {
             handleCopyToClipboard(link);
           }}
-        />
+          className="relative max-h-[clamp(0.5vw,20vh,3.5vw)] drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85 max-md:max-h-[40px]">
+          <BridgeButton width={150} height={40} />
+          <h5 className="chakra-petch text- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-md:text-base">
+            copy code
+          </h5>
+        </button>
       </div>
     </div>
   );

@@ -233,104 +233,105 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   }, [hash]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a1906] bg-opacity-90 ">
-      <div
-        ref={modalRef}
-        style={{
-          clipPath: 'polygon(5% 0, 100% 0, 100% 100%, 0 100%, 0 5%)',
-          //   // WebkitBoxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
-          //   // MozBoxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
-          //   // boxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
-        }}
-        className="bg-[#201F07]">
-        <div className=" shadow-whiteyellow drop-shadow-xl max-md:max-w-[400px] max-sm:max-w-[300px]">
-          <div className="mb-5 flex w-full justify-between">
-            <button
-              className={`w-full px-6 py-5 ${activeTab === 'deposit' ? 'bg-[#4d4b15]' : ''}`}
-              onClick={() => setActiveTab('deposit')}>
-              Deposit
-            </button>
-            <button
-              className={`w-full px-6 py-5 ${activeTab === 'history' ? 'bg-[#4d4b15]' : ' text-[#FFFDBF99]'}`}
-              onClick={() => setActiveTab('history')}>
-              History
-            </button>
-          </div>
-          {activeTab === 'deposit' && (
-            <div className="deposit-body p-4">
-              <label
-                htmlFor="currency-select"
-                className="mb-2 block text-[15px] text-whiteyellow">
-                Deposit From
-              </label>
-              <select
-                id="currency-select"
-                className="mb-4 block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-neutral-100"
-                value={selectedCurrency}
-                onChange={handleCurrencyChange}>
-                <option value="Eth">Ethereum (ETH)</option>
-                <option value="Usdc">Ethereum (USDC)</option>
-                <option value="Sol">Solana</option>
-                {/* Add other currencies here */}
-              </select>
-
-              <div className="mb-4  flex items-center justify-between rounded border border-whiteyellow bg-[#363407] p-3 text-[15px]">
-                <input
-                  className="w-[200px] rounded border-r bg-transparent p-1 text-center text-[48px] max-md:w-[140px] max-sm:w-[100px] max-sm:text-base"
-                  placeholder="0.0"
-                  onChange={handleChange}
-                />
-                <div className="h-full w-full items-center gap-1  pl-2">
-                  <span className="pl-3 pr-5 text-[24px] text-white max-sm:text-base">
-                    1{' '}
-                    {selectedCurrency === 'Eth'
-                      ? 'ETH'
-                      : selectedCurrency === 'Usdc'
-                        ? 'USDC'
-                        : 'SOL'}
-                  </span>
-                </div>
-              </div>
-
-              <Image
-                src={'./bridge-modal-lines.svg'}
-                width={530}
-                height={44}
-                alt="Bridge-Modal-Lines"
-              />
-              <select
-                id="currency-send-select"
-                className="my-4  block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-white"
-                value={selectedCurrency}
-                onChange={handleCurrencyChange}>
-                <option value="Layer2">Layer2</option>
-              </select>
-              <div className="mb-4 text-center text-[12px] text-whiteyellow">
-                You will receive {pointAmount} Points
-              </div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a190681] backdrop-blur-[5px]">
+      <div className="drop-shadow-[0_0_2px_#F8EF00]">
+        <div
+          ref={modalRef}
+          style={{
+            clipPath: 'polygon(5% 0, 100% 0, 100% 100%, 0 100%, 0 5%)',
+          }}
+          className="bg-[#201F07]">
+          <div className=" shadow-whiteyellow drop-shadow-xl max-md:max-w-[400px] max-sm:max-w-[300px]">
+            <div className="mb-5 flex w-full justify-between">
               <button
-                className="mx-auto flex w-full items-center justify-center"
-                onClick={
-                  isSolSelectedAndNoSolAddress ||
-                  isEthOrUsdcSelectedAndNoEthAddress
-                    ? handleSetAssociateAddress
-                    : handleConfirm
-                }>
-                <Image
-                  src={
-                    isSolSelectedAndNoSolAddress ||
-                    isEthOrUsdcSelectedAndNoEthAddress
-                      ? '/associate-address-button.png'
-                      : '/confirm-deposit.svg'
-                  }
-                  alt="deposit"
-                  width={510}
-                  height={64}
-                />
+                className={`w-full px-6 py-5 ${activeTab === 'deposit' ? 'bg-[#f8f000d0]' : ''}`}
+                onClick={() => setActiveTab('deposit')}>
+                Deposit
+              </button>
+              <button
+                className={`w-full px-6 py-5 ${activeTab === 'history' ? 'bg-[#f8f000d0]' : ' text-[#FFFDBF99]'}`}
+                onClick={() => setActiveTab('history')}>
+                History
               </button>
             </div>
-          )}
-          {activeTab === 'history' && <HistoryTab data={txes} />}
+            {activeTab === 'deposit' && (
+              <div className="deposit-body p-4">
+                <label
+                  htmlFor="currency-select"
+                  className="mb-2 block text-[15px] text-whiteyellow">
+                  Deposit From
+                </label>
+                <select
+                  id="currency-select"
+                  className="mb-4 block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-neutral-100"
+                  value={selectedCurrency}
+                  onChange={handleCurrencyChange}>
+                  <option value="Eth">Ethereum (ETH)</option>
+                  <option value="Usdc">Ethereum (USDC)</option>
+                  <option value="Sol">Solana</option>
+                  {/* Add other currencies here */}
+                </select>
+
+                <div className="mb-4  flex items-center justify-between rounded border border-whiteyellow bg-[#363407] p-3 text-[15px]">
+                  <input
+                    className="w-[200px] rounded border-r bg-transparent p-1 text-center text-[48px] max-md:w-[140px] max-sm:w-[100px] max-sm:text-base"
+                    placeholder="0.0"
+                    onChange={handleChange}
+                  />
+                  <div className="h-full w-full items-center gap-1  pl-2">
+                    <span className="pl-3 pr-5 text-[24px] text-white max-sm:text-base">
+                      {selectedCurrency === 'Eth'
+                        ? 'ETH'
+                        : selectedCurrency === 'Usdc'
+                          ? 'USDC'
+                          : 'SOL'}
+                    </span>
+                  </div>
+                </div>
+
+                <Image
+                  src={'./bridge-modal-lines.svg'}
+                  width={530}
+                  height={44}
+                  alt="Bridge-Modal-Lines"
+                />
+                <div className="my-4 block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-white">
+                  Layer2
+                </div>
+                {/* <select
+                  id="currency-send-select"
+                  className="my-4  block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-white"
+                  value={selectedCurrency}
+                  onChange={handleCurrencyChange}>
+                  <option value="Layer2">Layer2</option>
+                </select> */}
+                <div className="mb-4 text-center text-[12px] text-whiteyellow">
+                  You will receive {pointAmount} Points
+                </div>
+                <button
+                  className="mx-auto flex w-full items-center justify-center"
+                  onClick={
+                    isSolSelectedAndNoSolAddress ||
+                    isEthOrUsdcSelectedAndNoEthAddress
+                      ? handleSetAssociateAddress
+                      : handleConfirm
+                  }>
+                  <Image
+                    src={
+                      isSolSelectedAndNoSolAddress ||
+                      isEthOrUsdcSelectedAndNoEthAddress
+                        ? '/associate-address-button.png'
+                        : '/confirm-deposit.svg'
+                    }
+                    alt="deposit"
+                    width={510}
+                    height={64}
+                  />
+                </button>
+              </div>
+            )}
+            {activeTab === 'history' && <HistoryTab data={txes} />}
+          </div>
         </div>
       </div>
     </div>

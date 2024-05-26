@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 const Sidelines = () => {
   return (
-    <div className="absolute left-2 right-2 -z-[9] flex w-screen  justify-between overflow-hidden">
+    <div className="absolute left-2 right-2 -z-[9] flex justify-between overflow-hidden">
       <Image
         src={leftSideline}
         alt=""

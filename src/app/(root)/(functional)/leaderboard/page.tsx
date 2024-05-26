@@ -26,52 +26,50 @@ const LeaderboardPage = () => {
   }, []);
 
   return (
-    <main className="relative grid w-full grid-cols-12 justify-between gap-8">
-      <div className="col-span-12 flex gap-2 pb-6">
-        <div className="w-full px-[50px]">
-          <div className="flex w-full items-center justify-between gap-1 max-sm:flex-col 2xl:gap-10">
-            <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-sm:text-lg">
-              LEADERBOARD
-            </h1>
-            <h5 className="text-[13px] uppercase text-whiteyellow">
-              Bridge & Invite friends to{' '}
-              <span className=" text-lightyellow">rank up</span>
-            </h5>
-          </div>
+    <main className="relative h-[inherit] w-full">
+      <div className="flex h-full w-full flex-col px-[50px] max-sm:px-7">
+        <div className="flex w-full items-center justify-between gap-1 max-lg:mb-8 max-lg:flex-col max-lg:gap-9 2xl:gap-6">
+          <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-sm:text-2xl">
+            LEADERBOARD
+          </h1>
+          <h5 className="text-[13px] uppercase text-whiteyellow">
+            Bridge & Invite friends to rank up
+          </h5>
+        </div>
 
-          <div>
-            <div className="custom-scrollbar flex h-full w-full flex-col gap-3 overflow-x-auto">
-              <div className="grid grid-cols-[minmax(150px,20%)_minmax(300px,30%)_minmax(350px,35%)_minmax(200px,15%)]">
-                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pl-2 text-whiteyellow">
-                  RANK
-                </h3>
-                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
-                  NAME
-                </h3>
-                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
-                  INVITED BY
-                </h3>
-                <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pr-5 text-whiteyellow">
-                  POINTS
-                </h3>
-              </div>
-              <div className="">
-                {users.map((item, idx) => (
-                  <div key={idx}>
-                    <LeaderboardTableRow
-                      rank={item.rank}
-                      userProfilePicture={item.user_twitter_picture_url}
-                      name={item.user_twitter_handle}
-                      invitedBy={item.invited_by}
-                      points={item.points}
-                      bgColor={
-                        idx % 2 === 1 ? 'bg-whiteyellow bg-opacity-10' : ''
-                      }
-                    />
-                  </div>
-                ))}
-              </div>
-              {/* 
+        <div className="h-full overflow-x-auto">
+          <div className="custom-scrollbar flex h-[inherit] w-full flex-col gap-3 overflow-y-auto">
+            <div className="grid grid-cols-[minmax(150px,20%)_minmax(300px,30%)_minmax(350px,35%)_minmax(200px,15%)]">
+              <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pl-2 text-whiteyellow">
+                RANK
+              </h3>
+              <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
+                NAME
+              </h3>
+              <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 text-whiteyellow">
+                INVITED BY
+              </h3>
+              <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap border-y border-lightyellow border-opacity-30 py-4 pr-5 text-whiteyellow">
+                POINTS
+              </h3>
+            </div>
+            <div className="">
+              {users.map((item, idx) => (
+                <div key={idx}>
+                  <LeaderboardTableRow
+                    rank={item.rank}
+                    userProfilePicture={item.user_twitter_picture_url}
+                    name={item.user_twitter_handle}
+                    invitedBy={item.invited_by}
+                    points={item.points}
+                    bgColor={
+                      idx % 2 === 1 ? 'bg-whiteyellow bg-opacity-10' : ''
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+            {/* 
             <div className="custom-scrollbar flex h-[440px] w-full flex-col gap-3 overflow-y-scroll pr-3 2xl:h-[680px]">
               {users.map((item, idx) => (
                 <div
@@ -89,7 +87,6 @@ const LeaderboardPage = () => {
                 </div>
               ))}
             </div> */}
-            </div>
           </div>
         </div>
       </div>
