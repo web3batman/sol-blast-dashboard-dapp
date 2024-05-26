@@ -150,7 +150,7 @@ const RewardsPage = () => {
             />
             <AirdropsMissionRow
               number={2}
-              completed={!!isContinue}
+              completed={!!hasAccess}
               title="Follow us on Twitter"
               buttonText={'Follow Twitter'}
               onClick={handleTwitterSign}
