@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
@@ -172,12 +172,12 @@ const RewardsPage = () => {
   } else
     return (
       <main className="grid h-full w-full grid-cols-9 items-start  px-5 py-0 2xl:py-5">
-        <div className="relative col-span-3 flex h-full flex-col gap-12  pt-5 2xl:gap-36">
+        <div className="relative col-span-3 flex h-full flex-col gap-12  pt-5 2xl:gap-36 max-lg:col-span-9">
           <div className="relative flex flex-col items-center gap-5 text-whiteyellow">
             <h3 className="text-left text-[32px] font-bold uppercase leading-[48px] tracking-[0.08em]">
               Total bridged
             </h3>
-            <div className="flex w-full flex-col gap-4">
+            <div className="flex w-full flex-col gap-4 max-lg:flex-row max-lg:justify-center">
               <div className="flex items-center justify-center gap-2">
                 <h5 className="text-left text-4xl font-medium leading-[54px] tracking-[0.08em]">
                   {user.eth_deposited}
@@ -256,9 +256,9 @@ const RewardsPage = () => {
             height={200}
           />
         </div>
-        <div className="col-span-6 pl-8">
+        <div className="col-span-6 pl-8 max-lg:col-span-9">
           <div className="grid h-full w-full grid-cols-9">
-            <div className="relative col-span-5 flex flex-col gap-3 py-9">
+            <div className="relative col-span-5 flex flex-col gap-3 py-9 max-sm:col-span-9">
               <h3 className="text-left text-[32px] font-bold uppercase leading-[48px] tracking-[0.08em] text-whiteyellow">
                 Your profile
               </h3>
@@ -321,11 +321,11 @@ const RewardsPage = () => {
                 className="absolute -right-8 -top-0 h-[110%] 2xl:-top-10 2xl:h-[130%]"
               />
             </div>
-            <div className="col-span-4 pl-14 pt-5 ">
+            <div className="col-span-4 pl-14 pt-5 max-sm:col-span-9 max-sm:px-4">
               <div className="flex flex-col ">
                 <RectangleButton
                   text="Earn Extra Points"
-                  onClick={() => {}}
+                  onClick={() => { }}
                   buttonClassName="w-full gap-4"
                 />
                 <div className="flex flex-col">

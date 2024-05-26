@@ -17,8 +17,8 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
   };
 
   return (
-    <div className="inset-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-75">
-      <div className=" justify-center bg-black py-5 text-center 2xl:py-16">
+    <div className="h-full w-full bg-black bg-opacity-75 flex items-center justify-center">
+      <div className="justify-center bg-black py-5 text-center">
         <h2 className="text-center text-[28px] font-semibold text-whiteyellow">
           ENTER YOUR CODE
         </h2>
@@ -31,7 +31,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
           height={79}
         />
         <div className="mb-6 mt-24 flex w-full justify-center">
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {inputs.map((value, index) => (
               <input
                 key={index}
@@ -80,7 +80,7 @@ const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
         />
         <div className="flex justify-center">
           <button
-            className="mt-10 h-[120px] w-[360px] items-center border-none bg-none p-0"
+            className="mt-10 h-[120px] max-w-[360px] items-center border-none bg-none p-0"
             onClick={handleSubmit}>
             <Image
               src={'/home-page-button.svg'}

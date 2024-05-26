@@ -1,13 +1,16 @@
 'use client';
+
 import React from 'react';
 import { Icon } from '../ui/icon';
+import { MobileSVGButton } from '../ui/icon/icons/TopMobileButton';
 
-interface LeaderboardButtonProps {
+interface HomeButtonProps {
   isActive: boolean;
+  title: string;
   onClick: () => void;
 }
 
-const LeaderboardButton = ({ onClick, isActive }: LeaderboardButtonProps) => {
+const MobileButton = ({ title, isActive, onClick }: HomeButtonProps) => {
   let colors = {
     fillColor: '#201f06',
     textColor: '#9b996c',
@@ -19,23 +22,21 @@ const LeaderboardButton = ({ onClick, isActive }: LeaderboardButtonProps) => {
       textColor: '#010101',
     };
   }
-
   return (
     <div className="button-container" onClick={onClick}>
-      <Icon
-        name="CenterButton"
-        width={234}
-        height={64}
-        viewBox="0 0 234 64"
+      <MobileSVGButton
+        width={280}
+        height={48}
+        viewBox="0 0 280 48"
         color={colors.fillColor}
       />
       <span
         className="absolute inset-0 flex items-center justify-center text-base font-bold uppercase leading-[20.06px] tracking-[0.04em]"
         style={{ color: colors.textColor }}>
-        Leaderboard
+        {title}
       </span>
     </div>
   );
 };
 
-export default LeaderboardButton;
+export default MobileButton;

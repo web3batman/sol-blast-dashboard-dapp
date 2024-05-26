@@ -49,18 +49,9 @@ export default function Layout({
 
   return (
     <SessionProvider>
-      <div className="relative h-full overflow-hidden">
-        <div className="absolute inset-0 -z-20 h-full w-full">
-          <Image
-            src="/grid-layer.svg"
-            fill
-            objectFit="cover"
-            quality={100}
-            alt="bg"
-          />
-        </div>
+      <div className="relative h-full before:content-[''] before:absolute before:inset-0 before:bg-[url('/grid-layer.svg')]">
         {walletModalOpen && (
-          <div className="absolute z-20 flex h-full w-full items-center justify-center backdrop-blur-sm">
+          <div className="absolute z-50 flex h-full w-full items-center justify-center backdrop-blur-sm">
             <div
               ref={modalRef}
               className="flex h-[300px] w-[300px] flex-col items-center justify-center gap-4 bg-[#201F07] px-[40px]"
@@ -96,8 +87,8 @@ export default function Layout({
           </div>
         )}
         {loading && <Loading />}
-        <div className="h-full w-full">{children}</div>
+        <div className="relative h-full w-full z-20">{children}</div>
       </div>
-    </SessionProvider>
+    </SessionProvider >
   );
 }

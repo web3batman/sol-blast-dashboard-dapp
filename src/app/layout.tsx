@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="bg-black text-white">
       <body
-        className={`${orbitron.className} ${chakraPetch.variable} ${tomorrow.variable} flex h-screen flex-col overflow-hidden`}>
+        className={`${orbitron.className} ${chakraPetch.variable} ${tomorrow.variable} relative flex h-screen flex-col overflow-hidden`}>
         <SolanaWalletProvider>
           <EthereumWalletProvider initialState={initialState}>
             <AppProvider>

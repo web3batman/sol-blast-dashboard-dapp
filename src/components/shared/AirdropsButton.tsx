@@ -20,9 +20,7 @@ const AirdropsButton = ({ onClick, isActive }: AirdropsButtonProps) => {
   }
 
   return (
-    <div
-      className="relative w-max cursor-pointer text-center transition-transform duration-200 ease-in-out hover:scale-[1.04]"
-      onClick={onClick}>
+    <div className="button-container" onClick={onClick}>
       <svg
         width="163"
         height="64"

@@ -15,16 +15,16 @@ const Page = () => {
           alt="background image"
         />
         <div className="relative z-[1] flex h-full w-full flex-col justify-center gap-16 px-6">
-          <div className="flex items-center justify-center gap-10">
+          <div className="flex items-center justify-center gap-10 max-lg:flex-col-reverse">
             <Image
               src="/chart.svg"
               alt="chart"
               width={897}
               height={314}
-              className="max-w-[670px] 2xl:max-w-full"
+              className="max-w-[670px] max-lg:max-w-[500px] 2xl:max-w-full max-sm:max-w-[350px]"
             />
             <div className="flex flex-col gap-5">
-              <h3 className="chakra-petch text-left text-[64px] font-semibold uppercase leading-[96px] tracking-[0.04em] text-whiteyellow">
+              <h3 className="chakra-petch text-left text-[64px] font-semibold uppercase leading-[96px] tracking-[0.04em] text-whiteyellow max-xl:text-5xl">
                 l2 is the blast we <br />{' '}
                 <span className="text-lightyellow">all</span> Wanted
               </h3>
@@ -71,7 +71,7 @@ const Page = () => {
           fill
         />
         <div className="relative z-[1] flex h-full w-full flex-col gap-8 px-16 2xl:px-28">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between max-lg:flex-col gap-4">
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
                 <Image
@@ -79,12 +79,13 @@ const Page = () => {
                   alt="panel"
                   width={115}
                   height={110}
+                  className='max-sm:max-w-[60px]'
                 />
                 <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
                   innovation
                 </h3>
               </div>
-              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em]">
+              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em] max-sm:text-sm">
                 we built a brand new, innovative blockchain with never before
                 seen tech. By innovative we mean we forked optimisms code,
                 changed the license and added a typo.
@@ -92,7 +93,7 @@ const Page = () => {
             </div>
             <Image src="/tweet-1.svg" alt="arrow" width={603} height={537} />
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between max-lg:flex-col-reverse gap-4">
             <Image src="/tweet-2.svg" alt="arrow" width={603} height={537} />
             <div className="flex flex-col gap-6">
               <div className="flex items-center gap-2">
@@ -101,12 +102,13 @@ const Page = () => {
                   alt="panel"
                   width={115}
                   height={110}
+                  className='max-sm:max-w-[60px]'
                 />
                 <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
                   SECURITY
                 </h3>
               </div>
-              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em]">
+              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em] max-sm:text-sm">
                 We value security of deposited assets. That’s why our entire
                 blockchain is secured by a white label 3/5 man multisig with
                 undoxxed signers.
@@ -117,7 +119,7 @@ const Page = () => {
       </div>
       <div className="text-grey mt-16 flex flex-col gap-10 px-6">
         <div className="flex flex-col gap-5">
-          <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow">
+          <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow max-sm:text-4xl">
             WHY A nEw l2
           </h2>
           <p className="tomorrow text-left text-base font-medium uppercase leading-7 tracking-[0.08em]">
@@ -125,7 +127,7 @@ const Page = () => {
             the masses. It’s time to change that.
           </p>
         </div>
-        <div className="flex flex-row items-start justify-between">
+        <div className="flex flex-row items-start justify-between max-lg:flex-col max-lg:gap-8 max-lg:items-center">
           <div className="flex w-[47%] flex-col gap-16">
             <p className="tomorrow text-left text-[16px] font-medium uppercase">
               L2 emerges as an innovative solution, ingeniously incorporating
@@ -138,7 +140,7 @@ const Page = () => {
               Ethereum’s throughput to new heights, addressing one of its most
               critical bottlenecks.
             </p>
-            <div className="flex w-full flex-col items-center justify-center gap-5">
+            <div className="flex w-full flex-col items-center justify-center gap-5 max-lg:hidden">
               <div className="flex items-center gap-5">
                 <Image
                   src="/icons/facebook.svg"
@@ -187,7 +189,7 @@ const Page = () => {
               />
             </div>
           </div>
-          <div className="relative h-screen w-[34px] 2xl:h-[85vh]">
+          <div className="relative h-screen w-[34px] 2xl:h-[85vh] max-lg:hidden">
             <Image src="/progress.svg" alt="l2-table" fill />
           </div>
           <div className="flex w-[47%] flex-col gap-16">

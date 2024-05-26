@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .button-container {
+    @apply relative w-max cursor-pointer text-center transition-transform duration-200 ease-in-out hover:scale-[1.04];
+  }
+
+  .text-style {
+    @apply text-left text-lg font-medium uppercase tracking-[0.06em] max-sm:text-sm;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -73,8 +83,10 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .no-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .text-gradient {

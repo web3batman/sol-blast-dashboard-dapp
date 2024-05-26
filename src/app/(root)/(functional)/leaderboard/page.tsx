@@ -29,8 +29,8 @@ const LeaderboardPage = () => {
     <main className="relative grid h-full w-full grid-cols-12 justify-between gap-8">
       <div className="col-span-12 flex gap-2">
         <div className="w-full">
-          <div className="flex w-full items-center justify-between gap-1 2xl:gap-10">
-            <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px]">
+          <div className="flex w-full items-center justify-between gap-1 2xl:gap-10 max-sm:flex-col">
+            <h1 className="text-left text-[28px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-sm:text-lg">
               LEADERBOARD
             </h1>
             <h5 className="text-[13px] uppercase text-whiteyellow">
@@ -40,18 +40,21 @@ const LeaderboardPage = () => {
           </div>
 
           <div className="flex h-full w-full flex-col gap-3">
-            <div className="grid w-full grid-cols-4 items-center justify-between gap-6 border-y border-lightyellow border-opacity-30 p-3 py-7 pr-10">
-              <h3 className="text-left text-lg font-medium uppercase leading-[8px] tracking-[0.06em] text-whiteyellow">
+            <div className="grid w-full items-center justify-between gap-6 max-md:gap-2 border-y border-lightyellow border-opacity-30 p-3 py-7 pr-10 grid-cols-[minmax(50px,250px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(150px,250px)]
+      max-xl:grid-cols-[minmax(50px,150px)_minmax(250px,auto)_minmax(300px,1fr)_minmax(100px,150px)]
+      max-lg:grid-cols-[minmax(50px,70px)_minmax(220px,auto)_minmax(auto,220px)_minmax(100px,150px)]
+      max-sm:grid-cols-[30px_minmax(auto,170px)_minmax(auto,170px)_minmax(10px,70px)]">
+              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
                 RANK
               </h3>
-              <h3 className="text-left text-lg font-medium uppercase leading-[8px] tracking-[0.06em] text-whiteyellow">
+              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
                 NAME
               </h3>
 
-              <h3 className="text-left text-lg font-medium uppercase leading-[8px] tracking-[0.06em] text-whiteyellow">
+              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
                 INVITED BY
               </h3>
-              <h3 className="text-left text-lg font-medium uppercase leading-[8px] tracking-[0.06em] text-whiteyellow">
+              <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis text-whiteyellow">
                 POINTS
               </h3>
             </div>

@@ -9,17 +9,17 @@ import { HeaderButtons } from '../ui/header-buttons';
 
 const Header = () => {
   return (
-    <main className="mx-auto w-[95vw]">
+    <main className="mx-auto w-[95vw] pb-6">
       <div className="flex items-center justify-between">
-        <Image src={logo} alt=""></Image>
+        <Image src={logo} alt="" />
         <HeaderButtons />
       </div>
       <div className="relative flex justify-center pt-3 md:px-0">
-        <Image src={headerLine} alt="" className="w-full"></Image>
+        <Image src={headerLine} alt="" className="w-full" />
         <Image
           src={headerSmallText}
           alt=""
-          className="absolute right-0 top-7 max-2xl:scale-95"></Image>
+          className="absolute right-0 top-7 max-2xl:scale-95" />
       </div>
     </main>
   );

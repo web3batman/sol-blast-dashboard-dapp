@@ -16,16 +16,17 @@ export default function Home() {
         <Image
           src={bg}
           alt="bg"
-          className="h-screen w-screen overflow-hidden"></Image>
+          className="h-screen w-screen overflow-hidden"
+        />
       </div>
-      <main className="no-scrollbar relative flex h-full w-full items-center justify-between px-10">
+      <main className="no-scrollbar relative grid h-full w-full grid-cols-[minmax(400px,auto)_minmax(500px,300px)] gap-8 px-10 max-lg:grid-cols-1">
         <div className="flex max-w-[937px] flex-col gap-7 max-2xl:max-w-[650px]">
           <div className="flex items-center justify-start gap-6">
             <Image src={circle} alt="circle" className="max-2xl:w-[50px]" />
             <Image src={shortBreakLine} alt="short-breakline"></Image>
           </div>
           <div className="flex flex-col gap-1 2xl:gap-10">
-            <h1 className="text-left text-[54px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px]">
+            <h1 className="text-left text-[54px] font-bold uppercase leading-[81px] tracking-[0.04em] text-whiteyellow max-2xl:text-[40px] max-md:text-2xl">
               L2 is the fastest, most decentralized, and advanced{' '}
               <span className="text-lightyellow">ETH scaling solution</span>
             </h1>
@@ -40,11 +41,11 @@ export default function Home() {
             <Image src={homePageButton} alt="home-page-button"></Image>
           </Link>
         </div>
-        <div className="relative">
+        <div className="relative flex pt-28 max-lg:justify-self-center max-lg:pb-10">
           <Image
             src={divider}
             alt="divider"
-            className="absolute -left-20 -top-24 scale-[0.86] 2xl:scale-100"
+            className="relative -top-24 mr-16 scale-[0.86] max-xl:mr-10 max-lg:hidden 2xl:scale-100"
           />
           <div>
             <div className="flex flex-col gap-16">
@@ -54,26 +55,26 @@ export default function Home() {
                 textClassName="w-[230px] "
               />
               <div className="flex flex-col gap-7 text-whiteyellow text-opacity-60">
-                <h3 className="text-left text-[40px] font-medium leading-[50.16px] tracking-[0.08em]">
+                <h3 className="text-left text-[40px] font-medium leading-[50.16px] tracking-[0.08em] max-sm:text-3xl">
                   BACKED BY
                 </h3>
                 <div className="flex items-center justify-start gap-5">
-                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em]">
+                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] max-sm:text-xl">
                     Paradigm
                   </h5>
-                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em]">
+                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] max-sm:text-xl">
                     Paradigm
                   </h5>
                 </div>
                 <div className="flex items-center justify-start gap-5">
-                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] text-lightyellow">
+                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] text-lightyellow max-sm:text-xl">
                     Normal Crypto
                   </h5>
-                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em]">
+                  <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] max-sm:text-xl">
                     Ethereum
                   </h5>
                 </div>
-                <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em]">
+                <h5 className="text-left text-2xl font-medium leading-[30.1px] tracking-[0.08em] max-sm:text-xl">
                   @eBoyCapital
                 </h5>
                 <div className="grid grid-cols-3 gap-x-5 gap-y-7">
