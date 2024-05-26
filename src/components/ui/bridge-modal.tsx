@@ -6,6 +6,7 @@ import {
   useAccount as useEtherAccount,
   useSendTransaction,
   useWaitForTransactionReceipt,
+  useWriteContract,
 } from 'wagmi';
 import { useWeb3Modal as useEtherWalletModal } from '@web3modal/wagmi/react';
 import { toast } from 'react-toastify';
@@ -16,6 +17,8 @@ import { Transaction } from '@solana/web3.js';
 import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
 import { IDepositTx } from '@/config/types';
+import { ERC20_ABI } from '@/config/abi';
+import { USDC_ADDRESS } from '@/config/const';
 
 const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const {
@@ -32,6 +35,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const { open } = useEtherWalletModal();
   const { signTransaction } = useWallet();
   const { connection } = useConnection();
+  const { writeContractAsync } = useWriteContract();
   const { data: hash, sendTransaction: sendEthTransaction } =
     useSendTransaction();
 
@@ -143,6 +147,16 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           })
           .then((r) => r.data);
         console.log({ encodedTx });
+
+        if (selectedCurrency === 'Usdc') {
+          await writeContractAsync({
+            abi: ERC20_ABI,
+            address: USDC_ADDRESS,
+            functionName: 'approve',
+            args: [encodedTx.to, BigInt(depsoitedAmount * 10 ** 6 * 1.05)],
+          });
+        }
+
         sendEthTransaction({
           to: encodedTx.to,
           value: encodedTx.value,
