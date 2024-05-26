@@ -101,7 +101,7 @@ const RewardsPage = () => {
 
   useOnceEffect(() => {
     handleGetUserProfile();
-  }, [userId, isContinue]);
+  }, [userId, isContinue, searchParams]);
 
   useOnceEffect(() => {
     document.title = 'Rewards Page';
