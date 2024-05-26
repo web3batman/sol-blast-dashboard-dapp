@@ -59,9 +59,7 @@ export default function RootLayout({
         <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
           <EthereumWalletProvider initialState={initialState}>
             <SolanaWalletProvider>
-              {/* <SessionProvider> */}
               <AppProvider>{children}</AppProvider>
-              {/* </SessionProvider> */}
             </SolanaWalletProvider>
           </EthereumWalletProvider>
         </div>

@@ -8,8 +8,10 @@ import divider from '../../../../../public/divider.svg';
 import LeaderboardTableRow from '@/components/ui/LeaderboardTableRow';
 import { IUserPoint } from '@/config/types';
 import { API_URL } from '@/config/const';
+import { useApp } from '@/context';
 
 const LeaderboardPage = () => {
+  const { setUserPoints, setUserRank } = useApp();
   const [users, setUsers] = useState<IUserPoint[]>([]);
 
   const data = [
@@ -190,10 +192,10 @@ const LeaderboardPage = () => {
       .get(`${API_URL}/v1/points?page=1&limit=20`)
       .then((r) => r.data);
 
-    const res1 = await axios
+    const newPoints = await axios
       .get(`${API_URL}/v1/points/66211bb111ece1a5649017d6`)
       .then((r) => r.data);
-    console.log({ res1 });
+    console.log({ newPoints });
     // res.metadata.documents_count > res.metadata.limit
 
     setUsers(res.records);

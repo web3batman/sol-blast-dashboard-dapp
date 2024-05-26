@@ -15,7 +15,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import axios from 'axios';
 import bs58 from 'bs58';
 
-import { API_URL } from '@/config/const';
+import { API_URL, VerifyMsg } from '@/config/const';
 import { IUser, initUser } from '@/config/types';
 import api from '@/service/api';
 import { useOnceEffect } from '@/hook/useOnceEffect';
@@ -23,6 +23,8 @@ import { useOnceEffect } from '@/hook/useOnceEffect';
 export interface IApp {
   token: string;
   userId: string;
+  walletName: string;
+  setWalletName: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   inputs: string[];
@@ -35,14 +37,20 @@ export interface IApp {
   setHasAccess: React.Dispatch<React.SetStateAction<boolean>>;
   isLoggedIn: boolean;
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-  handleSign: Function;
+  handleMsgSign: Function;
   user: IUser;
   setUser: React.Dispatch<React.SetStateAction<IUser>>;
+  userPoints: number;
+  setUserPoints: React.Dispatch<React.SetStateAction<number>>;
+  userRank: number;
+  setUserRank: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const AppContext = createContext<IApp>({
   token: '',
   userId: '',
+  walletName: '',
+  setWalletName: () => {},
   loading: false,
   setLoading: () => {},
   inputs: [''],
@@ -55,9 +63,13 @@ export const AppContext = createContext<IApp>({
   setHasAccess: () => {},
   isLoggedIn: false,
   setIsLoggedIn: () => {},
-  handleSign: () => {},
+  handleMsgSign: () => {},
   user: initUser,
   setUser: () => {},
+  userPoints: 0,
+  setUserPoints: () => {},
+  userRank: 0,
+  setUserRank: () => {},
 });
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
@@ -66,8 +78,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const { signMessageAsync } = useSignMessage();
   const [token, setToken] = useLocalStorage<string>('token', '');
   const [userId, setUserId] = useLocalStorage<string>('userId', '');
-  const [user, setUser] = useState<IUser>(initUser);
+  const [walletName, setWalletName] = useLocalStorage<string>(
+    'walletName',
+    'Phantom',
+  );
 
+  const [user, setUser] = useState<IUser>(initUser);
   const [loading, setLoading] = useState<boolean>(false);
   const [inputs, setInputs] = useState<string[]>(Array(6).fill(''));
   const [walletModalOpen, setWalletModalOpen] = useState<boolean>(false);
@@ -75,57 +91,57 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     useState<boolean>(false);
   const [hasAccess, setHasAccess] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [userPoints, setUserPoints] = useState<number>(0);
+  const [userRank, setUserRank] = useState<number>(0);
 
-  const handleSign = useCallback(
-    async (invitCode: string) => {
-      const verifyMsg = `The quick brown fox jumps over the lazy dog`;
-      if (etherAddress) {
-        signMessageAsync({ message: verifyMsg })
-          .then(async (sign) => {
-            const newToken = await axios
-              .post(`${API_URL}/v1/sessions`, {
-                public_address: etherAddress,
-                signed_message: sign.toString(),
-                signed_on: 'Eth',
-                invitation_code: invitCode,
-              })
-              .then((res) => res.data);
-            setToken(newToken.token);
-            setUserId(newToken.user_id);
-            setIsLoggedIn(true);
-          })
-          .catch((e) => {
-            console.error('===== msg sign error =====', e);
-          });
+  const handleMsgSign = async (signedOn: string) => {
+    try {
+      if (signedOn === 'Eth') {
+        const sign = await signMessageAsync({ message: VerifyMsg });
+        return sign.toString();
+      } else {
+        if (signMessage) {
+          const sign = await signMessage(new TextEncoder().encode(VerifyMsg));
+          return bs58.encode(new Uint8Array(sign as unknown as ArrayBuffer));
+        }
       }
-      if (solanaAddress && signMessage) {
-        const sign = await signMessage(new TextEncoder().encode(verifyMsg));
-        const newToken = await axios
-          .post(`${API_URL}/v1/sessions`, {
-            public_address: solanaAddress,
-            signed_message: bs58.encode(
-              new Uint8Array(sign as unknown as ArrayBuffer),
-            ),
-            signed_on: 'Sol',
-            invitation_code: invitCode,
-          })
-          .then((res) => res.data);
-        setToken(newToken.token);
-        setUserId(newToken.user_id);
-        setIsLoggedIn(true);
-      }
-    },
-    [etherAddress, solanaAddress],
-  );
+    } catch (err) {
+      console.error('===== msg sign error =====', err);
+    }
+  };
+
+  const handleSessionLogin = async ({
+    signedOn,
+    walletAddress,
+    invitCode,
+  }: {
+    signedOn: string;
+    walletAddress: string;
+    invitCode?: string;
+  }) => {
+    const msg = await handleMsgSign(signedOn);
+    const newToken = await axios
+      .post(`${API_URL}/v1/sessions`, {
+        public_address: walletAddress,
+        signed_message: msg,
+        signed_on: signedOn,
+        invitation_code: invitCode,
+      })
+      .then((res) => res.data);
+    setToken(newToken.token);
+    setUserId(newToken.user_id);
+    setIsLoggedIn(true);
+  };
 
   const handleGetUserProfile = async (userId: string) => {
     const auth = await api.get(`/users/${userId}`);
     if (auth.status === 200) {
+      console.log(auth.data);
       setUser(auth.data);
       setIsLoggedIn(true);
       setHasAccess(true);
       const invitationCodes = await api
-        .get(`/invitation_codes`, {
+        .get(`/invitation-codes`, {
           params: {
             page: 1,
             limit: 20,
@@ -139,7 +155,22 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    handleSign(inputs.join('').toUpperCase());
+    if (etherAddress && solanaAddress) return;
+    else {
+      if (etherAddress) {
+        handleSessionLogin({
+          signedOn: 'Eth',
+          walletAddress: etherAddress,
+          invitCode: inputs.join('').toUpperCase(),
+        });
+      } else if (solanaAddress) {
+        handleSessionLogin({
+          signedOn: 'Sol',
+          walletAddress: solanaAddress.toBase58(),
+          invitCode: inputs.join('').toUpperCase(),
+        });
+      }
+    }
   }, [etherAddress, solanaAddress]);
 
   useLayoutEffect(() => {
@@ -147,12 +178,12 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       api.defaults.headers.common['authorization'] = `Bearer ${token}`;
       // handleGetUser();
     } else {
-      // handleSignUp(account.address);
+      // handleMsgSignUp(account.address);
     }
   }, [token]);
 
   useOnceEffect(() => {
-    if (userId) handleGetUserProfile(userId);
+    // if (userId) handleGetUserProfile(userId);
   }, [userId]);
 
   return (
@@ -160,6 +191,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       value={{
         token,
         userId,
+        walletName,
+        setWalletName,
         loading,
         setLoading,
         inputs,
@@ -172,9 +205,13 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         setHasAccess,
         isLoggedIn,
         setIsLoggedIn,
-        handleSign,
+        handleMsgSign,
         user,
         setUser,
+        userPoints,
+        setUserPoints,
+        userRank,
+        setUserRank,
       }}>
       {children}
     </AppContext.Provider>

@@ -4,8 +4,8 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { SessionProvider } from 'next-auth/react';
 import {
-  WalletDisconnectButton,
   WalletMultiButton,
+  useWalletModal,
 } from '@solana/wallet-adapter-react-ui';
 import { useWeb3Modal as useEtherWalletModal } from '@web3modal/wagmi/react';
 

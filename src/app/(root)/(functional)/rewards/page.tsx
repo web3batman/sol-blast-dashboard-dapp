@@ -1,16 +1,21 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { toast } from 'react-toastify';
+import { useWalletModal } from '@solana/wallet-adapter-react-ui';
+import { useWalletMultiButton } from '@solana/wallet-adapter-base-ui';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { useAccount as useEtherAccount, useSignMessage } from 'wagmi';
 
 import RectangleButton from '@/components/ui/RectangleButton';
 import ReferralLinkRow from '@/components/ui/ReferralLinkRow';
 import BridgeModal from '@/components/ui/bridge-modal';
 import Loading from '@/components/ui/Loading';
 import AirdropsMissionRow from '@/components/shared/AirdropsMissionRow';
+import PasswordModal from '@/components/ui/PasswordModal';
 import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
@@ -18,111 +23,13 @@ import api from '@/service/api';
 import bridgeMoreButton from '../../../../../public/bridge-more-button.svg';
 import tweetForPoints from '../../../../../public/tweet-for-points-button.png';
 
-const PasswordModal = ({ onPasswordSubmit }: { onPasswordSubmit: any }) => {
-  const { setWalletModalOpen, inputs, setInputs } = useApp();
-
-  const handleInput = (char: string, index: number) => {
-    const newInputs = [...inputs];
-    newInputs[index] = char;
-    setInputs(newInputs);
-  };
-
-  const handleSubmit = () => {
-    onPasswordSubmit(inputs.join('').toUpperCase());
-  };
-
-  return (
-    <div className="inset-0 z-50 flex h-full w-full items-center justify-center bg-black bg-opacity-75">
-      <div className=" justify-center bg-black py-5 text-center 2xl:py-16">
-        <h2 className="text-center text-[28px] font-semibold text-whiteyellow">
-          ENTER YOUR CODE
-        </h2>
-        <p className="mx-auto w-3/4 pt-8 text-center text-[20px] text-whiteyellow text-opacity-50">{`PROCEED WITH CAUTION, WE DON'T KNOW WHAT'S ON THE OTHER SIDE.`}</p>
-        <Image
-          className="absolute left-1/2  -translate-x-1/2 transform"
-          src={'/upper-layout-line.svg'}
-          alt=""
-          width={1000}
-          height={79}
-        />
-        <div className="mb-6 mt-24 flex w-full justify-center">
-          <div className="flex justify-center space-x-4">
-            {inputs.map((value, index) => (
-              <input
-                key={index}
-                type="text"
-                maxLength={1}
-                value={value}
-                onChange={(e) => handleInput(e.target.value, index)}
-                style={{
-                  clipPath: 'polygon(0 0, 100% 0, 100% 100%, 31% 100%, 0 76%)',
-                }}
-                className="outline-ligthyellow h-20 w-16 rounded-md border border-lightyellow border-opacity-15 bg-lightyellow bg-opacity-10 text-center text-3xl font-bold uppercase text-lightyellow focus:border-lightyellow focus:border-opacity-50 focus:outline-none"
-                onInput={(e) => {
-                  const currentInput = e.currentTarget;
-                  if (currentInput.value) {
-                    const nextInput =
-                      currentInput.nextElementSibling as HTMLInputElement;
-                    if (nextInput) {
-                      nextInput.focus();
-                    }
-                  }
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Backspace') {
-                    const currentInput = e.currentTarget;
-                    if (!currentInput.value) {
-                      const previousInput =
-                        currentInput.previousElementSibling as HTMLInputElement;
-                      if (previousInput) {
-                        previousInput.focus();
-                      }
-                    }
-                  } else if (e.key === 'Enter') {
-                    handleSubmit();
-                  }
-                }}
-              />
-            ))}
-          </div>
-        </div>
-        <Image
-          className="absolute left-1/2 -translate-x-1/2 transform"
-          src={'/lower-layout-line.svg'}
-          alt=""
-          width={1000}
-          height={79}
-        />
-        <div className="flex justify-center">
-          <button
-            className="mt-10 h-[120px] w-[360px] items-center border-none bg-none p-0"
-            onClick={handleSubmit}>
-            <Image
-              src={'/home-page-button.svg'}
-              alt="home-page-button"
-              width={360}
-              height={1000}
-            />
-          </button>
-        </div>
-        <div className="mt-4">
-          <p className="text-[#fffdbf80]">Already registered?</p>
-          <button
-            className="text-[#fffdbf]"
-            onClick={() => setWalletModalOpen(true)}>
-            Log in with your wallet
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const RewardsPage = () => {
   const searchParams = useSearchParams();
   const {
     token,
     userId,
+    walletName,
+    setWalletName,
     loading,
     setLoading,
     hasAccess,
@@ -132,12 +39,24 @@ const RewardsPage = () => {
     setWalletModalOpen,
     user,
     setUser,
+    handleMsgSign,
+    userPoints,
+    setUserPoints,
+    setUserRank,
   } = useApp();
+  const { setVisible: setSolanaWalletVisible } = useWalletModal();
+  const { buttonState, onConnect } = useWalletMultiButton({
+    onSelectWallet() {
+      setSolanaWalletVisible(true);
+    },
+  });
+  const { publicKey: solanaAddress } = useWallet();
+  const { address: etherAddress } = useEtherAccount();
 
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
   const [isContinue, setIsContinue] = useState<boolean>(true);
-  const [points, setPoints] = useState<number>(0);
   const [records, setRecords] = useState<any[]>([]);
+  const [walletExist, setWalletExist] = useState<string>('');
 
   const modalRef = useRef(null); // Ref for the modal element
 
@@ -187,23 +106,78 @@ const RewardsPage = () => {
     }
   };
 
-  const handleGetUserProfile = async () => {
-    const newUser = await api.get(`/users/${userId}`).then((res) => res.data);
-    setUser(newUser);
-    const newPoints = await api
-      .get(`/points/${userId}`)
-      .then((res) => res.data);
-    setPoints(newPoints.points);
-    const invitationCodes = await api
-      .get(`/invitation-codes`, {
-        params: {
-          page: 1,
-          limit: 20,
-        },
-      })
-      .then((res) => res.data);
-    console.log({ invitationCodes });
-    setRecords(invitationCodes.records);
+  const handleGetUserProfile = useCallback(async () => {
+    if (!userId) return;
+
+    try {
+      const [userData, pointsData, invitationCodes] = await Promise.all([
+        api.get(`/users/${userId}`).then((res) => res.data),
+        api.get(`/points/${userId}`).then((res) => res.data),
+        api
+          .get(`/invitation-codes`, {
+            params: { page: 1, limit: 20 },
+          })
+          .then((res) => res.data.records),
+      ]);
+
+      setUser(userData);
+      setUserPoints(pointsData.points);
+      setUserRank(pointsData.rank);
+      setRecords(invitationCodes);
+
+      if (userData.twitter_handle) {
+        setIsLoggedIn(false);
+        setHasAccess(true);
+      }
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      // Handle error, e.g., show error message to the user
+    }
+  }, [userId]);
+
+  const handleContinue = async () => {
+    if (user.ethereum_address && user.solana_address) {
+      setIsLoggedIn(false);
+      setHasAccess(true);
+    } else if (user.ethereum_address) {
+      setWalletExist('ethereum_address');
+      if (!walletName) {
+        setWalletName('Phantom');
+      }
+      if (onConnect) onConnect();
+      // const newAddress = await api
+      //   .post(`/users/${userId}/associate-address`)
+      //   .then((res) => res.data);
+      // console.log({ newAddress });
+    }
+  };
+
+  const handleSetAssociateAddress = async () => {
+    try {
+      if (walletExist === 'ethereum_address' && solanaAddress) {
+        const msg = await handleMsgSign('Sol');
+        await api
+          .post(`/users/${userId}/associate-address`, {
+            public_address: solanaAddress,
+            signed_message: msg,
+            signed_on: 'Sol',
+          })
+          .then((res) => res.data);
+        handleGetUserProfile();
+      } else if (walletExist === 'solana_address' && etherAddress) {
+        const msg = await handleMsgSign('Eth');
+        await api
+          .post(`/users/${userId}/associate-address`, {
+            public_address: etherAddress,
+            signed_message: msg,
+            signed_on: 'Eth',
+          })
+          .then((res) => res.data);
+        handleGetUserProfile();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   useOnceEffect(() => {
@@ -215,6 +189,14 @@ const RewardsPage = () => {
       history.replaceState(null, '', urlWithoutParams);
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    handleGetUserProfile();
+  }, [userId]);
+
+  useEffect(() => {
+    handleSetAssociateAddress();
+  }, [solanaAddress, etherAddress]);
 
   useEffect(() => {
     document.title = 'Rewards Page';
@@ -274,12 +256,12 @@ const RewardsPage = () => {
             />
             <AirdropsMissionRow
               completed={false}
-              buttonText={isContinue ? 'Continue' : ''}
-              onClick={() => {
-                setIsLoggedIn(false);
-                setHasAccess(true);
-                handleGetUserProfile();
-              }}
+              buttonText={
+                user.solana_address && user.ethereum_address
+                  ? 'Continue'
+                  : 'Associate Address'
+              }
+              onClick={handleContinue}
             />
           </div>
           <Image src="/world-bg.png" alt="" width={500} height={500} />
@@ -357,7 +339,7 @@ const RewardsPage = () => {
             Accumulated points
           </h2>
           <span className="text-left text-[51px] font-bold leading-[76.5px] tracking-[0.08em] text-lightyellow">
-            {points}
+            {userPoints}
           </span>
         </div>
         <Image
@@ -464,9 +446,9 @@ const RewardsPage = () => {
                     your followers!
                   </span>
                   <Link
-                    href="/rewards"
+                    href="https://twitter.com/intent/tweet?text=Hello%20world"
                     className="transition-all hover:opacity-85">
-                    <Image src={tweetForPoints} alt="button"></Image>
+                    <Image src={tweetForPoints} alt="button" />
                   </Link>
                 </div>
               </div>
@@ -489,7 +471,7 @@ const RewardsPage = () => {
             </h3>
             <div className="custom-scrollbar flex h-[165px] flex-col gap-4 overflow-y-scroll pr-3 2xl:h-[380px]">
               {records.length > 0 &&
-                records.map((record) => (
+                records.map(() => (
                   <ReferralLinkRow
                     imageUrl="/elipse-placeholder.png"
                     title="Invite Available"
