@@ -53,7 +53,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const isSolSelectedAndNoSolAddress = useMemo(() => {
-    return selectedCurrency === 'Sol' && !user.solana_address;
+    return (selectedCurrency === 'Sol'|| selectedCurrency === 'Susdc') && !user.solana_address;
   }, [selectedCurrency, user]);
 
   const isEthOrUsdcSelectedAndNoEthAddress = useMemo(() => {
@@ -307,13 +307,6 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                 <div className="my-4 block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-white">
                   Layer2
                 </div>
-                {/* <select
-                  id="currency-send-select"
-                  className="my-4  block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-white"
-                  value={selectedCurrency}
-                  onChange={handleCurrencyChange}>
-                  <option value="Layer2">Layer2</option>
-                </select> */}
                 <div className="mb-4 text-center text-[12px] text-whiteyellow">
                   You will receive {pointAmount} Points
                 </div>
