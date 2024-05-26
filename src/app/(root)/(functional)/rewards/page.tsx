@@ -135,7 +135,10 @@ const RewardsPage = () => {
   } = useApp();
 
   const [isBridgeModalOpen, setIsBridgeModalOpen] = useState<boolean>(false);
-  const [isContinue, setIsContinue] = useState<boolean>(false);
+  const [isContinue, setIsContinue] = useState<boolean>(true);
+  const [points, setPoints] = useState<number>(0);
+  const [records, setRecords] = useState<any[]>([]);
+
   const modalRef = useRef(null); // Ref for the modal element
 
   const handlePasswordSubmit = async (password: string) => {
@@ -187,8 +190,12 @@ const RewardsPage = () => {
   const handleGetUserProfile = async () => {
     const newUser = await api.get(`/users/${userId}`).then((res) => res.data);
     setUser(newUser);
+    const newPoints = await api
+      .get(`/points/${userId}`)
+      .then((res) => res.data);
+    setPoints(newPoints.points);
     const invitationCodes = await api
-      .get(`/invitation_codes`, {
+      .get(`/invitation-codes`, {
         params: {
           page: 1,
           limit: 20,
@@ -196,6 +203,7 @@ const RewardsPage = () => {
       })
       .then((res) => res.data);
     console.log({ invitationCodes });
+    setRecords(invitationCodes.records);
   };
 
   useOnceEffect(() => {
@@ -294,13 +302,13 @@ const RewardsPage = () => {
           <div className="flex w-full flex-col gap-4">
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-4xl font-medium leading-[54px] tracking-[0.08em]">
-                1.235
+                {user.eth_deposited}
               </h5>
               <Image src="/icons/eth.svg" alt="bridge" width={20} height={32} />
             </div>
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-4xl font-medium leading-[54px] tracking-[0.08em]">
-                40.625
+                {user.sol_deposited}
               </h5>
               <Image
                 alt="bridge"
@@ -311,7 +319,7 @@ const RewardsPage = () => {
             </div>
             <div className="flex items-center justify-center gap-2">
               <h5 className="text-left text-4xl font-medium leading-[54px] tracking-[0.08em]">
-                40,357.92
+                {user.usdc_deposited}
               </h5>
               <Image src="/icons/usd.svg" alt="bridge" width={20} height={32} />
             </div>
@@ -349,7 +357,7 @@ const RewardsPage = () => {
             Accumulated points
           </h2>
           <span className="text-left text-[51px] font-bold leading-[76.5px] tracking-[0.08em] text-lightyellow">
-            54,326
+            {points}
           </span>
         </div>
         <Image
@@ -480,7 +488,15 @@ const RewardsPage = () => {
               referral Links
             </h3>
             <div className="custom-scrollbar flex h-[165px] flex-col gap-4 overflow-y-scroll pr-3 2xl:h-[380px]">
-              <ReferralLinkRow
+              {records.length > 0 &&
+                records.map((record) => (
+                  <ReferralLinkRow
+                    imageUrl="/elipse-placeholder.png"
+                    title="Invite Available"
+                    link="l2.link.com/2321"
+                  />
+                ))}
+              {/* <ReferralLinkRow
                 imageUrl="/elipse-placeholder.png"
                 title="Invite Available"
                 link="l2.link.com/2321"
@@ -499,12 +515,7 @@ const RewardsPage = () => {
                 imageUrl="/elipse-placeholder.png"
                 title="Invite Available"
                 link="l2.link.com/2321"
-              />
-              <ReferralLinkRow
-                imageUrl="/elipse-placeholder.png"
-                title="Invite Available"
-                link="l2.link.com/2321"
-              />
+              /> */}
             </div>
           </div>
         </div>
