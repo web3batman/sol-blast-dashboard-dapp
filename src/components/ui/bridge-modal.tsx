@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { useAccount as useEtherAccount, useSendTransaction } from 'wagmi';
@@ -11,6 +11,7 @@ import api from '@/service/api';
 import { Transaction } from '@solana/web3.js';
 import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
+import { IDepositTx } from '@/config/types';
 
 const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const {
@@ -31,6 +32,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const [selectedCurrency, setSelectedCurrency] = useState('Eth');
   const [depsoitedAmount, setDepositedAmount] = useState<number>(0);
   const [pointAmount, setPointAmount] = useState<number>(0);
+  const [txes, setTxes] = useState<IDepositTx[]>([]);
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -161,6 +163,33 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
     }
   };
 
+  const handleFetchPoint = useCallback(async () => {
+    const amount = await api
+      .get(`/deposits/quote`, {
+        params: {
+          coin: selectedCurrency,
+          amount: depsoitedAmount,
+        },
+      })
+      .then((r) => r.data);
+
+    setPointAmount(amount);
+  }, [selectedCurrency, depsoitedAmount]);
+
+  const handleFetchTxs = useCallback(async () => {
+    const newTxes = await api
+      .get(`/users/${userId}/deposits`, {
+        params: {
+          limit: 20,
+          page: 1,
+        },
+      })
+      .then((r) => r.data);
+
+    console.log(newTxes);
+    setTxes(newTxes.records);
+  }, [selectedCurrency, depsoitedAmount]);
+
   useOnceEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -176,6 +205,14 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [closeModal]);
+
+  useOnceEffect(() => {
+    handleFetchPoint();
+  }, [selectedCurrency, depsoitedAmount]);
+
+  useOnceEffect(() => {
+    handleFetchTxs();
+  }, []);
 
   return (
     <div className="fixed  inset-0 z-50  flex items-center justify-center bg-[#1a1906] bg-opacity-90 ">
@@ -230,17 +267,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                     1{' '}
                     {selectedCurrency === 'Eth'
                       ? 'ETH'
-                      : selectedCurrency === 'Ethereum-USDC'
+                      : selectedCurrency === 'Usdc'
                         ? 'USDC'
                         : 'SOL'}
-                  </span>
-                  <span className="text-[18px] text-neutral-600">
-                    {selectedCurrency === 'Eth'
-                      ? '3,016.72'
-                      : selectedCurrency === 'Ethereum-USDC'
-                        ? '1.01'
-                        : '125.34'}{' '}
-                    USD
                   </span>
                 </div>
               </div>
@@ -259,7 +288,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                 <option value="Layer2">Layer2</option>
               </select>
               <div className="mb-4 text-center text-[12px] text-whiteyellow">
-                You will receive N Points
+                You will receive {pointAmount} Points
               </div>
               <button
                 className="mx-auto flex w-full items-center justify-center"
@@ -283,7 +312,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
               </button>
             </div>
           )}
-          {activeTab === 'history' && <HistoryTab />}
+          {activeTab === 'history' && <HistoryTab data={txes} />}
         </div>
       </div>
     </div>

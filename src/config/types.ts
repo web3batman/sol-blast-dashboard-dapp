@@ -31,3 +31,16 @@ export interface IUserPoint {
   rank: number;
   points: number;
 }
+
+export interface IDepositTx {
+  id: string;
+  created_at: string;
+  user_id: string;
+  points_change: number;
+  type: string;
+  state: string;
+  tx: string;
+  from: string;
+  amount_deposited_in_coin: number;
+  amount_deposited_in_usd: number;
+}
