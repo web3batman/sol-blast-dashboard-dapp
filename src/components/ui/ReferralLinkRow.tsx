@@ -2,12 +2,18 @@
 import React from 'react';
 import Image from 'next/image';
 import CopyLinkButton from '../../../public/copy-link-button.svg';
-
+import * as clipboard from 'clipboard-polyfill';
 interface ReferralLinkRowProps {
   imageUrl: string;
   title: string;
   link: string;
 }
+
+
+const handleCopyToClipboard = (address: string) => {
+  clipboard.writeText(address);
+  // triggerToast('clipboardCopied', 'success', 1200);
+};
 
 const ReferralLinkRow = ({ imageUrl, title, link }: ReferralLinkRowProps) => {
   return (
@@ -32,7 +38,7 @@ const ReferralLinkRow = ({ imageUrl, title, link }: ReferralLinkRowProps) => {
           src={CopyLinkButton}
           alt="copy-link-button"
           className="cursor-pointer transition-all hover:opacity-80"
-          onClick={() => {}}
+          onClick={() => {handleCopyToClipboard(link)}}
         />
       </div>
     </div>

@@ -13,6 +13,7 @@
     "@tanstack/react-query": "^5.29.2",
     "@web3modal/wagmi": "^4.1.10",
     "axios": "^1.6.8",
+    "clipboard-polyfill": "^4.1.0",
     "next": "14.1.4",
     "next-auth": "^4.24.7",
     "react": "^18",

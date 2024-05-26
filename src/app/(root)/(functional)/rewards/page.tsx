@@ -106,6 +106,8 @@ const RewardsPage = () => {
     }
   };
 
+
+
   const handleGetUserProfile = useCallback(async () => {
     if (!userId) return;
 
@@ -119,6 +121,8 @@ const RewardsPage = () => {
           })
           .then((res) => res.data.records),
       ]);
+
+      console.log("invitationCodes", invitationCodes)
 
       setUser(userData);
       setUserPoints(pointsData.points);
@@ -476,29 +480,10 @@ const RewardsPage = () => {
                     key={i}
                     imageUrl="/elipse-placeholder.png"
                     title="Invite Available"
-                    link="l2.link.com/2321"
+                    link={r.code}
                   />
                 ))}
-              {/* <ReferralLinkRow
-                imageUrl="/elipse-placeholder.png"
-                title="Invite Available"
-                link="l2.link.com/2321"
-              />
-              <ReferralLinkRow
-                imageUrl="/elipse-placeholder.png"
-                title="Invite Available"
-                link="l2.link.com/2321"
-              />
-              <ReferralLinkRow
-                imageUrl="/elipse-placeholder.png"
-                title="Invite Available"
-                link="l2.link.com/2321"
-              />
-              <ReferralLinkRow
-                imageUrl="/elipse-placeholder.png"
-                title="Invite Available"
-                link="l2.link.com/2321"
-              /> */}
+              
             </div>
           </div>
         </div>

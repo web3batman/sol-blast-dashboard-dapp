@@ -120,14 +120,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     invitCode?: string;
   }) => {
     const msg = await handleMsgSign(signedOn);
+    console.log("walletAddress", walletAddress, msg, signedOn, invitCode)
     const newToken = await axios
       .post(`${API_URL}/v1/sessions`, {
         public_address: walletAddress,
         signed_message: msg,
         signed_on: signedOn,
-        invitation_code: invitCode,
+        invitation_code: "OE14QA",
       })
-      .then((res) => res.data);
+      .then((res) => {
+        console.log("sessionLogin res", res)
+        return res.data;
+      });
     setToken(newToken.token);
     setUserId(newToken.user_id);
     setIsLoggedIn(true);

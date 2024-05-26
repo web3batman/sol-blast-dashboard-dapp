@@ -188,6 +188,7 @@ const LeaderboardPage = () => {
   };
 
   const getPoints = async () => {
+    console.log("calling getPoints...")
     const res = await axios
       .get(`${API_URL}/v1/points?page=1&limit=20`)
       .then((r) => r.data);
