@@ -106,8 +106,6 @@ const RewardsPage = () => {
     }
   };
 
-
-
   const handleGetUserProfile = useCallback(async () => {
     if (!userId) return;
 
@@ -122,7 +120,7 @@ const RewardsPage = () => {
           .then((res) => res.data.records),
       ]);
 
-      console.log("invitationCodes", invitationCodes)
+      console.log('invitationCodes', invitationCodes);
 
       setUser(userData);
       setUserPoints(pointsData.points);
@@ -258,15 +256,13 @@ const RewardsPage = () => {
               buttonText="Follow Twitter"
               onClick={handleTwitterSign}
             />
-            <AirdropsMissionRow
-              completed={false}
-              buttonText={
-                user.solana_address && user.ethereum_address
-                  ? 'Continue'
-                  : 'Associate Address'
-              }
-              onClick={handleContinue}
-            />
+            {hasAccess && (
+              <AirdropsMissionRow
+                completed={false}
+                buttonText={'Continue'}
+                onClick={handleContinue}
+              />
+            )}
           </div>
           <Image src="/world-bg.png" alt="" width={500} height={500} />
         </div>
@@ -483,7 +479,6 @@ const RewardsPage = () => {
                     link={r.code}
                   />
                 ))}
-              
             </div>
           </div>
         </div>
