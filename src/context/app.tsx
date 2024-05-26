@@ -149,7 +149,11 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleGetUserProfile = useCallback(async () => {
-    if (!userId) return;
+    console.log('called');
+    if (!userId) {
+      console.log('No userId');
+      return;
+    }
 
     try {
       const [userData, pointsData, invitationCodes] = await Promise.all([
@@ -196,10 +200,10 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [etherAddress, solanaAddress]);
 
-  useLayoutEffect(() => {
+  useOnceEffect(() => {
     if (token) {
       api.defaults.headers.common['authorization'] = `Bearer ${token}`;
-    } else {
+      handleGetUserProfile();
     }
   }, [token]);
 

@@ -122,7 +122,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
       if (depositedAmount <= 0) {
         return toast.error(`You must set the amount to deposit`);
       }
-      if (selectedCurrency === 'Sol') {
+      if (selectedCurrency === 'Sol' || selectedCurrency === 'Susdc') {
         const encodedTx = await api
           .post(`/deposits/solana`, { amount: depositedAmount })
           .then((r) => r.data);
