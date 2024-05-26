@@ -251,10 +251,18 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
               </div>
               <button
                 className="mx-auto flex w-full items-center justify-center"
-                onClick={handleConfirm}>
+                onClick={
+                  user.ethereum_address && user.solana_address
+                    ? handleConfirm
+                    : handleSetAssociateAddress
+                }>
                 <Image
-                  src={'/confirm-deposit.svg'}
-                  alt=""
+                  src={
+                    user.ethereum_address && user.solana_address
+                      ? '/confirm-deposit.svg'
+                      : '/associate-address-button.png'
+                  }
+                  alt="deposit"
                   width={510}
                   height={64}
                 />
