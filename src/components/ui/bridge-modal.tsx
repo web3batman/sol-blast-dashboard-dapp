@@ -227,16 +227,16 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           //   // MozBoxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
           //   // boxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
         }}
-        className=" bg-[#201F07] ">
+        className="bg-[#201F07]">
         <div className=" shadow-whiteyellow drop-shadow-xl">
           <div className="mb-5 flex w-full justify-between">
             <button
-              className={`w-full px-6 py-5 ${activeTab === 'deposit' ? 'bg-black' : ''}`}
+              className={`w-full px-6 py-5 ${activeTab === 'deposit' ? 'bg-[#4d4b15]' : ''}`}
               onClick={() => setActiveTab('deposit')}>
               Deposit
             </button>
             <button
-              className={`w-full px-6 py-5 ${activeTab === 'history' ? 'bg-black' : ' text-[#FFFDBF99]'}`}
+              className={`w-full px-6 py-5 ${activeTab === 'history' ? 'bg-[#4d4b15]' : ' text-[#FFFDBF99]'}`}
               onClick={() => setActiveTab('history')}>
               History
             </button>
