@@ -32,7 +32,7 @@ export default function Home() {
             </h1>
             <h5 className="max-w-[628px] text-left text-2xl font-medium uppercase leading-[48px] tracking-[-0.011em] text-whiteyellow max-2xl:text-[18px] max-sm:text-[14px]">
               The all new innovative L2. Because there aren’t already enough.
-              Airdrop <span className="text-lightyellow">now live.</span>
+              Bridge <span className="text-lightyellow">now live.</span>
             </h5>
           </div>
           <Link
