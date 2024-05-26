@@ -179,8 +179,8 @@ const RewardsPage = () => {
     return <PasswordModal onPasswordSubmit={handlePasswordSubmit} />;
   } else
     return (
-      <main className="grid h-[inherit] w-full grid-cols-[3fr_5fr_4fr] gap-x-3 [grid-template-areas:'total_profile_tweet''points_link_link'] max-xl:grid-cols-3 max-lg:grid-cols-2 max-lg:[grid-template-areas:'profile_points''total_tweet''link_link'] max-md:grid-cols-1 max-md:[grid-template-areas:'profile''points''total''tweet''link']">
-        <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.3vh,2vw)] py-6 pr-6 text-whiteyellow [grid-area:total] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-top after:content-[''] max-lg:gap-4 max-lg:before:absolute max-lg:before:left-0 max-lg:before:top-0 max-lg:before:h-2 max-lg:before:w-full max-lg:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-lg:before:bg-left max-lg:before:content-[''] max-lg:after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] max-lg:after:bg-bottom">
+      <main className="grid h-[inherit] w-full grid-cols-[3fr_5fr_4fr] gap-x-3 [grid-template-areas:'total_profile_tweet''points_link_link'] max-xl:grid-cols-3 max-lg:grid-cols-2 max-lg:[grid-template-areas:'profile_total''points_tweet''link_link'] max-md:grid-cols-1 max-md:[grid-template-areas:'profile''total''points''tweet''link']">
+        <div className="relative flex flex-col items-center gap-[clamp(0.5vw,3.3vh,2vw)] py-6 pr-6 text-whiteyellow [grid-area:total] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-top after:content-[''] max-lg:h-full max-lg:justify-between max-lg:gap-4 max-lg:after:bg-none max-md:before:absolute max-md:before:bottom-0 max-md:before:left-0 max-md:before:h-2 max-md:before:w-full max-md:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-md:before:bg-left max-md:before:content-['']">
           <h3 className="text-center text-3xl font-bold uppercase leading-9 tracking-[0.08em] max-2xl:text-2xl max-lg:text-xl">
             Total bridged
           </h3>
@@ -286,7 +286,7 @@ const RewardsPage = () => {
             </button>
           </div>
         </div>
-        <div className="grid h-full grid-rows-[auto_1fr_auto] gap-5 p-6 [grid-area:tweet]">
+        <div className="relative grid h-full grid-rows-[auto_1fr_auto] gap-5 p-6 [grid-area:tweet] max-lg:before:absolute max-lg:before:top-0 max-lg:before:h-2 max-lg:before:w-full max-lg:before:bg-[url('/dividers/rewards-page-left-divider.svg')] max-lg:before:bg-cover max-lg:before:bg-no-repeat max-lg:before:content-['']">
           <RectangleButton
             text="Earn Extra Points"
             onClick={() => {}}
@@ -309,7 +309,7 @@ const RewardsPage = () => {
             </button>
           </Link>
         </div>
-        <div className="relative flex flex-col items-center justify-center gap-[clamp(0.2vw,2.5vh,1.5vw)] py-6 pr-6 text-whiteyellow [grid-area:points] before:absolute before:top-0 before:h-2 before:w-full before:bg-[url('/dividers/rewards-page-left-divider.svg')] before:bg-cover before:bg-no-repeat before:content-[''] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-bottom after:content-[''] max-lg:before:left-0 max-lg:before:top-[100%] max-lg:after:bg-none max-md:before:bg-none">
+        <div className="relative flex flex-col items-center justify-center gap-[clamp(0.2vw,2.5vh,1.5vw)] py-6 pr-6 text-whiteyellow [grid-area:points] before:absolute before:top-0 before:h-2 before:w-full before:bg-[url('/dividers/rewards-page-left-divider.svg')] before:bg-cover before:bg-no-repeat before:content-[''] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-middle-divider.svg')] after:bg-bottom after:content-[''] max-lg:before:left-0 max-lg:after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] max-md:before:bg-none">
           <Image
             src="/icons/calendar.svg"
             alt="calendar"

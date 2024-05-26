@@ -28,7 +28,7 @@ export default function Home() {
               className="max-sm:max-w-[240px]"
             />
           </div>
-          <div className="flex flex-col max-lg:h-full max-lg:items-center max-lg:justify-center max-lg:gap-10">
+          <div className="mt-16 flex flex-col max-lg:mt-0 max-lg:h-full max-lg:items-center max-lg:justify-center max-lg:gap-10">
             <h1 className="mt-[clamp(0.5vw,2.5vh,1.5vw)] text-left text-[clamp(1.6vw,7vh,3.5vw)] font-bold uppercase leading-[clamp(2.5vw,7.5vh,5vw)] tracking-[0.04em] text-whiteyellow max-md:text-2xl">
               L2 is the fastest, most decentralized, and advanced{' '}
               <span className="text-lightyellow">scaling solution</span>
