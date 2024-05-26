@@ -113,6 +113,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const handleConfirm = async () => {
     if (selectedCurrency === 'Sol' && !solanaAddress) setVisible(true);
     else if (selectedCurrency !== 'Sol' && !etherAddress) open();
+    toast.warning(
+      'This may take up to 5 minutes. Refresh to see updated amounts.',
+    );
 
     try {
       setTxLoading(true);
@@ -269,6 +272,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                   <option value="Eth">Ethereum (ETH)</option>
                   <option value="Usdc">Ethereum (USDC)</option>
                   <option value="Sol">Solana</option>
+                  <option value="Susdc">SOL (USDC)</option>
                   {/* Add other currencies here */}
                 </select>
 
@@ -284,7 +288,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                         ? 'ETH'
                         : selectedCurrency === 'Usdc'
                           ? 'USDC'
-                          : 'SOL'}
+                          : selectedCurrency === 'Sol'
+                            ? 'SOL'
+                            : 'SOL USDC'}
                     </span>
                   </div>
                 </div>
@@ -309,7 +315,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                   You will receive {pointAmount} Points
                 </div>
                 <button
-                  className="mx-auto flex w-full items-center justify-center"
+                  className="mx-auto flex w-full items-center justify-center active:opacity-60"
                   onClick={
                     isSolSelectedAndNoSolAddress ||
                     isEthOrUsdcSelectedAndNoEthAddress
@@ -320,7 +326,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                     src={
                       isSolSelectedAndNoSolAddress ||
                       isEthOrUsdcSelectedAndNoEthAddress
-                        ? '/associate-address-button.png'
+                        ? '/CONNECT_WALLET.svg'
                         : '/confirm-deposit.svg'
                     }
                     alt="deposit"

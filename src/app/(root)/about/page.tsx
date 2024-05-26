@@ -7,15 +7,15 @@ import worldBg from '../../../../public/world-bg.png';
 const Page = () => {
   return (
     <div className="relative mb-10 flex flex-col overflow-auto">
-      <div className="relative flex h-screen w-full items-center">
+      <div className="relative flex h-[calc(100vh-180px)] w-full items-center max-md:h-[calc(100vh-140px)]">
         <Image
           fill
           className="object-cover object-center"
           src={bg}
           alt="background image"
         />
-        <div className="relative z-[1] flex w-full flex-col justify-center gap-16 px-6">
-          <div className="flex items-center justify-center gap-24 max-2xl:gap-16 max-xl:flex-col-reverse max-xl:gap-10">
+        <div className="relative z-[1] flex w-full flex-col justify-center gap-16 px-6 max-md:gap-4">
+          <div className="flex items-center justify-center gap-24 max-2xl:gap-16 max-xl:flex-col-reverse max-xl:gap-10 max-sm:gap-4">
             <Image
               src="/chart.svg"
               alt="chart"
@@ -45,7 +45,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <div className="px-6">
+      <div className="mt-4 px-6">
         <div className="flex flex-col">
           <Image
             alt="l2-table"

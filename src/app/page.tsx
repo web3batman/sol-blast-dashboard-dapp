@@ -11,7 +11,7 @@ import User from '@/components/ui/User';
 export default function Home() {
   return (
     <>
-      <div className="absolute left-0 top-0 -z-10 overflow-hidden after:absolute after:inset-0 after:bg-[rgba(0,0,0,0.1)] after:backdrop-blur-sm after:content-['']">
+      <div className="absolute left-0 top-0 -z-10 overflow-hidden after:absolute after:inset-0 after:bg-[rgba(0,0,0,0.1)] after:backdrop-blur-[2px] after:content-['']">
         <Image
           src={bg}
           alt="bg"
@@ -20,7 +20,7 @@ export default function Home() {
       </div>
       <main className="no-scrollbar relative z-10 grid h-full w-full grid-cols-[minmax(400px,auto)_minmax(300px,500px)] gap-8 px-10 max-lg:grid-cols-1 max-sm:px-6">
         <div className="flex flex-col">
-          <div className="flex items-center justify-start gap-6">
+          <div className="absolute top-0 flex items-center justify-start gap-6">
             <Image src={circle} alt="circle" className="max-2xl:w-[50px]" />
             <Image
               src={shortBreakLine}

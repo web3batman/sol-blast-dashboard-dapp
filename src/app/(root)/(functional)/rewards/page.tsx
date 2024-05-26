@@ -15,6 +15,7 @@ import { useApp } from '@/context';
 import { useOnceEffect } from '@/hook/useOnceEffect';
 import api from '@/service/api';
 import { BridgeButton } from '@/components/ui/icon/icons/BridgeButton';
+import { FaTwitter } from 'react-icons/fa';
 
 const RewardsPage = () => {
   const searchParams = useSearchParams();
@@ -220,7 +221,7 @@ const RewardsPage = () => {
             {isBridgeModalOpen && <BridgeModal closeModal={closeModal} />}
           </>
         </div>
-        <div className="relative flex flex-col gap-3 py-6 pr-6 [grid-area:profile] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-0 max-md:px-0 max-md:py-6 max-md:before:absolute max-md:before:bottom-0 max-md:before:left-0 max-md:before:h-2 max-md:before:w-full max-md:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-md:before:bg-no-repeat max-md:before:content-[''] max-md:after:hidden">
+        <div className="relative flex flex-col gap-5 py-6 pr-6 [grid-area:profile] after:absolute after:right-0 after:top-0 after:h-full after:w-2 after:bg-[url('/dividers/rewards-page-right-middle-divider.svg')] after:bg-no-repeat after:content-[''] max-lg:py-6 max-md:py-6 max-md:before:absolute max-md:before:bottom-0 max-md:before:left-0 max-md:before:h-2 max-md:before:w-full max-md:before:bg-[url('/dividers/rewards-page-right-top-divider.svg')] max-md:before:bg-no-repeat max-md:before:content-[''] max-md:after:hidden">
           <h3 className="text-left text-3xl font-bold uppercase leading-9 tracking-[0.08em] text-whiteyellow max-2xl:text-2xl max-lg:text-xl">
             Your profile
           </h3>
@@ -276,6 +277,14 @@ const RewardsPage = () => {
                     </Link>
                   </div> */}
           </div>
+          <div className="absolute bottom-5 right-5">
+            <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
+              <BridgeButton width={120} height={40} />
+              <h5 className="chakra-petch absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold tracking-[3.2px] text-[#010101] max-md:text-base">
+                LOGOUT
+              </h5>
+            </button>
+          </div>
         </div>
         <div className="grid h-full grid-rows-[auto_1fr_auto] gap-5 p-6 [grid-area:tweet]">
           <RectangleButton
@@ -290,10 +299,13 @@ const RewardsPage = () => {
             href="https://twitter.com/intent/tweet?text=Hello%20world"
             className="flex items-center justify-center transition-all hover:opacity-85">
             <button className="relative drop-shadow-[3.5px_3.5px_0_#F8EF00] transition-all hover:opacity-85">
-              <BridgeButton width={240} height={40} />
-              <h5 className="chakra-petch text- absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-lg:text-base">
-                Tweet for points
-              </h5>
+              <BridgeButton width={160} height={40} />
+              <div className="absolute left-1/2 top-1/2 flex w-full -translate-x-1/2 -translate-y-1/2 items-center justify-around">
+                <FaTwitter size={24} color="black" />
+                <h5 className="chakra-petch text-nowrap text-[clamp(0.5vw,1.6vh,1.5vw)] font-semibold uppercase tracking-[3.2px] text-[#010101] max-lg:text-base">
+                  Post
+                </h5>
+              </div>
             </button>
           </Link>
         </div>
@@ -330,46 +342,6 @@ const RewardsPage = () => {
             </div>
           </div>
         </div>
-        {/* <div className="relative col-span-3 flex h-full flex-col gap-[clamp(1.4vw,6vh,2vw)] pt-5 max-lg:col-span-12 max-lg:grid max-lg:grid-cols-2 max-md:grid-cols-1 max-md:grid-rows-[auto_1fr_auto] max-md:gap-7">
-          <Image
-            src="/dividers/rewards-page-middle-divider.svg"
-            alt="divider"
-            className="absolute -right-[7px] top-12 h-[90%] max-md:hidden 2xl:top-0"
-            width={8}
-            height={200}
-          />
-        </div> */}
-        {/* <div className="relative col-span-12 my-6 ml-8 hidden h-[8px] w-[calc(100%-32px)] max-lg:block">
-          <Image
-            src="/dividers/rewards-page-right-top-divider.svg"
-            alt="divider"
-            className="h-[8px] w-full"
-            fill
-          />
-        </div>
-        <div className="col-span-9 h-full overflow-x-auto pl-8 max-lg:col-span-12 max-lg:overflow-x-clip max-md:pt-0">
-          <div className="grid h-[inherit] grid-cols-1 grid-rows-[auto_auto_1fr]">
-            <div className="grid h-full w-full grid-cols-9">
-              <div className="relative col-span-9 my-6 hidden h-[8px] w-full max-md:block">
-                <Image
-                  src="/dividers/rewards-page-right-top-divider.svg"
-                  alt="divider"
-                  className="h-[8px] w-full"
-                  fill
-                />
-              </div>
-              <div className="max-mc:px-4 col-span-4 pl-6 pt-5 max-lg:pl-2 max-md:col-span-9 max-md:pt-0"></div>
-            </div>
-            <div className="relative col-span-6 mt-[clamp(0.5vw,5.5vh,2vw)] h-[8px] w-full max-lg:my-6 max-md:pt-7">
-              <Image
-                src="/dividers/rewards-page-right-top-divider.svg"
-                alt="divider"
-                className="h-[8px] w-full object-cover"
-                fill
-              />
-            </div>
-          </div>
-        </div> */}
         {txLoading && (
           <div className="absolute flex h-full w-full items-center justify-center backdrop-blur-[3px]">
             <div className="inline-block h-16 w-16 animate-spin rounded-full border-8 border-solid border-current border-r-transparent align-[-0.125em] text-[#f9ef00] motion-reduce:animate-[spin_1.5s_linear_infinite]">
