@@ -9,9 +9,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
 import Sidelines from '@/components/ui/sidelines';
 import Header from '@/components/shared/header';
-import { Footer } from '@/components/shared/footer';
+import Footer from '@/components/shared/footer';
 import { config } from '@/config/wagmi';
-import Web3ModalProvider from '@/context';
+import { EthereumWalletProvider, SolanaWalletProvider } from '@/context';
 
 const orbitron = Orbitron({ subsets: ['latin'] });
 
@@ -38,6 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const initialState = cookieToInitialState(config, headers().get('cookie'));
+
   return (
     <html lang="en" className="bg-black text-white">
       <body
@@ -48,9 +49,9 @@ export default function RootLayout({
           <ToastContainer />
         </div>
         <div className="custom-scrollbar mx-auto mb-[44px] w-[95vw] flex-grow overflow-y-scroll">
-          <Web3ModalProvider initialState={initialState}>
-            {children}
-          </Web3ModalProvider>
+          <EthereumWalletProvider initialState={initialState}>
+            <SolanaWalletProvider>{children}</SolanaWalletProvider>
+          </EthereumWalletProvider>
         </div>
         <div className="absolute -bottom-2 left-1/2 z-50 h-[83px] w-[95vw] -translate-x-1/2 transform">
           <Footer />

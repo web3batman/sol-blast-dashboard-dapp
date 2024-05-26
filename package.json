@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@solana/wallet-adapter-nextjs-starter": "^0.8.32",
     "@tanstack/react-query": "^5.29.2",
     "@web3modal/wagmi": "^4.1.10",
     "axios": "^1.6.8",
