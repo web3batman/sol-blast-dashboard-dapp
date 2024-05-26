@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React, { useEffect, useRef, useState } from 'react';
 import bs58 from 'bs58';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { usePrepareTransactionRequest } from 'wagmi';
+import { usePrepareTransactionRequest, useSendTransaction } from 'wagmi';
 
 import HistoryTab from './history-tab';
 import api from '@/service/api';
@@ -11,8 +11,8 @@ import { useApp } from '@/context';
 
 const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const { setIsBridgeModalOpen } = useApp();
-  const { signTransaction, sendTransaction } = useWallet();
-  const {} = usePrepareTransactionRequest();
+  const { signTransaction, sendTransaction: sendSolTransaction } = useWallet();
+  const { sendTransaction: sendEthTransaction } = useSendTransaction();
   const { connection } = useConnection();
   const [activeTab, setActiveTab] = useState('deposit');
   const [selectedCurrency, setSelectedCurrency] = useState('Eth');
@@ -48,7 +48,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
         const rawTx = await connection.sendRawTransaction(sTx.serialize());
 
         // await connection.confirmTransaction(rawTx);
-        const res = await sendTransaction(sTx, connection);
+        const res = await sendSolTransaction(sTx, connection);
         console.log({ rawTx });
 
         const amount = await api
@@ -69,6 +69,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
         .post(`/deposits/ethereum`, { amount: depsoitedAmount })
         .then((r) => r.data);
       console.log({ encodedTx });
+      sendEthTransaction(encodedTx);
     }
   };
 
