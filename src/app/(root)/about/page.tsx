@@ -1,0 +1,227 @@
+import React from 'react';
+import Image from 'next/image';
+import bg from '../../../../public/bg.png';
+import divider from '../../../../public/dividers/about-page-divider.svg';
+import worldBg from '../../../../public/world-bg.png';
+
+const Page = () => {
+  return (
+    <div className="relative mb-10 flex flex-col">
+      <div className="relative flex h-screen w-full items-center">
+        <Image
+          fill
+          className="object-cover object-center"
+          src={bg}
+          alt="background image"
+        />
+        <div className="relative z-[1] flex h-full w-full flex-col justify-center gap-16 px-6">
+          <div className="flex items-center justify-center gap-10">
+            <Image
+              src="/chart.svg"
+              alt="chart"
+              width={897}
+              height={314}
+              className="max-w-[670px] 2xl:max-w-full"
+            />
+            <div className="flex flex-col gap-5">
+              <h3 className="chakra-petch text-left text-[64px] font-semibold uppercase leading-[96px] tracking-[0.04em] text-whiteyellow">
+                l2 is the blast we <br />{' '}
+                <span className="text-lightyellow">all</span> Wanted
+              </h3>
+              <p className="tomorrow uppercase text-whiteyellow">
+                The only eth l2 that actually works and <br /> doesn’t farm it’s
+                users.
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center gap-2">
+            <h3 className="chakra-petch text-gradient text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em]">
+              It’s time to ditch the other l2s
+            </h3>
+            <p className="tomorrow text-grey text-left text-base font-medium leading-6 tracking-[0.08em]">
+              L2 has the same features you love on other L2s while providing 10x
+              more value
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="px-6">
+        <div className="relative">
+          <Image
+            alt="l2-table"
+            src="/l2-table.png"
+            height={1080}
+            width={1920}
+            objectFit="contain"
+            className="h-auto w-full"
+          />
+          <h2 className="chakra-petch absolute bottom-12 left-0 text-[48px] font-semibold uppercase text-whiteyellow">
+            How L2 Works
+          </h2>
+        </div>
+      </div>
+      <div className="relative -mt-8 flex h-[21px] w-full">
+        <Image src={divider} alt="l2-works" fill />
+      </div>
+      <div className="relative mt-12 flex h-full w-full items-center">
+        <Image
+          className="mx-auto my-auto max-h-[841px]  max-w-[841px] object-center"
+          src={worldBg}
+          alt="background image"
+          fill
+        />
+        <div className="relative z-[1] flex h-full w-full flex-col gap-8 px-16 2xl:px-28">
+          <div className="flex items-center justify-between">
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/icons/panel.svg"
+                  alt="panel"
+                  width={115}
+                  height={110}
+                />
+                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
+                  innovation
+                </h3>
+              </div>
+              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em]">
+                we built a brand new, innovative blockchain with never before
+                seen tech. By innovative we mean we forked optimisms code,
+                changed the license and added a typo.
+              </p>
+            </div>
+            <Image src="/tweet-1.svg" alt="arrow" width={603} height={537} />
+          </div>
+          <div className="flex items-center justify-between">
+            <Image src="/tweet-2.svg" alt="arrow" width={603} height={537} />
+            <div className="flex flex-col gap-6">
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/icons/panel.svg"
+                  alt="panel"
+                  width={115}
+                  height={110}
+                />
+                <h3 className="chakra-petch text-left  text-[41.2px] font-bold uppercase leading-[61.8px] tracking-[0.08em] text-whiteyellow">
+                  SECURITY
+                </h3>
+              </div>
+              <p className="tomorrow max-w-[600px] text-left text-[18.02px] font-semibold uppercase leading-[31.54px]  tracking-[0.08em]">
+                We value security of deposited assets. That’s why our entire
+                blockchain is secured by a white label 3/5 man multisig with
+                undoxxed signers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="text-grey mt-16 flex flex-col gap-10 px-6">
+        <div className="flex flex-col gap-5">
+          <h2 className="chakra-petch text-left text-5xl font-semibold uppercase leading-[72px] tracking-[0.04em] text-whiteyellow">
+            WHY A nEw l2
+          </h2>
+          <p className="tomorrow text-left text-base font-medium uppercase leading-7 tracking-[0.08em]">
+            There isn’t enough L2s. Efereum needs a scaling solution to reach
+            the masses. It’s time to change that.
+          </p>
+        </div>
+        <div className="flex flex-row items-start justify-between">
+          <div className="flex w-[47%] flex-col gap-16">
+            <p className="tomorrow text-left text-[16px] font-medium uppercase">
+              L2 emerges as an innovative solution, ingeniously incorporating
+              characteristics that have long been the hallmark of some of the
+              most efficient blockchains in the space. At its core, L2 deploys a
+              unique consensus mechanism called proof-of-history, ensuring
+              transactions are not just secure, but processed with unprecedented
+              speed. This approach allows for the handling of tens of thousands
+              of transactions per second, a feat that dramatically elevates
+              Ethereum’s throughput to new heights, addressing one of its most
+              critical bottlenecks.
+            </p>
+            <div className="flex w-full flex-col items-center justify-center gap-5">
+              <div className="flex items-center gap-5">
+                <Image
+                  src="/icons/facebook.svg"
+                  alt="panel"
+                  width={248}
+                  height={48}
+                />
+                <Image
+                  src="/icons/yahoo.svg"
+                  alt="panel"
+                  width={308}
+                  height={59}
+                />
+              </div>
+              <div className="flex items-center gap-5">
+                <Image
+                  src="/icons/tesla.svg"
+                  alt="panel"
+                  width={198}
+                  height={61}
+                />
+                <Image
+                  src="/icons/facebook.svg"
+                  alt="panel"
+                  width={199}
+                  height={60}
+                />
+              </div>
+              <Image
+                src="/icons/google.svg"
+                alt="panel"
+                width={299}
+                height={98}
+              />
+              <Image
+                src="/icons/time.svg"
+                alt="panel"
+                width={252}
+                height={75}
+              />
+              <Image
+                src="/icons/trophy.svg"
+                alt="panel"
+                width={200}
+                height={194}
+              />
+            </div>
+          </div>
+          <div className="relative h-screen w-[34px] 2xl:h-[85vh]">
+            <Image src="/progress.svg" alt="l2-table" fill />
+          </div>
+          <div className="flex w-[47%] flex-col gap-16">
+            <p className="tomorrow text-left text-[16px] font-medium uppercase ">
+              Furthermore, L2 introduces a low-latency transaction environment
+              that drastically reduces confirmation times, making it an
+              attractive platform for developers and users alike who demand
+              efficiency without sacrificing Ethereum&apos;s decentralized
+              principles. By embedding these features into Ethereum&apos;s
+              ecosystem, L2 subtly showcases that the path to true scalability
+              and usability might have already been paved by other blockchains,
+              emphasizing a need for Ethereum to evolve beyond its current
+              limitations.
+            </p>
+            <p className="tomorrow text-left text-[16px] font-medium uppercase">
+              Our team members come from FAANG HARVARD, TIME, and have worked on
+              some of the largest protocols in Defi and web3, primarily on
+              ethereum but alo on other chains like solana as well.
+            </p>
+            <p className="tomorrow text-left text-[16px] font-medium uppercase">
+              Our team members come from FAANG HARVARD, TIME, and have worked on
+              some of the largest protocols in Defi and web3, primarily on
+              ethereum but alo on other chains like solana as well.
+            </p>
+            <p className="tomorrow text-left text-[16px] font-medium uppercase">
+              Our team members come from FAANG HARVARD, TIME, and have worked on
+              some of the largest protocols in Defi and web3, primarily on
+              ethereum but alo on other chains like solana as well.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Page;
