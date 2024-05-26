@@ -165,8 +165,9 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
         setIsBridgeModalOpen(false);
       }
-    } catch (e) {
+    } catch (e: any) {
       console.error(e);
+      toast.error(e);
     } finally {
       // setLoading(false);
       setTxLoading(false);
