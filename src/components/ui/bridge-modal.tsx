@@ -242,7 +242,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           //   // boxShadow: '0px 0px 28px 2px rgba(235, 230, 136, 0.9)',
         }}
         className="bg-[#201F07]">
-        <div className=" shadow-whiteyellow drop-shadow-xl">
+        <div className=" shadow-whiteyellow drop-shadow-xl max-md:max-w-[400px] max-sm:max-w-[300px]">
           <div className="mb-5 flex w-full justify-between">
             <button
               className={`w-full px-6 py-5 ${activeTab === 'deposit' ? 'bg-[#4d4b15]' : ''}`}
@@ -264,7 +264,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
               </label>
               <select
                 id="currency-select"
-                className="mb-4 block w-full  rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-neutral-100"
+                className="mb-4 block w-full rounded border border-whiteyellow bg-[#363407] p-3 py-5 text-[15px] text-neutral-100"
                 value={selectedCurrency}
                 onChange={handleCurrencyChange}>
                 <option value="Eth">Ethereum (ETH)</option>
@@ -275,12 +275,12 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
               <div className="mb-4  flex items-center justify-between rounded border border-whiteyellow bg-[#363407] p-3 text-[15px]">
                 <input
-                  className="w-[200px] rounded border-r bg-transparent p-1 text-center text-[48px]"
+                  className="w-[200px] rounded border-r bg-transparent p-1 text-center text-[48px] max-md:w-[140px] max-sm:w-[100px] max-sm:text-base"
                   placeholder="0.0"
                   onChange={handleChange}
                 />
                 <div className="h-full w-full items-center gap-1  pl-2">
-                  <span className="pl-3 pr-5 text-[24px] text-white">
+                  <span className="pl-3 pr-5 text-[24px] text-white max-sm:text-base">
                     1{' '}
                     {selectedCurrency === 'Eth'
                       ? 'ETH'

@@ -18,7 +18,7 @@ const handleCopyToClipboard = (address: string) => {
 
 const ReferralLinkRow = ({ imageUrl, title, link }: ReferralLinkRowProps) => {
   return (
-    <div className="flex items-center justify-between bg-transparent text-darkWhite gap-2">
+    <div className="grid grid-cols-[minmax(200px,auto)_1fr] items-center gap-2 bg-transparent text-darkWhite max-md:grid-cols-1 max-md:grid-rows-2">
       <div className="flex w-max items-center justify-start gap-6">
         <Image
           src={imageUrl}
@@ -27,12 +27,12 @@ const ReferralLinkRow = ({ imageUrl, title, link }: ReferralLinkRowProps) => {
           height={59}
           className="rounded-full"
         />
-        <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis">
+        <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap">
           {title}
         </h3>
       </div>
-      <div className="flex items-center justify-start gap-20 max-xl:gap-6">
-        <h3 className="text-style whitespace-nowrap overflow-hidden overflow-ellipsis">
+      <div className="flex items-center gap-20 justify-self-end max-xl:gap-6 max-md:w-full max-md:justify-between">
+        <h3 className="text-style overflow-hidden overflow-ellipsis whitespace-nowrap">
           {link}
         </h3>
         <Image
