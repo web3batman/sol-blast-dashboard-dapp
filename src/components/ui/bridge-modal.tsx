@@ -53,7 +53,10 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
   const isSolSelectedAndNoSolAddress = useMemo(() => {
-    return (selectedCurrency === 'Sol' || selectedCurrency === 'Susdc') && !user.solana_address;
+    return (
+      (selectedCurrency === 'Sol' || selectedCurrency === 'Susdc') &&
+      !user.solana_address
+    );
   }, [selectedCurrency, user]);
 
   const isEthOrUsdcSelectedAndNoEthAddress = useMemo(() => {
@@ -112,7 +115,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
   const handleConfirm = async () => {
     if (selectedCurrency === 'Sol' && !solanaAddress) setVisible(true);
-    else if (selectedCurrency !== 'Sol' && !etherAddress) open()
+    else if (selectedCurrency !== 'Sol' && !etherAddress) open();
 
     try {
       setTxLoading(true);
@@ -140,7 +143,12 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
 
           setIsBridgeModalOpen(false);
 
-          toast.success(`Deposit successful`);
+          toast.success(
+            <Msg
+              title="Deposit Successful"
+              desc="Refresh after 5 minutes to see updated amounts"
+            />,
+          );
         }
       } else {
         const encodedTx = await api
@@ -165,9 +173,7 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
           value: encodedTx.value,
           data: encodedTx.data,
         });
-
       }
-
     } catch (e: any) {
       console.error(e);
       toast.error(e);
@@ -231,10 +237,22 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
   useOnceEffect(() => {
     if (isConfirmed) {
       console.log({ hash });
-      toast.success(`Deposit successful`);
+      toast.success(
+        <Msg
+          title="Deposit Successful"
+          desc="Refresh after 5 minutes to see updated amounts"
+        />,
+      );
       setIsBridgeModalOpen(false);
     }
   }, [isConfirmed]);
+
+  const Msg = ({ title, desc }: { title: string; desc: string }) => (
+    <div>
+      <h2 className="text-green-700"> {title}</h2>
+      <p className="text-[12px]"> {desc} </p>
+    </div>
+  );
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1a190681] backdrop-blur-[5px]">
@@ -312,14 +330,14 @@ const BridgeModal = ({ closeModal }: { closeModal: any }) => {
                   className="mx-auto flex w-full items-center justify-center active:opacity-60"
                   onClick={
                     isSolSelectedAndNoSolAddress ||
-                      isEthOrUsdcSelectedAndNoEthAddress
+                    isEthOrUsdcSelectedAndNoEthAddress
                       ? handleSetAssociateAddress
                       : handleConfirm
                   }>
                   <Image
                     src={
                       isSolSelectedAndNoSolAddress ||
-                        isEthOrUsdcSelectedAndNoEthAddress
+                      isEthOrUsdcSelectedAndNoEthAddress
                         ? '/CONNECT_WALLET.svg'
                         : '/confirm-deposit.svg'
                     }
